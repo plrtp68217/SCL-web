@@ -22,11 +22,14 @@ const { label, image } = defineProps<Props>()
 
 <style scoped>
 .game-card {
-    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
     width: 110px;
     text-align: center;
     border-radius: 10%;
-    box-shadow: 12px 12px 13px -5px rgba(238, 232, 16, 0.27);
+    box-shadow: 12px 12px 13px -5px rgba(238, 16, 222, 0.27);
     padding: 4px 4px;
 }
 
@@ -37,11 +40,14 @@ const { label, image } = defineProps<Props>()
     justify-content: center;
     height: 50px;
     margin-bottom: 5px;
-    /* background-color: rgb(36, 167, 196); */
-    /* border: 2px solid rgb(0, 144, 177); */
     border-radius: 10%;
     color: yellow;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-wrap: wrap;
+}
+
+.game-card-image {
+    width: 100%;
+    object-fit: cover;
 }
 </style>

@@ -9,11 +9,13 @@
             <!-- Задачи для игроков -->
             <div class="earn-section">
                 <h2>Earn</h2>
+                <img class="earn-section-image" src="/images/earn.png">
             </div>
 
             <!-- Список лучших игроков -->
             <div class="leaderboard-section">
-                <h2>The best of the best</h2>
+                <h2 class="leaderboard-section-label">The best of the best</h2>
+                <img class="leaderboard-section-image" src="/images/best-players.png">
             </div>
 
         </header>
@@ -107,28 +109,40 @@ onMounted(() => {
     box-shadow: 12px 19px 16px 2px rgba(238, 232, 16, 0.27);
 }
 
+.leaderboard-section-label {
+    width: 150px;
+    text-align: center;
+}
+
 .earn-section {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 5px;
     color: yellow;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.earn-image {
-    width: 70px;
-    height: 70px;
-    /* transition: active 200ms linear; */
+.earn-section-image {
+    width: 30px;
+    height: 30px;
 }
 
 .leaderboard-section {
+    display: flex;
+    align-items: center;
     color: yellow;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+}
+
+.leaderboard-section-image {
+    width: 30px;
+    height: 30px;
 }
 
 /* Средняя часть: Баланс игрока */
 .balance-section {
-    height: 60%;
+    height: 70%;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -151,7 +165,7 @@ onMounted(() => {
 
 /* Нижняя часть: Карточки игр */
 .games-section {
-    height: 30%;
+    height: 20%;
     padding: 10px;
     display: flex;
     align-items: center;
