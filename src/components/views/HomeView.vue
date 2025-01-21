@@ -6,14 +6,14 @@
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
 
+            <!-- Задачи для игроков -->
             <div class="earn-section">
                 <h2>Earn</h2>
-                <!-- Задачи для игроков -->
             </div>
 
+            <!-- Список лучших игроков -->
             <div class="leaderboard-section">
-                <h2>Лучшие игроки недели</h2>
-                <!-- Список лучших игроков -->
+                <h2>The best of the best</h2>
             </div>
 
         </header>
@@ -21,8 +21,8 @@
         <!-- Средняя часть: Баланс игрока -->
         <section class="balance-section">
 
-            <h2>Ваш баланс</h2>
-            <p>1000 монет</p>
+            <h2>Your balance: </h2>
+            <h3>1000</h3>
 
         </section>
 
@@ -30,18 +30,18 @@
         <section class="games-section">
 
             <div class="game-card">
-                <h3>Змейка</h3>
-                <button>Играть</button>
+                <h3>Snake Game</h3>
+                <button>Play</button>
             </div>
 
             <div class="game-card">
-                <h3>Тетрис</h3>
-                <button>Играть</button>
+                <h3>Tetris</h3>
+                <button>Play</button>
             </div>
 
             <div class="game-card">
-                <h3>Волк ловит яйца</h3>
-                <button>Играть</button>
+                <h3>Wolf Cathes Eggs</h3>
+                <button>Play</button>
             </div>
 
         </section>
@@ -61,6 +61,8 @@ onMounted(() => {
 
 
 <style scoped>
+
+/* bg-color rgb(249, 217, 176) */
 
 .menu {
     height: 100vh;
@@ -92,6 +94,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 }
 
 /* Нижняя часть: Карточки игр */
