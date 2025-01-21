@@ -1,7 +1,7 @@
 <template>
 
     <div class="menu">
-        <img class="menu-image-castle" src="@/images/castle-menu.jpg" alt="Мультипликационный замок на горе ">
+        <img class="menu-image-castle" src="/images/castle-menu.jpg" alt="Мультипликационный замок на горе ">
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
@@ -24,7 +24,7 @@
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
                 <h2 class="balance-count">1000</h2>
-                <img class="balance-coin" src="@/images/coin.png">
+                <img class="balance-coin" src="/images/coin.png">
             </div>
 
         </section>
@@ -60,15 +60,15 @@ type Games = {
 const games: Games = {
     snake: {
         label: 'Snake',
-        image: '@/images/snake.png'
+        image: '/images/snake.png'
     },
     tetris: {
         label: 'Tetris',
-        image: '../images/snake.png'
+        image: '/images/tetris.png'
     },
     wolf: {
         label: 'Wolf Cathes Eggs',
-        image: '../images/snake.png'
+        image: '/images/wolf.png'
     },
 }
 
@@ -80,10 +80,6 @@ onMounted(() => {
 
 
 <style scoped>
-
-/* bg-color rgb(249, 217, 176) */
-/* rgb(36, 167, 196) */
-
 .menu {
     height: 100vh;
 }
@@ -125,10 +121,6 @@ onMounted(() => {
     /* transition: active 200ms linear; */
 }
 
-/* .earn-image:active {
-    transform: scale(1.2);
-} */
-
 .leaderboard-section {
     color: yellow;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -168,5 +160,4 @@ onMounted(() => {
     border-top: 1px solid rgba(250, 250, 9, 0.3);
     box-shadow: 12px -11px 16px 2px rgba(238, 232, 16, 0.27);
 }
-
 </style>

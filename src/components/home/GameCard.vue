@@ -3,7 +3,7 @@
         <div class="game-card-label">
             <p>{{label}}</p>
         </div>
-        <img :src="image" />
+        <img class="game-card-image" :src="image" />
     </div>
 </template>
 
