@@ -9,7 +9,6 @@
             <!-- Задачи для игроков -->
             <div class="earn-section">
                 <h2>Earn</h2>
-                <!-- <img class="earn-image" src="@/images/earn.png"> -->
             </div>
 
             <!-- Список лучших игроков -->
@@ -32,12 +31,11 @@
 
         <!-- Нижняя часть: Карточки игр -->
         <section class="games-section">
+
             <div v-for="game in games">
                 <GameCard :label="game.label" :image="game.image"/>
-                <image src="../../images/snake.png"/>
             </div>
             
-
         </section>
     </div>
 
@@ -48,10 +46,21 @@
 import { onMounted } from 'vue';
 import GameCard from '../home/GameCard.vue';
 
-const games = {
+type Game = {
+  label: string;
+  image: string;
+};
+
+type Games = {
+  snake: Game;
+  tetris: Game;
+  wolf: Game;
+};
+
+const games: Games = {
     snake: {
         label: 'Snake',
-        image: '../images/snake.png'
+        image: '@/images/snake.png'
     },
     tetris: {
         label: 'Tetris',
@@ -92,10 +101,14 @@ onMounted(() => {
 
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
-    height: 20%;
+    height: 10%;
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid rgba(250, 250, 9, 0.3);
+    box-shadow: 12px 19px 16px 2px rgba(238, 232, 16, 0.27);
 }
 
 .earn-section {
@@ -123,9 +136,11 @@ onMounted(() => {
 
 /* Средняя часть: Баланс игрока */
 .balance-section {
-    height: 50%;
+    height: 60%;
     padding: 10px;
     display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .balance-container {
@@ -133,7 +148,8 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    margin: auto;
+    color: yellow;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .balance-coin {
@@ -148,6 +164,9 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(250, 250, 9, 0.3);
+    box-shadow: 12px -11px 16px 2px rgba(238, 232, 16, 0.27);
 }
 
 </style>
