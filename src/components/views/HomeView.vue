@@ -1,14 +1,14 @@
 <template>
 
     <div class="menu">
-        <img class="menu-image-castle" src="/images/castle-menu.jpg" alt="Мультипликационный замок на горе ">
+        <img class="menu-image-castle" src="/images/menu-background2.gif">
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
 
             <!-- Задачи для игроков -->
             <div class="earn-section">
-                <h2>Earn</h2>
+                <h2 class="earn-section-label">Earn</h2>
                 <img class="earn-section-image" src="/images/earn.png">
             </div>
 
@@ -22,6 +22,10 @@
 
         <!-- Средняя часть: Баланс игрока -->
         <section class="balance-section">
+
+            <div class="balance-section-logo">
+                <p>SCL Games</p>
+            </div>
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
@@ -82,8 +86,10 @@ onMounted(() => {
 
 
 <style scoped>
+
 .menu {
     height: 100vh;
+    font-family: "Jersey 15", serif;
 }
 
 /* Изображение на заднем фоне */
@@ -104,9 +110,10 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(4px);
-    border-bottom: 1px solid rgba(250, 250, 9, 0.3);
-    box-shadow: 12px 19px 16px 2px rgba(238, 232, 16, 0.27);
+    backdrop-filter: blur(1px);
+    border-bottom: 1px solid rgba(250, 9, 198, 0.3);
+    box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.27);
+    font-family: "Roboto", serif;
 }
 
 .leaderboard-section-label {
@@ -118,11 +125,13 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: yellow;
+    font-size: 20px;
+    color: rgb(51, 209, 72);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .earn-section-image {
+    margin-top: 8px;
     width: 30px;
     height: 30px;
 }
@@ -130,7 +139,7 @@ onMounted(() => {
 .leaderboard-section {
     display: flex;
     align-items: center;
-    color: yellow;
+    color: rgb(217, 255, 0);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 }
@@ -142,20 +151,48 @@ onMounted(() => {
 
 /* Средняя часть: Баланс игрока */
 .balance-section {
-    height: 70%;
+    height: 68%;
     padding: 10px;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.balance-section-logo {
+    text-align: center;
+    font-size: 55px;
+    background: linear-gradient(90deg, #4400fd, #ff0800, #4400fd); /* Градиент с повторением */
+    background-size: 200% auto; /* Увеличиваем размер фона для анимации */
+    background-clip: text; /* Обрезаем фон по тексту */
+    color: transparent; /* Делаем текст прозрачным */
+    animation: gradientAnimation 8s linear infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: -100% 50%;
+    }
+  }
 
 .balance-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    color: yellow;
+    font-weight: 400;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+}
+
+.balance-label {
+    color: rgb(255, 100, 255);
+}
+
+.balance-count {
+    color: yellow;
 }
 
 .balance-coin {
@@ -165,13 +202,13 @@ onMounted(() => {
 
 /* Нижняя часть: Карточки игр */
 .games-section {
-    height: 20%;
-    padding: 10px;
+    height: 22%;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    backdrop-filter: blur(4px);
-    border-top: 1px solid rgba(250, 250, 9, 0.3);
-    box-shadow: 12px -11px 16px 2px rgba(238, 232, 16, 0.27);
+    backdrop-filter: blur(1px);
+    border-top: 1px solid rgba(250, 9, 198, 0.3);
+    box-shadow: 12px -11px 16px 2px rgba(250, 9, 198, 0.27);
 }
 </style>

@@ -29,8 +29,9 @@ const { label, image } = defineProps<Props>()
     width: 110px;
     text-align: center;
     border-radius: 10%;
-    box-shadow: 12px 12px 13px -5px rgba(238, 16, 222, 0.27);
+    box-shadow: 0px 0px 42px 0px rgba(238, 16, 222, 0.27);
     padding: 4px 4px;
+    flex: 1 1 auto;
 }
 
 
@@ -41,7 +42,9 @@ const { label, image } = defineProps<Props>()
     height: 50px;
     margin-bottom: 5px;
     border-radius: 10%;
-    color: yellow;
+    color: rgb(243, 185, 255);
+    font-family: "Roboto", serif;
+    font-size: 15px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-wrap: wrap;
 }
