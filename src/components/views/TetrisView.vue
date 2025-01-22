@@ -1,10 +1,11 @@
 <template>
-    <div>tetris</div>
+    <Tetris/>
 </template>
 
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import Tetris from "@/components/games/tetris/Tetris.vue";
 
 onMounted(() => {
 

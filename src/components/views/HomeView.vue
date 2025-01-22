@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import GameCard from '../home/GameCard.vue';
+import GameCard from '../main-menu/GameCard.vue';
 
 type Game = {
   label: string;
