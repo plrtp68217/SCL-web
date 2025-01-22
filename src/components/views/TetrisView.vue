@@ -1,5 +1,13 @@
 <template>
-    <Tetris/>
+
+    <div class="tetris">
+        <div class="tetris-label">TETRIS</div>
+
+        <Tetris/>
+
+    </div>
+
+    
 </template>
 
 
@@ -13,5 +21,14 @@ onMounted(() => {
 
 </script>
 
+<style scoped>
 
-<style scoped></style>
+.tetris {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+</style>
