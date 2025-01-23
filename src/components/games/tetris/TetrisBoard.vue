@@ -5,6 +5,24 @@
 
 <script setup lang="ts">
 
+import shapes from "@/components/games/tetris/assets/shapes";
+
+const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
+const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+let secondShape = {};
+let shapesOnBoard = [];
+let nextShape = {};
+
+let gameSpeed = 200;
+
+function gameLoop() {
+
+}
+
+let gameLoopID = setInterval(gameLoop, gameSpeed);
+
+
 </script>
 
 

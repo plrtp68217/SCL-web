@@ -1,5 +1,5 @@
 <template>
-    <canvas id="tetris-next-element" style="width: 80px; height: 80px;"></canvas>
+    <canvas id="tetris-next-shape" style="width: 80px; height: 80px;"></canvas>
 </template>
 
 
@@ -10,7 +10,7 @@
 
 <style scoped>
 
-#tetris-next-element {
+#tetris-next-shape {
     width: 80px;
     height: 80px;
     border: 1px solid black;

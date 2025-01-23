@@ -1,4 +1,6 @@
-const shapes = {
+import type {Shapes} from '@/components/games/tetris/interfaces/shape';
+
+const shapes: Shapes = {
     'I': {
         1: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 0, y: 20}, {color: 'blue', x: 0, y: 40}, {color: 'blue', x: 0, y: 60}],
         2: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 20, y: 0}, {color: 'blue', x: 40, y: 0}, {color: 'blue', x: 60, y: 0}],

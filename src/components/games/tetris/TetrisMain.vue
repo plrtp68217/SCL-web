@@ -9,7 +9,7 @@
             </div>
             
             <div class="tetris-header-right">
-                <TetrisNextElement/>
+                <TetrisNextShape/>
                 <TetrisHud/>
             </div>
             
@@ -29,7 +29,7 @@
 <script setup lang="ts">
 
 import TetrisBoard from './TetrisBoard.vue';
-import TetrisNextElement from './TetrisNextElement.vue';
+import TetrisNextShape from './TetrisNextShape.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 
