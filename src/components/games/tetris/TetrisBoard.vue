@@ -1,5 +1,5 @@
 <template>
-    <canvas id="game-field" style="width: 220px; height: 400px;"></canvas>
+    <canvas id="tetris_board" style="width: 220px; height: 400px;"></canvas>
 </template>
 
 
@@ -10,7 +10,7 @@
 
 <style scoped>
 
-#game-field {
+#tetris_board {
     width: 220px;
     height: 400px;
     border: 1px solid black;

@@ -1,22 +1,27 @@
 <template>
 
-    <div class="tetris-header">
+    <div class="tetris">
 
-        <div class="tetris-header-left">
-            <TetrisBoard/>
+        <div class="tetris-header">
+    
+            <div class="tetris-header-left">
+                <TetrisBoard/>
+            </div>
+            
+            <div class="tetris-header-right">
+                <TetrisNextElement/>
+                <TetrisHud/>
+            </div>
+            
+         </div>
+    
+        <div class="tetris-footer">
+            <div class="tetris-footer-sound">SOUND</div>
+            <TetrisControl/>
         </div>
-        
-        <div class="tetris-header-right">
-            <TetrisNextElement/>
-            <TetrisHud/>
-        </div>
-        
-     </div>
 
-    <div class="tetris-footer">
-        <div class="tetris-sound">SOUND</div>
-        <TetrisControl/>
     </div>
+
 
 </template>
 
@@ -33,11 +38,15 @@ import TetrisControl from './TetrisControl.vue';
 
 <style scoped>
 
+.tetris {
+    width: 340px;
+}
+
 .tetris-header {
     display: flex;
     justify-content: space-around;
     background-color: rgb(194, 132, 252);
-    width: 360px;
+    width: 100%;
     padding: 10px;
     border: 5px solid #3d3c3c;
 }
@@ -49,7 +58,7 @@ import TetrisControl from './TetrisControl.vue';
 }
 
 .tetris-footer {
-    width: 360px;
+    width: 100%;
     background-color: #cc74ff;
     display: flex;
     height: 80px;
@@ -58,7 +67,7 @@ import TetrisControl from './TetrisControl.vue';
     border-left: 5px solid #3d3c3c;
 }
 
-.tetris-sound {
+.tetris-footer-sound {
     width: 30%;
     text-align: center;
     margin: auto;
