@@ -3,7 +3,7 @@
     <div class="tetris">
         <div class="tetris-label">TETRIS</div>
 
-        <Tetris/>
+        <TetrisMain/>
 
     </div>
 
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import Tetris from "@/components/games/tetris/Tetris.vue";
+import TetrisMain from "@/components/games/tetris/TetrisMain.vue";
 
 onMounted(() => {
 
