@@ -1,7 +1,7 @@
 <template>
 
     <div class="menu">
-        <img class="menu-image-castle" src="/images/menu-background2.gif">
+        <img class="menu-image" src="/images/menu-background2.gif">
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
@@ -93,7 +93,7 @@ onMounted(() => {
 }
 
 /* Изображение на заднем фоне */
-.menu-image-castle {
+.menu-image {
     width: 100%;
     height: 100vh;
     object-fit: cover;
