@@ -5,22 +5,34 @@
 
 <script setup lang="ts">
 
+import { onMounted, onUnmounted, ref } from 'vue';
 import shapes from "@/components/games/tetris/assets/shapes";
 
-const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
-const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+const canvas = ref<HTMLCanvasElement | null>(null);
+const context = ref<CanvasRenderingContext2D | null>(null);
+
+onMounted(() => {
+    canvas.value = document.querySelector('#tetris_board') as HTMLCanvasElement;
+    context.value = canvas.value.getContext('2d') as CanvasRenderingContext2D;
+})
+
+onUnmounted(() => {
+    clearInterval(gameLoopID);
+});
+
+let gameSpeed = 200;
+let gameLoopID = setInterval(gameLoop, gameSpeed);
 
 let secondShape = {};
 let shapesOnBoard = [];
 let nextShape = {};
 
-let gameSpeed = 200;
 
 function gameLoop() {
 
 }
 
-let gameLoopID = setInterval(gameLoop, gameSpeed);
+
 
 
 </script>
