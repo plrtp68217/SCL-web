@@ -26,7 +26,6 @@ onMounted(() => {
 
     blockSize.value = euclidAlg(boardWidth.value, boardHeight.value);
 
-    console.log(blockSize.value);
     
 
 })
