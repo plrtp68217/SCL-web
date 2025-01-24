@@ -9,5 +9,5 @@ export interface Shape {
 }
 
 export interface Shapes {
-    [shapeName: string]: Shape[];
+    [shapeName: string]: Shape;
 }

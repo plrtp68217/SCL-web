@@ -25,9 +25,6 @@ onMounted(() => {
     boardHeight.value = canvas.value.height;
 
     blockSize.value = euclidAlg(boardWidth.value, boardHeight.value);
-
-    
-
 })
 
 onUnmounted(() => {
