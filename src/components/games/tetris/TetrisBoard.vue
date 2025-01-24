@@ -8,6 +8,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import euclidAlg from './utils/euclidAlg';
 import shapes from "@/components/games/tetris/assets/shapes";
+import { moveShape } from './utils/movement/moveShape';
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 const context = ref<CanvasRenderingContext2D | null>(null);
@@ -15,7 +16,7 @@ const context = ref<CanvasRenderingContext2D | null>(null);
 const boardWidth = ref<number | null>(null);
 const boardHeight = ref<number | null>(null);
 
-const blockSize = ref<number | null>(null);
+const blockSize = ref<number>(0);
 
 onMounted(() => {
     canvas.value = document.querySelector('#tetris_board') as HTMLCanvasElement;
@@ -25,6 +26,7 @@ onMounted(() => {
     boardHeight.value = canvas.value.height;
 
     blockSize.value = euclidAlg(boardWidth.value, boardHeight.value);
+    moveShape(shapes['I'], blockSize.value, 'x')
 })
 
 onUnmounted(() => {
@@ -37,6 +39,7 @@ let gameLoopID = setInterval(gameLoop, gameSpeed);
 let secondShape = {};
 let shapesOnBoard = [];
 let nextShape = {};
+
 
 
 function gameLoop() {
