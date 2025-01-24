@@ -1,4 +1,5 @@
-import type {Shape} from  "@/components/games/tetris/interfaces/shape";
+import type { Shape } from  "@/components/games/tetris/interfaces/shape";
+import type { Block } from "@/components/games/tetris/interfaces/shape";
 
 /**
  * Перемещает все блоки фигуры на указанное количество шагов по заданной оси.

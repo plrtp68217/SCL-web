@@ -6,6 +6,7 @@
 <script setup lang="ts">
 
 import { onMounted, onUnmounted, ref } from 'vue';
+import type { Shape, Shapes } from '@/components/games/tetris/interfaces/shape';
 import euclidAlg from './utils/euclidAlg';
 import shapes from "@/components/games/tetris/assets/shapes";
 import { moveShape } from './utils/movement/move';
@@ -32,13 +33,14 @@ onUnmounted(() => {
     clearInterval(gameLoopID);
 });
 
-let gameSpeed = 200;
-let gameLoopID = setInterval(gameLoop, gameSpeed);
+let gameSpeed: number = 200;
+let gameLoopID: number;
 
-let secondShape = {};
-let shapesOnBoard = [];
-let nextShape = {};
+let secondShape: Shape = {};
+let shapesOnBoard: Shapes[] = [];
+let nextShape: Shape = {};
 
+gameLoopID = setInterval(gameLoop, gameSpeed);
 
 
 function gameLoop() {
