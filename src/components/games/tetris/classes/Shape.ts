@@ -1,23 +1,31 @@
-export class Shape {
+class Block {
     x: number;
     y: number;
     color: string;
-    isFalling: boolean;
 
     constructor(x: number, y: number, color: string) {
         this.x = x;
         this.y = y;
         this.color = color;
+    }
+}
+
+export class Shape {
+    blocks: Block[]
+    isFalling: boolean;
+
+    constructor(blocks: Block[]) {
+        this.blocks = blocks;
         this.isFalling = true;
     }
 
     move(axis: 'x' | 'y', step: number) {
-        if (axis == 'x') this.x += step;
-        else this.y += step;
+        for (let block in this.blocks) {
+            this.blocks[block][axis] += step
+        }
     }
 
     stop() {
         this.isFalling = false;
     }
-
 }

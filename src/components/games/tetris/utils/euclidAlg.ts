@@ -9,9 +9,7 @@ function euclidAlg(short: number, long: number): number {
     if (long % short === 0) {
         return short;
     }
-    else {
-        return euclidAlg(long % short, short)
-    }
+    return euclidAlg(long % short, short)
 }
 
 export default euclidAlg;
