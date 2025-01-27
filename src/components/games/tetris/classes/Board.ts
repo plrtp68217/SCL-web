@@ -44,4 +44,11 @@ export class Board {
             this.context.fillRect(block.x, block.y, this.step, this.step);
         }
     }
+
+    clear(shape: Shape) {
+        for (let block of shape.blocks) {
+            this.context.fillStyle = block.color;
+            this.context.clearRect(block.x, block.y, this.step, this.step);
+        }
+    }
 }
