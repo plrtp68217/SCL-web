@@ -17,25 +17,18 @@ export class Board {
     // проверка на границу слева справа
 
     isInBounds(shape: Shape) {
-        if (shape.x >= 0 && shape.y <= this.width - this.step) {
-            return true
-        }
+        if (shape.x >= 0 && shape.y <= this.width - this.step) true
         return false;
     }
 
-    // проверка на колизию с дном поля и фигурой снизу
+    // проверка на колизию с (дном поля || фигурой снизу)
 
-    isCollision(shape: Shape) {
-        const collisionValue = this.shapes.find(otherShape => shape.x == otherShape.x && shape.y + this.step === otherShape.y)
+    isCollision(shape: Shape): boolean {
+        const shapeCollision = this.shapes.find((otherShape: Shape) => 
+            shape.x === otherShape.x && shape.y + this.step === otherShape.y
+        );
 
-        if (this.shapes
-            .find(otherShape => shape.x == otherShape.x &&
-                                shape.y + this.step === otherShape.y))
-            return true;
-        return false;
-
-
-        if 
+        const boardCollision = shape.x === this.height + this.step;
+        return !!shapeCollision || !!boardCollision;
     }
-
 }
