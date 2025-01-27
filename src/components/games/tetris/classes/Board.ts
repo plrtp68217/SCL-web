@@ -24,46 +24,22 @@ export class Board {
         }
         return true;
     }
-    
 
     isCollision(shape: Shape): boolean {
-
-        // const shapeCollision: boolean = true;
-        // const boardCollision: boolean = true;
-
-        // for (let otherShape of this.shapes) {
-        //     for (let otherBlock of otherShape.blocks) {
-        //         const shapeCollision = shape.blocks.find((block: Block) => 
-        //             block.x === otherBlock.x && block.y + this.step === otherBlock.y
-        //         );
-        //         if (!!shapeCollision) true
-        //     }
-        // }
-
         for (let block of shape.blocks) {
-            for (let otherBlock of otherShape.blocks) {
-                const shapeCollision = shape.blocks.find((block: Block) => 
+            for (let otherShape of this.shapes) {
+                const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
                     block.x === otherBlock.x && block.y + this.step === otherBlock.y
                 );
-                if (!!shapeCollision) true
+                const boardCollision = block.x === this.height + this.step;
+                if (!!shapeCollision || !!boardCollision) true;
             }
         }
-
-        for (let block of shape.blocks) {
-            const blockShapeCollision = this.shapes.find((otherShape: Shape) => 
-                shape.x === otherShape.x && shape.y + this.step === otherShape.y
-            );
-        }
-
-        // const shapeCollision = this.shapes.find((otherShape: Shape) => 
-        //     shape.x === otherShape.x && shape.y + this.step === otherShape.y
-        // );
-        // const boardCollision = shape.x === this.height + this.step;
-        // return !!shapeCollision || !!boardCollision;
+        return false;
     }
 
     draw(shape: Shape) {
-        for (let block of shape) {
+        for (let block of shape.blocks) {
             this.context.fillStyle = block.color;
             this.context.fillRect(block.x, block.y, this.step, this.step);
         }
