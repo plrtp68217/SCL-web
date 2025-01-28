@@ -5,7 +5,9 @@
         <div class="tetris-header">
     
             <div class="tetris-header-left">
-                <TetrisBoard @board="defineBoard"/>
+                <TetrisBoard 
+                    @board="defineBoard"
+                />
             </div>
             
             <div class="tetris-header-right">
@@ -17,7 +19,10 @@
     
         <div class="tetris-footer">
             <div class="tetris-footer-sound">SOUND</div>
-            <TetrisControl @move="(value) => console.log(value)"/>
+            <TetrisControl
+                @move="moveShape"
+                @rotate="rotateShape"
+            />
         </div>
 
     </div>
@@ -26,12 +31,14 @@
 
 
 <script setup lang="ts">
-
+import { ref, computed } from 'vue';
 import TetrisBoard from './TetrisBoard.vue';
 import TetrisNextShape from './TetrisNextShape.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
-import type { Board } from './classes/Board';
+import { Board } from './classes/Board';
+import { Shape } from './classes/Shape';
+import type { IMove } from './interfaces/move';
 import { getRandomShape } from './assets/shapes';
 
 let board: Board;
@@ -40,7 +47,34 @@ function defineBoard(newBoard: Board) {
     board = newBoard;
 }
 
-getRandomShape()
+let shapes: Shape[] = getRandomShape();
+const state = ref<number>(0);
+const shape = computed<Shape>(() => shapes[state.value])
+
+function moveShape(value: IMove) {
+    const {axis, direction} = value;
+
+    board.clear(shape.value);
+
+    for (let shapeID in shapes) {
+        if (board.isInBounds(shapes[shapeID], direction)) {
+            shapes[shapeID].move(axis, direction * board.step)
+        };
+    }
+
+    // if (board.isCollision(shape.value)) {
+    //     board.draw(shape.value);
+    //     shape.value.isFalling = false;
+    // }
+
+    board.draw(shape.value);
+}
+
+function rotateShape() {
+    board.clear(shape.value);
+    state.value  = (state.value + 1) % shapes.length;
+    board.draw(shape.value);
+}
 
 </script>
 

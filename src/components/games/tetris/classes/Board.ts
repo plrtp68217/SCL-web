@@ -1,15 +1,12 @@
 import { Shape } from "./Shape";
 import euclidAlg from "../utils/euclidAlg";
 import { Block } from "./Shape";
-import { getRandomShape } from "../assets/shapes";
 
 export class Board {
     context: CanvasRenderingContext2D;
     width: number;
     height: number;
     shapes: Shape[];
-    fallingShape: Shape[];
-    fallingShapeState: number;
     step: number;
 
     constructor(context: CanvasRenderingContext2D, width: number, height: number) {
@@ -17,15 +14,20 @@ export class Board {
         this.width = width;
         this.height = height;
         this.shapes = [] as Shape[];
-        this.fallingShape = getRandomShape();
-        this.fallingShapeState = 0;
         this.step = euclidAlg(this.width, this.height);
     }
 
-    isInBounds(shape: Shape): boolean {
+    isInBounds(shape: Shape, direction: -1 | 1): boolean {
         for (let block of shape.blocks) {
-            if (block.x >= 0 && block.y <= this.width - this.step) continue;
-            else false;
+            if (direction === -1 && block.x - this.step >= 0) {
+                continue;
+            }
+            else if (direction === 1 && block.x + this.step <= this.width - this.step) {
+                continue;
+            }
+            else {
+                return false
+            }
         }
         return true;
     }

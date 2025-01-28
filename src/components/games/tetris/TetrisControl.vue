@@ -6,7 +6,7 @@
 
             <div class="tetris-control-linear-h">
                 <button @click="emit('move', {axis: 'x', direction: -1})" class="control-button">LEFT</button>
-                <button @click="emit('move', {axis: 'x', direction: -1})" class="control-button">RIGHT</button>
+                <button @click="emit('move', {axis: 'x', direction: 1})" class="control-button">RIGHT</button>
             </div>
 
             <div class="tetris-control-linear-v">
@@ -25,13 +25,9 @@
 
 
 <script setup lang="ts">
+import type { IMove } from './interfaces/move';
 
-interface moveEmit {
-    axis: 'x' | 'y';
-    direction: 1 | -1;
-}
-
-const emit = defineEmits<{(e: 'move', value: moveEmit): void; (e: 'rotate'): void}>();
+const emit = defineEmits<{(e: 'move', value: IMove): void; (e: 'rotate'): void}>();
 
 </script>
 
