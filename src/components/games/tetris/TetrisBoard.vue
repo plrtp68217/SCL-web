@@ -24,25 +24,6 @@ onMounted(() => {
     emit('board', board);
 })
 
-// onUnmounted(() => {
-//     clearInterval(gameLoopID);
-// });
-
-// let gameSpeed: number = 200;
-// let gameLoopID: number;
-
-// let secondShape: Shape = {};
-// let shapesOnBoard: Shapes[] = [];
-// let nextShape: Shape = {};
-
-// gameLoopID = setInterval(gameLoop, gameSpeed);
-
-
-// function gameLoop() {
-
-// }
-
-
 </script>
 
 

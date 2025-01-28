@@ -39,7 +39,9 @@ export class Board {
                     block.x === otherBlock.x && block.y + this.step === otherBlock.y
                 );
                 const boardCollision = block.x === this.height + this.step;
-                if (!!shapeCollision || !!boardCollision) true;
+                if (shapeCollision || boardCollision) {
+                    return true;
+                }
             }
         }
         return false;

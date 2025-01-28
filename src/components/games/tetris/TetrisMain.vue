@@ -51,6 +51,29 @@ let shapes: Shape[] = getRandomShape();
 const state = ref<number>(0);
 const shape = computed<Shape>(() => shapes[state.value])
 
+let nextShapes: Shape[] = getRandomShape();
+
+let speed: number = 100;
+let gameLoopID: number;
+
+gameLoopID = setInterval(gameLoop, speed);
+// clearInterval(gameLoopID);
+
+function gameLoop() {
+    if (!shape.value.isFalling) shapes = nextShapes, nextShapes = getRandomShape() 
+
+    board.clear(shape.value);
+
+    shape.value.move('y', board.step);
+
+    // if (board.isCollision(shape.value)) shape.value.isFalling = false;
+
+    board.isCollision(shape.value)
+
+    board.draw(shape.value);
+}
+
+
 function moveShape(value: IMove) {
     const {axis, direction} = value;
 
@@ -61,11 +84,6 @@ function moveShape(value: IMove) {
             shapes[shapeID].move(axis, direction * board.step)
         };
     }
-
-    // if (board.isCollision(shape.value)) {
-    //     board.draw(shape.value);
-    //     shape.value.isFalling = false;
-    // }
 
     board.draw(shape.value);
 }
