@@ -1,4 +1,4 @@
-class Block {
+export class Block {
     x: number;
     y: number;
     color: string;
@@ -14,8 +14,8 @@ export class Shape {
     blocks: Block[]
     isFalling: boolean;
 
-    constructor(blocks: Block[]) {
-        this.blocks = blocks;
+    constructor() {
+        this.blocks = [];
         this.isFalling = true;
     }
 

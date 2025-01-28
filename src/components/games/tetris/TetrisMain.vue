@@ -5,7 +5,7 @@
         <div class="tetris-header">
     
             <div class="tetris-header-left">
-                <TetrisBoard/>
+                <TetrisBoard @board="defineBoard"/>
             </div>
             
             <div class="tetris-header-right">
@@ -17,11 +17,10 @@
     
         <div class="tetris-footer">
             <div class="tetris-footer-sound">SOUND</div>
-            <TetrisControl/>
+            <TetrisControl @move="(value) => console.log(value)"/>
         </div>
 
     </div>
-
 
 </template>
 
@@ -32,6 +31,16 @@ import TetrisBoard from './TetrisBoard.vue';
 import TetrisNextShape from './TetrisNextShape.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
+import type { Board } from './classes/Board';
+import { getRandomShape } from './assets/shapes';
+
+let board: Board;
+
+function defineBoard(newBoard: Board) {
+    board = newBoard;
+}
+
+getRandomShape()
 
 </script>
 

@@ -5,47 +5,42 @@
 
 <script setup lang="ts">
 
-import { onMounted, onUnmounted, ref } from 'vue';
-import type { Shape, Shapes } from '@/components/games/tetris/interfaces/shape';
-import euclidAlg from './utils/euclidAlg';
-import shapes from "@/components/games/tetris/assets/shapes";
-import { moveShape } from './utils/movement/move';
+import { onMounted } from 'vue';
+import { Board } from './classes/Board';
 
-const canvas = ref<HTMLCanvasElement | null>(null);
-const context = ref<CanvasRenderingContext2D | null>(null);
+let board: Board;
 
-const boardWidth = ref<number | null>(null);
-const boardHeight = ref<number | null>(null);
-
-const blockSize = ref<number>(0);
+const emit = defineEmits<{(e: 'board', value: Board): void}>();
 
 onMounted(() => {
-    canvas.value = document.querySelector('#tetris_board') as HTMLCanvasElement;
-    context.value = canvas.value.getContext('2d') as CanvasRenderingContext2D;
+    const canvas = document.querySelector('#tetris_board') as HTMLCanvasElement;
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    boardWidth.value = canvas.value.width;
-    boardHeight.value = canvas.value.height;
+    const width: number = canvas.width;
+    const height: number = canvas.height;
 
-    blockSize.value = euclidAlg(boardWidth.value, boardHeight.value);
+    board = new Board(context, width, height)
+
+    emit('board', board);
 })
 
-onUnmounted(() => {
-    clearInterval(gameLoopID);
-});
+// onUnmounted(() => {
+//     clearInterval(gameLoopID);
+// });
 
-let gameSpeed: number = 200;
-let gameLoopID: number;
+// let gameSpeed: number = 200;
+// let gameLoopID: number;
 
-let secondShape: Shape = {};
-let shapesOnBoard: Shapes[] = [];
-let nextShape: Shape = {};
+// let secondShape: Shape = {};
+// let shapesOnBoard: Shapes[] = [];
+// let nextShape: Shape = {};
 
-gameLoopID = setInterval(gameLoop, gameSpeed);
+// gameLoopID = setInterval(gameLoop, gameSpeed);
 
 
-function gameLoop() {
+// function gameLoop() {
 
-}
+// }
 
 
 </script>

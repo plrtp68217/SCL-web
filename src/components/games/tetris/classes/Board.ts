@@ -1,12 +1,15 @@
 import { Shape } from "./Shape";
 import euclidAlg from "../utils/euclidAlg";
-import { Block } from "../interfaces/shape";
+import { Block } from "./Shape";
+import { getRandomShape } from "../assets/shapes";
 
 export class Board {
     context: CanvasRenderingContext2D;
     width: number;
     height: number;
     shapes: Shape[];
+    fallingShape: Shape[];
+    fallingShapeState: number;
     step: number;
 
     constructor(context: CanvasRenderingContext2D, width: number, height: number) {
@@ -14,6 +17,8 @@ export class Board {
         this.width = width;
         this.height = height;
         this.shapes = [] as Shape[];
+        this.fallingShape = getRandomShape();
+        this.fallingShapeState = 0;
         this.step = euclidAlg(this.width, this.height);
     }
 

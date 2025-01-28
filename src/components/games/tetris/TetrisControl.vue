@@ -5,18 +5,18 @@
         <div class="tetris-control-linear">
 
             <div class="tetris-control-linear-h">
-                <button class="control-button">LEFT</button>
-                <button class="control-button">RIGHT</button>
+                <button @click="emit('move', {axis: 'x', direction: -1})" class="control-button">LEFT</button>
+                <button @click="emit('move', {axis: 'x', direction: -1})" class="control-button">RIGHT</button>
             </div>
 
             <div class="tetris-control-linear-v">
-                <button class="control-button">DOWN</button>
+                <button @click="emit('move', {axis: 'y', direction: 1})" class="control-button">DOWN</button>
             </div>
 
         </div>
 
         <div class="tetris-control-rotate">
-            <button class="control-button">ROTATE</button>
+            <button @click="emit('rotate')" class="control-button">ROTATE</button>
         </div>
 
     </div>
@@ -25,6 +25,13 @@
 
 
 <script setup lang="ts">
+
+interface moveEmit {
+    axis: 'x' | 'y';
+    direction: 1 | -1;
+}
+
+const emit = defineEmits<{(e: 'move', value: moveEmit): void; (e: 'rotate'): void}>();
 
 </script>
 

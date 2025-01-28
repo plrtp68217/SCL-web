@@ -1,6 +1,23 @@
-import type {Shapes} from '@/components/games/tetris/interfaces/shape';
+import { Shape } from '../classes/Shape';
+import { getRandomItem } from '../utils/random';
 
-const shapes: Shapes = {
+const shapeIds: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];
+
+interface IBlock {
+    color: string;
+    x: number;
+    y: number;
+}
+
+interface IShape {
+    [state: number]: IBlock[];
+}
+
+interface IShapes {
+    [id: string]: IShape;
+}
+
+const shapes: IShapes = {
     'I': {
         1: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 0, y: 20}, {color: 'blue', x: 0, y: 40}, {color: 'blue', x: 0, y: 60}],
         2: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 20, y: 0}, {color: 'blue', x: 40, y: 0}, {color: 'blue', x: 60, y: 0}],
@@ -36,4 +53,16 @@ const shapes: Shapes = {
     }
 };
 
-export default shapes;
+export function getRandomShape(): Shape[] {
+    const randomId = getRandomItem(shapeIds);
+    let randomShape: Shape[] = [];
+    
+    for (let shapeState in shapes[randomId]) {
+        let randomShapeState = new Shape()
+        for (let block of shapes[randomId][shapeState]) {
+            randomShapeState.blocks.push(block)
+        }
+        randomShape.push(randomShapeState)
+    }
+    return randomShape;
+}
