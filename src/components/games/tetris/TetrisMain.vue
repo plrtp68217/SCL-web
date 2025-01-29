@@ -51,7 +51,7 @@ function defineSecondBoard(newBoard: Board) {
     secondBoard.draw(nextShapes[0])
 }
 
-let speed: number = 200;
+let speed: number = 400;
 let gameLoopID: number;
 
 let shapes: Shape[] = getRandomShapes(shapeList);
@@ -92,14 +92,14 @@ function moveShape(value: IMove) {
     switch (axis) {
         case 'x':
             for (let shape in shapes) {
-                if (!board.isHorizontalCollision(shapes[shape], direction)) {
+                if (!board.isCollision(shapes[shape], 'x', direction)) {
                     shapes[shape].move(axis, direction * board.step);
                 }
             }
             break;
 
         case 'y':
-            if (board.isVerticalCollision(shapes[state.value])) {
+            if (board.isCollision(shapes[state.value], 'y', direction)) {
                 shapes[state.value].stop();
             }
             else {

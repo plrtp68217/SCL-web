@@ -9,6 +9,10 @@ export class State {
         this.value  = (this.value + 1) % array.length;
     }
 
+    decrement<T>(array: T[]) {
+        this.value = (this.value - 1 + array.length) % array.length;
+    }
+
     reset() {
         this.value = 0;
     }
