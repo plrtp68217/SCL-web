@@ -17,7 +17,7 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
     }
 
-    isInWithBounds(shape: Shape, direction: -1 | 1): boolean {
+    isInWidthBounds(shape: Shape, direction: -1 | 1): boolean {
         for (let block of shape.blocks) {
             if (direction === -1 && block.x - this.step >= 0) {
                 continue;

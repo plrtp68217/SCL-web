@@ -38,6 +38,7 @@ import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
+import { State } from './classes/State';
 import type { IMove } from './interfaces/move';
 import { getRandomShape } from './utils/random';
 import { shapeList } from './assets/shapeList';
@@ -48,9 +49,8 @@ function defineBoard(newBoard: Board) {
     board = newBoard;
 }
 
-const shapes = ref<Shape[]>(getRandomShape(shapeList));
-const state = ref<number>(0);
-const shape = computed<Shape>(() => shapes.value[state.value])
+let shapes: Shape[] = getRandomShape(shapeList);
+const state: State = new State();
 
 let nextShapes: Shape[] = getRandomShape(shapeList);
 
@@ -61,52 +61,50 @@ gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
-
-    if (!shape.value.isFalling) {
-        board.draw(shape.value);
-        state.value = 0;
-        shapes.value = nextShapes;
+    if (!shapes[state.value].isFalling) {
+        board.draw(shapes[state.value]);
+        state.reset()
+        shapes = nextShapes;
         nextShapes = getRandomShape(shapeList);
     }
 
-    board.clear(shape.value);
+    board.clear(shapes[state.value]);
 
     moveShape({axis: 'y', direction: 1});
 
-    board.draw(shape.value);
+    board.draw(shapes[state.value]);
 }
 
 
 function moveShape(value: IMove) {
     const {axis, direction} = value;
 
-    board.clear(shape.value);
+    board.clear(shapes[state.value]);
 
-    for (let shapeID in shapes.value) {
+    for (let shapeID in shapes) {
         if (axis === 'x') {
-            if (board.isInWithBounds(shapes.value[shapeID], direction)) {
-                shapes.value[shapeID].move(axis, direction * board.step);
+            if (board.isInWidthBounds(shapes[shapeID], direction)) {
+                shapes[shapeID].move(axis, direction * board.step);
             }
         }
         else if (axis === 'y') {
-            if (board.isCollision(shape.value)) {
-                shape.value.stop();
-                board.shapes.push(shape.value);
+            if (board.isCollision(shapes[state.value])) {
+                shapes[state.value].stop();
+                board.shapes.push(shapes[state.value]);
             }
             else {
-                shapes.value[shapeID].move(axis, direction * board.step);
+                shapes[shapeID].move(axis, direction * board.step);
             }
-            
         }
     }
 
-    board.draw(shape.value);
+    board.draw(shapes[state.value]);
 }
 
 function rotateShape() {
-    board.clear(shape.value);
-    state.value  = (state.value + 1) % shapes.value.length;
-    board.draw(shape.value);
+    board.clear(shapes[state.value]);
+    state.increment(shapes)
+    board.draw(shapes[state.value]);
 }
 
 </script>
