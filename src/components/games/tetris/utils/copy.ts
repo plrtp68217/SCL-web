@@ -1,3 +1,3 @@
-export function copyInstance() {
-
-}
+export function copyInstance<T>(instance: T) {
+    
+}   

@@ -1,7 +1,7 @@
 <template>
 
     <div class="tetris">
-        <div class="tetris-label">TETRIS</div>
+        <div class="tetris-label">TETRIS DEMO</div>
 
         <TetrisMain/>
 

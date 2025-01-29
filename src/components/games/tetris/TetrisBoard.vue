@@ -10,7 +10,7 @@ import { Board } from './classes/Board';
 
 let board: Board;
 
-const emit = defineEmits<{(e: 'board', value: Board): void}>();
+const emit = defineEmits<{(e: 'main_board', value: Board): void}>();
 
 onMounted(() => {
     const canvas = document.querySelector('#tetris_board') as HTMLCanvasElement;
@@ -21,7 +21,7 @@ onMounted(() => {
 
     board = new Board(context, width, height)
 
-    emit('board', board);
+    emit('main_board', board);
 })
 
 </script>

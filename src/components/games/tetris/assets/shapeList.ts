@@ -1,18 +1,18 @@
-interface IBlock {
+export interface IBlock {
     color: string;
     x: number;
     y: number;
 }
 
-interface IShape {
+export interface IShape {
     [state: number]: IBlock[];
 }
 
-export interface IShapes {
+export interface IShapeList {
     [id: string]: IShape;
 }
 
-export const shapeList: IShapes = {
+export const shapeList: IShapeList = {
     'I': {
         1: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 0, y: 20}, {color: 'blue', x: 0, y: 40}, {color: 'blue', x: 0, y: 60}],
         2: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 20, y: 0}, {color: 'blue', x: 40, y: 0}, {color: 'blue', x: 60, y: 0}],

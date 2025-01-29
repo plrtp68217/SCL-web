@@ -5,6 +5,25 @@
 
 <script setup lang="ts">
 
+import { onMounted } from 'vue';
+import { Board } from './classes/Board';
+
+let board: Board;
+
+const emit = defineEmits<{(e: 'second_board', value: Board): void}>();
+
+onMounted(() => {
+    const canvas = document.querySelector('#tetris-next-shape') as HTMLCanvasElement;
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    const width: number = canvas.width;
+    const height: number = canvas.height;
+
+    board = new Board(context, width, height)
+
+    emit('second_board', board);
+})
+
 </script>
 
 

@@ -6,14 +6,14 @@ export class Board {
     context: CanvasRenderingContext2D;
     width: number;
     height: number;
-    shapes: Shape[];
+    shapesOnBoard: Shape[];
     step: number;
 
     constructor(context: CanvasRenderingContext2D, width: number, height: number) {
         this.context = context;
         this.width = width;
         this.height = height;
-        this.shapes = [] as Shape[];
+        this.shapesOnBoard = [] as Shape[];
         this.step = euclidAlg(this.width, this.height);
     }
 
@@ -40,8 +40,8 @@ export class Board {
                 return true
             }
 
-            if (this.shapes) {
-                for (let otherShape of this.shapes) {
+            if (this.shapesOnBoard) {
+                for (let otherShape of this.shapesOnBoard) {
                     const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
                         block.x === otherBlock.x && block.y + this.step === otherBlock.y
                     );

@@ -1,5 +1,5 @@
-import { Shape } from "../classes/Shape";
-import type { IShapes } from "../assets/shapeList";
+import { Block, Shape } from "../classes/Shape";
+import type { IShapeList, IBlock } from "../assets/shapeList";
 
 export function getRandomItem<T>(array: T[]) {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -7,17 +7,23 @@ export function getRandomItem<T>(array: T[]) {
     return randomItem;
 }
 
-export function getRandomShape(shapes: IShapes): Shape[] {
+function createNewBlock(block: IBlock): Block {
+    const newBlock =  new Block(block.x, block.y, block.color);
+    return newBlock;
+
+}
+
+export function getRandomShapes(shapeList: IShapeList): Shape[] {
     const shapeIds: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];
     const randomId = getRandomItem(shapeIds);
     let randomShape: Shape[] = [];
     
-    for (let shapeState in shapes[randomId]) {
+    for (let shapeState in shapeList[randomId]) {
         let randomShapeState = new Shape();
-        for (let block of shapes[randomId][shapeState]) {
-            randomShapeState.blocks.push(block);
-        }
+
+        randomShapeState.blocks = shapeList[randomId][shapeState].map(block => createNewBlock(block));
         randomShape.push(randomShapeState);
     }
     return randomShape;
 }
+

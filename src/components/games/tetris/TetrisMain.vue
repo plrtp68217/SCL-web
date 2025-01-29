@@ -5,11 +5,11 @@
         <div class="tetris-header">
 
             <div class="tetris-header-left">
-                <TetrisBoard @board="defineBoard" />
+                <TetrisBoard @main_board="defineMainBoard" />
             </div>
 
             <div class="tetris-header-right">
-                <TetrisNextShape />
+                <TetrisNextShape @second_board="defineSecondBoard" />
                 <TetrisHud />
             </div>
 
@@ -34,37 +34,46 @@ import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
 import type { IMove } from './interfaces/move';
-import { getRandomShape } from './utils/random';
+import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 
 let board: Board;
 
-function defineBoard(newBoard: Board) {
+function defineMainBoard(newBoard: Board) {
     board = newBoard;
 }
 
-let shapes: Shape[] = getRandomShape(shapeList);
-const state: State = new State();
+let secondBoard: Board;
 
-let nextShapes: Shape[] = getRandomShape(shapeList);
+function defineSecondBoard(newBoard: Board) {
+    secondBoard = newBoard;
+    secondBoard.step = 40;
+    secondBoard.draw(nextShapes[0])
+}
 
 let speed: number = 200;
 let gameLoopID: number;
+
+let shapes: Shape[] = getRandomShapes(shapeList);
+const state: State = new State();
+
+let nextShapes: Shape[] = getRandomShapes(shapeList);
 
 gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
-    console.log(shapes[state.value]);
-    
     if (!shapes[state.value].isFalling) {
-        board.draw(shapes[state.value]);
-        board.shapes.push(shapes[state.value]);
 
+        board.shapesOnBoard.push(shapes[state.value]);
+        
         state.reset()
 
         shapes = [...nextShapes];
-        nextShapes = getRandomShape(shapeList);
+
+        secondBoard.clear(nextShapes[0]);
+        nextShapes = getRandomShapes(shapeList);
+        secondBoard.draw(nextShapes[0]);
 
     }
     else {
@@ -74,7 +83,6 @@ function gameLoop() {
     }
 
 }
-
 
 function moveShape(value: IMove) {
     const { axis, direction } = value;
