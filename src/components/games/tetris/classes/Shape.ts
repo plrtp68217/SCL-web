@@ -18,10 +18,6 @@ export class Shape {
         this.blocks = [];
         this.isFalling = true;
     }
-    
-    setStartPosition(width: number) {
-        //TODO
-    }
 
     move(axis: 'x' | 'y', step: number) {
         for (let block in this.blocks) {
@@ -29,9 +25,7 @@ export class Shape {
         }
     }
 
-
     stop() {
         this.isFalling = false;
     }
-
 }

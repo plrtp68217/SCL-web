@@ -35,12 +35,16 @@ import { Shape } from './classes/Shape';
 import { State } from './classes/State';
 import type { IMove } from './interfaces/move';
 import { getRandomShapes } from './utils/random';
+import { getRandomPosition } from './utils/random';
 import { shapeList } from './assets/shapeList';
 
 let board: Board;
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
+    shapes = getRandomShapes(shapeList);
+    setStartPosition(shapes)
+    state = new State();
 }
 
 let secondBoard: Board;
@@ -54,8 +58,8 @@ function defineSecondBoard(newBoard: Board) {
 let speed: number = 400;
 let gameLoopID: number;
 
-let shapes: Shape[] = getRandomShapes(shapeList);
-const state: State = new State();
+let shapes: Shape[];
+let state: State;
 
 let nextShapes: Shape[] = getRandomShapes(shapeList);
 
@@ -70,6 +74,7 @@ function gameLoop() {
         state.reset()
 
         shapes = [...nextShapes];
+        setStartPosition(shapes);
 
         secondBoard.clear(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
@@ -77,9 +82,7 @@ function gameLoop() {
 
     }
     else {
-        board.clear(shapes[state.value]);
         moveShape({ axis: 'y', direction: 1 });
-        board.draw(shapes[state.value]);
     }
 
 }
@@ -92,14 +95,14 @@ function moveShape(value: IMove): void {
     switch (axis) {
         case 'x':
             for (let shape in shapes) {
-                if (!board.isCollision(shapes[shape], 'x', direction)) {
+                if (!board.isCollision(shapes[shape], axis, direction)) {
                     shapes[shape].move(axis, direction * board.step);
                 }
             }
             break;
 
         case 'y':
-            if (board.isCollision(shapes[state.value], 'y', direction)) {
+            if (board.isCollision(shapes[state.value], axis, direction)) {
                 shapes[state.value].stop();
             }
             else {
@@ -109,7 +112,6 @@ function moveShape(value: IMove): void {
             }
             break;
     }
-
     board.draw(shapes[state.value]);
 }
 
@@ -121,6 +123,17 @@ function rotateShape(): void {
         board.clear(shapes[state.value]);
         state.increment(shapes)
         board.draw(shapes[state.value]);
+    }
+}
+
+function setStartPosition(shapes: Shape[]): void {
+    console.log(board);
+    
+    const startPosition = getRandomPosition(0, board.width - (3 * board.step), board.step);
+    for (let shape of shapes) {
+        for (let block of shape.blocks) {
+            block.x += startPosition;
+        }
     }
 }
 
