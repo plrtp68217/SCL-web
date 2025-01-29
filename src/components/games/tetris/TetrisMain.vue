@@ -84,7 +84,7 @@ function gameLoop() {
 
 }
 
-function moveShape(value: IMove) {
+function moveShape(value: IMove): void {
     const { axis, direction } = value;
 
     board.clear(shapes[state.value]);
@@ -113,10 +113,15 @@ function moveShape(value: IMove) {
     board.draw(shapes[state.value]);
 }
 
-function rotateShape() {
-    board.clear(shapes[state.value]);
-    state.increment(shapes)
-    board.draw(shapes[state.value]);
+function rotateShape(): void {
+    const nextStateValue = (state.value + 1) % shapes.length;
+    const nextState = shapes[nextStateValue];
+
+    if (!board.isRotationCollision(nextState)) {
+        board.clear(shapes[state.value]);
+        state.increment(shapes)
+        board.draw(shapes[state.value]);
+    }
 }
 
 </script>

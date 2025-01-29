@@ -1,6 +1,5 @@
 import { Shape } from "./Shape";
 import euclidAlg from "../utils/euclidAlg";
-import { Block } from "./Shape";
 
 export class Board {
     context: CanvasRenderingContext2D;
@@ -40,6 +39,29 @@ export class Board {
                 }
             }
         }
+        return false;
+    }
+
+    isRotationCollision(nextShape: Shape): boolean {
+        for (let block of nextShape.blocks) {
+            if (block.x < 0 || block.x >= this.width || block.y >= this.height) {
+                return true;
+            }
+        }
+        
+        if (this.shapesOnBoard) {
+            for (let shapeOnBoard of this.shapesOnBoard) {
+                for (let block of nextShape.blocks) {
+                    const isShapeCollision = shapeOnBoard.blocks.some(blockOnBoard =>
+                        blockOnBoard.x === block.x && blockOnBoard.y === block.y
+                    );
+                    if (isShapeCollision) {
+                        return true;
+                    }
+                }
+            }
+        }
+    
         return false;
     }
 
