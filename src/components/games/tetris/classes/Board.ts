@@ -17,7 +17,7 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
     }
 
-    isInBounds(shape: Shape, direction: -1 | 1): boolean {
+    isInWithBounds(shape: Shape, direction: -1 | 1): boolean {
         for (let block of shape.blocks) {
             if (direction === -1 && block.x - this.step >= 0) {
                 continue;
@@ -34,17 +34,39 @@ export class Board {
 
     isCollision(shape: Shape): boolean {
         for (let block of shape.blocks) {
-            for (let otherShape of this.shapes) {
-                const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
-                    block.x === otherBlock.x && block.y + this.step === otherBlock.y
-                );
-                const boardCollision = block.x === this.height + this.step;
-                if (shapeCollision || boardCollision) {
-                    return true;
+            const boardCollision = block.y === this.height - this.step;
+
+            if (boardCollision) {
+                return true
+            }
+
+            if (this.shapes) {
+                for (let otherShape of this.shapes) {
+                    const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
+                        block.x === otherBlock.x && block.y + this.step === otherBlock.y
+                    );
+                    
+                    if (shapeCollision) {
+                        return true;
+                    }
                 }
             }
         }
         return false;
+
+        // for (let block of shape.blocks) {
+        //     for (let otherShape of this.shapes) {
+        //         const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
+        //             block.x === otherBlock.x && block.y + this.step === otherBlock.y
+        //         );
+        //         const boardCollision = block.x === this.height + this.step;
+
+        //         if (shapeCollision || boardCollision) {
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
     }
 
     draw(shape: Shape) {

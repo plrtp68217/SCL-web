@@ -1,6 +1,3 @@
-import { Shape } from '../classes/Shape';
-import { getRandomItem } from '../utils/random';
-
 const shapeIds: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];
 
 interface IBlock {
@@ -13,11 +10,11 @@ interface IShape {
     [state: number]: IBlock[];
 }
 
-interface IShapes {
+export interface IShapes {
     [id: string]: IShape;
 }
 
-const shapes: IShapes = {
+export const shapeList: IShapes = {
     'I': {
         1: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 0, y: 20}, {color: 'blue', x: 0, y: 40}, {color: 'blue', x: 0, y: 60}],
         2: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 20, y: 0}, {color: 'blue', x: 40, y: 0}, {color: 'blue', x: 60, y: 0}],
@@ -52,17 +49,3 @@ const shapes: IShapes = {
         4: [{color: 'purple', x: 0, y: 0}, {color: 'purple', x: 0, y: 20}, {color: 'purple', x: 0, y: 40}, {color: 'purple', x: 20, y: 20}],
     }
 };
-
-export function getRandomShape(): Shape[] {
-    const randomId = getRandomItem(shapeIds);
-    let randomShape: Shape[] = [];
-    
-    for (let shapeState in shapes[randomId]) {
-        let randomShapeState = new Shape()
-        for (let block of shapes[randomId][shapeState]) {
-            randomShapeState.blocks.push(block)
-        }
-        randomShape.push(randomShapeState)
-    }
-    return randomShape;
-}

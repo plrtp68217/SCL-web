@@ -39,7 +39,8 @@ import TetrisControl from './TetrisControl.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import type { IMove } from './interfaces/move';
-import { getRandomShape } from './assets/shapes';
+import { getRandomShape } from './utils/random';
+import { shapeList } from './assets/shapeList';
 
 let board: Board;
 
@@ -47,28 +48,30 @@ function defineBoard(newBoard: Board) {
     board = newBoard;
 }
 
-let shapes: Shape[] = getRandomShape();
+const shapes = ref<Shape[]>(getRandomShape(shapeList));
 const state = ref<number>(0);
-const shape = computed<Shape>(() => shapes[state.value])
+const shape = computed<Shape>(() => shapes.value[state.value])
 
-let nextShapes: Shape[] = getRandomShape();
+let nextShapes: Shape[] = getRandomShape(shapeList);
 
-let speed: number = 100;
+let speed: number = 200;
 let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
-    if (!shape.value.isFalling) shapes = nextShapes, nextShapes = getRandomShape() 
+
+    if (!shape.value.isFalling) {
+        board.draw(shape.value);
+        state.value = 0;
+        shapes.value = nextShapes;
+        nextShapes = getRandomShape(shapeList);
+    }
 
     board.clear(shape.value);
 
-    shape.value.move('y', board.step);
-
-    // if (board.isCollision(shape.value)) shape.value.isFalling = false;
-
-    board.isCollision(shape.value)
+    moveShape({axis: 'y', direction: 1});
 
     board.draw(shape.value);
 }
@@ -79,10 +82,22 @@ function moveShape(value: IMove) {
 
     board.clear(shape.value);
 
-    for (let shapeID in shapes) {
-        if (board.isInBounds(shapes[shapeID], direction)) {
-            shapes[shapeID].move(axis, direction * board.step)
-        };
+    for (let shapeID in shapes.value) {
+        if (axis === 'x') {
+            if (board.isInWithBounds(shapes.value[shapeID], direction)) {
+                shapes.value[shapeID].move(axis, direction * board.step);
+            }
+        }
+        else if (axis === 'y') {
+            if (board.isCollision(shape.value)) {
+                shape.value.stop();
+                board.shapes.push(shape.value);
+            }
+            else {
+                shapes.value[shapeID].move(axis, direction * board.step);
+            }
+            
+        }
     }
 
     board.draw(shape.value);
@@ -90,7 +105,7 @@ function moveShape(value: IMove) {
 
 function rotateShape() {
     board.clear(shape.value);
-    state.value  = (state.value + 1) % shapes.length;
+    state.value  = (state.value + 1) % shapes.value.length;
     board.draw(shape.value);
 }
 
