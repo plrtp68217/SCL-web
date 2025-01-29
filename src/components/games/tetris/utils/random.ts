@@ -16,14 +16,13 @@ function createNewBlock(block: IBlock): Block {
 export function getRandomShapes(shapeList: IShapeList): Shape[] {
     const shapeIds: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];
     const randomId = getRandomItem(shapeIds);
-    let randomShape: Shape[] = [];
+    let randomShapes: Shape[] = [];
     
     for (let shapeState in shapeList[randomId]) {
-        let randomShapeState = new Shape();
+        let randomShapesState = new Shape();
 
-        randomShapeState.blocks = shapeList[randomId][shapeState].map(block => createNewBlock(block));
-        randomShape.push(randomShapeState);
+        randomShapesState.blocks = shapeList[randomId][shapeState].map(block => createNewBlock(block));
+        randomShapes.push(randomShapesState);
     }
-    return randomShape;
+    return randomShapes;
 }
-
