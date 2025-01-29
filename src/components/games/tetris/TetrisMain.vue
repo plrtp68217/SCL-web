@@ -47,7 +47,7 @@ let secondBoard: Board;
 
 function defineSecondBoard(newBoard: Board) {
     secondBoard = newBoard;
-    secondBoard.step = 40;
+    secondBoard.step = 20;
     secondBoard.draw(nextShapes[0])
 }
 
@@ -92,7 +92,7 @@ function moveShape(value: IMove) {
     switch (axis) {
         case 'x':
             for (let shape in shapes) {
-                if (board.isInWidthBounds(shapes[shape], direction)) {
+                if (!board.isInBounds(shapes[shape], direction)) {
                     shapes[shape].move(axis, direction * board.step);
                 }
             }

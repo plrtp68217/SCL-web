@@ -18,12 +18,17 @@ export class Shape {
         this.blocks = [];
         this.isFalling = true;
     }
+    
+    setStartPosition(width: number) {
+        //TODO
+    }
 
     move(axis: 'x' | 'y', step: number) {
         for (let block in this.blocks) {
             this.blocks[block][axis] += step
         }
     }
+
 
     stop() {
         this.isFalling = false;
