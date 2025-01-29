@@ -55,37 +55,6 @@ export class Board {
         return false;
     }   
 
-    // isHorizontalCollision(shape: Shape, direction: -1 | 1): boolean { // horizontalCollision
-    //     for (let block of shape.blocks) {
-    //         for (let shapeOnBoard of this.shapesOnBoard) {
-    //             switch (direction) {
-    //                 case -1:
-    //                     const leftBoardCollision = block.x - this.step < 0;
-    //                     const leftShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
-    //                         blockOnBoard.x - this.step == block.x && blockOnBoard.y == block.y)
-
-    //                     if (leftBoardCollision || leftShapeCollision) {
-    //                         console.log(leftBoardCollision, leftShapeCollision);
-                            
-    //                         return true
-    //                     }
-    //                     continue
-    //                 case 1:
-    //                     const rightBoardCollision = block.x + this.step > this.width - this.step;
-    //                     const rightShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
-    //                         blockOnBoard.x + this.step == block.x && blockOnBoard.y == block.y)
-
-    //                     if (rightBoardCollision || rightShapeCollision) {
-    //                         return true
-    //                     }
-    //                     continue
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }   
-
-
     isVerticalCollision(shape: Shape): boolean { // verticalCollision
         for (let block of shape.blocks) {
             const boardCollision = block.y === this.height - this.step;
