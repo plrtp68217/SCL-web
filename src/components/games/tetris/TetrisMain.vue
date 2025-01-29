@@ -92,14 +92,14 @@ function moveShape(value: IMove) {
     switch (axis) {
         case 'x':
             for (let shape in shapes) {
-                if (!board.isInBounds(shapes[shape], direction)) {
+                if (!board.isHorizontalCollision(shapes[shape], direction)) {
                     shapes[shape].move(axis, direction * board.step);
                 }
             }
             break;
 
         case 'y':
-            if (board.isCollision(shapes[state.value])) {
+            if (board.isVerticalCollision(shapes[state.value])) {
                 shapes[state.value].stop();
             }
             else {

@@ -17,49 +17,78 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
     }
 
-    isInBounds(shape: Shape, direction: -1 | 1): boolean { // horizontalCollision
+    isHorizontalCollision(shape: Shape, direction: -1 | 1): boolean { // horizontalCollision
         for (let block of shape.blocks) {
-            for (let shapeOnBoard of this.shapesOnBoard) {
-                switch (direction) {
-                    case -1:
-                        const leftBoardCollision = block.x - this.step < 0;
-                        const leftShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => blockOnBoard.x - this.step == block.x && blockOnBoard.y == block.y)
-                        if (leftBoardCollision || leftShapeCollision) {
-                            return true
+
+            switch (direction) {
+                case -1:
+                    const leftBoardCollision = block.x - this.step < 0;
+                    if (leftBoardCollision) {return true}
+
+                    if (this.shapesOnBoard) {
+                        for (let shapeOnBoard of this.shapesOnBoard) {
+                            const leftShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
+                                blockOnBoard.x == block.x - this.step && blockOnBoard.y == block.y);
+                            if (leftShapeCollision) {return true}
                         }
-                        continue
-                    case 1:
-                        const rightBoardCollision = block.x + this.step > this.width - this.step;
-                        const rightShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => blockOnBoard.x + this.step == block.x && blockOnBoard.y == block.y)
-                        if (rightBoardCollision || rightShapeCollision) {
-                            return true
+                    }
+                    continue;
+                
+                case 1:
+                    const rightBoardCollision = block.x + this.step > this.width - this.step;
+                    if (rightBoardCollision) {return true}
+
+                    if (this.shapesOnBoard) {
+                        for (let shapeOnBoard of this.shapesOnBoard) {
+                            const rightShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
+                                blockOnBoard.x == block.x + this.step && blockOnBoard.y == block.y)
+                            console.log(rightShapeCollision);
+                            
+                            if (rightShapeCollision) {return true}
                         }
-                        continue
-                }
+                    }
+                    continue;
+
             }
+        
         }
         return false;
     }   
 
-    // isInBounds(shape: Shape, direction: -1 | 1): boolean {
+    // isHorizontalCollision(shape: Shape, direction: -1 | 1): boolean { // horizontalCollision
     //     for (let block of shape.blocks) {
-    //         if (direction === -1 && block.x - this.step >= 0) {
-    //             continue;
-    //         }
-    //         else if (direction === 1 && block.x + this.step <= this.width - this.step) {
-    //             continue;
-    //         }
-    //         else {
-    //             return false
+    //         for (let shapeOnBoard of this.shapesOnBoard) {
+    //             switch (direction) {
+    //                 case -1:
+    //                     const leftBoardCollision = block.x - this.step < 0;
+    //                     const leftShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
+    //                         blockOnBoard.x - this.step == block.x && blockOnBoard.y == block.y)
+
+    //                     if (leftBoardCollision || leftShapeCollision) {
+    //                         console.log(leftBoardCollision, leftShapeCollision);
+                            
+    //                         return true
+    //                     }
+    //                     continue
+    //                 case 1:
+    //                     const rightBoardCollision = block.x + this.step > this.width - this.step;
+    //                     const rightShapeCollision = shapeOnBoard.blocks.find(blockOnBoard => 
+    //                         blockOnBoard.x + this.step == block.x && blockOnBoard.y == block.y)
+
+    //                     if (rightBoardCollision || rightShapeCollision) {
+    //                         return true
+    //                     }
+    //                     continue
+    //             }
     //         }
     //     }
-    //     return true;
-    // }
+    //     return false;
+    // }   
 
-    isCollision(shape: Shape): boolean { // verticalCollision
+
+    isVerticalCollision(shape: Shape): boolean { // verticalCollision
         for (let block of shape.blocks) {
             const boardCollision = block.y === this.height - this.step;
-
             if (boardCollision) {
                 return true
             }
