@@ -1,5 +1,3 @@
-const shapeIds: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];
-
 interface IBlock {
     color: string;
     x: number;

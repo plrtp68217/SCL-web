@@ -53,20 +53,6 @@ export class Board {
             }
         }
         return false;
-
-        // for (let block of shape.blocks) {
-        //     for (let otherShape of this.shapes) {
-        //         const shapeCollision = otherShape.blocks.find((otherBlock: Block) => 
-        //             block.x === otherBlock.x && block.y + this.step === otherBlock.y
-        //         );
-        //         const boardCollision = block.x === this.height + this.step;
-
-        //         if (shapeCollision || boardCollision) {
-        //             return true;
-        //         }
-        //     }
-        // }
-        // return false;
     }
 
     draw(shape: Shape) {

@@ -13,11 +13,11 @@ export function getRandomShape(shapes: IShapes): Shape[] {
     let randomShape: Shape[] = [];
     
     for (let shapeState in shapes[randomId]) {
-        let randomShapeState = new Shape()
+        let randomShapeState = new Shape();
         for (let block of shapes[randomId][shapeState]) {
-            randomShapeState.blocks.push(block)
+            randomShapeState.blocks.push(block);
         }
-        randomShape.push(randomShapeState)
+        randomShape.push(randomShapeState);
     }
     return randomShape;
 }

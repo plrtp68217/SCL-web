@@ -28,4 +28,5 @@ export class Shape {
     stop() {
         this.isFalling = false;
     }
+
 }

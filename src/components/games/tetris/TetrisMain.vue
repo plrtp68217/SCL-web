@@ -3,26 +3,21 @@
     <div class="tetris">
 
         <div class="tetris-header">
-    
+
             <div class="tetris-header-left">
-                <TetrisBoard 
-                    @board="defineBoard"
-                />
+                <TetrisBoard @board="defineBoard" />
             </div>
-            
+
             <div class="tetris-header-right">
-                <TetrisNextShape/>
-                <TetrisHud/>
+                <TetrisNextShape />
+                <TetrisHud />
             </div>
-            
-         </div>
-    
+
+        </div>
+
         <div class="tetris-footer">
             <div class="tetris-footer-sound">SOUND</div>
-            <TetrisControl
-                @move="moveShape"
-                @rotate="rotateShape"
-            />
+            <TetrisControl @move="moveShape" @rotate="rotateShape" />
         </div>
 
     </div>
@@ -31,7 +26,6 @@
 
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import TetrisBoard from './TetrisBoard.vue';
 import TetrisNextShape from './TetrisNextShape.vue';
 import TetrisHud from './TetrisHud.vue';
@@ -61,41 +55,51 @@ gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
+    console.log(shapes[state.value]);
+    
     if (!shapes[state.value].isFalling) {
         board.draw(shapes[state.value]);
+        board.shapes.push(shapes[state.value]);
+
         state.reset()
-        shapes = nextShapes;
+
+        shapes = [...nextShapes];
         nextShapes = getRandomShape(shapeList);
+
+    }
+    else {
+        board.clear(shapes[state.value]);
+        moveShape({ axis: 'y', direction: 1 });
+        board.draw(shapes[state.value]);
     }
 
-    board.clear(shapes[state.value]);
-
-    moveShape({axis: 'y', direction: 1});
-
-    board.draw(shapes[state.value]);
 }
 
 
 function moveShape(value: IMove) {
-    const {axis, direction} = value;
+    const { axis, direction } = value;
 
     board.clear(shapes[state.value]);
 
-    for (let shapeID in shapes) {
-        if (axis === 'x') {
-            if (board.isInWidthBounds(shapes[shapeID], direction)) {
-                shapes[shapeID].move(axis, direction * board.step);
+    switch (axis) {
+        case 'x':
+            for (let shape in shapes) {
+                if (board.isInWidthBounds(shapes[shape], direction)) {
+                    shapes[shape].move(axis, direction * board.step);
+                }
             }
-        }
-        else if (axis === 'y') {
+            break;
+
+        case 'y':
             if (board.isCollision(shapes[state.value])) {
                 shapes[state.value].stop();
-                board.shapes.push(shapes[state.value]);
             }
             else {
-                shapes[shapeID].move(axis, direction * board.step);
+                for (let shape in shapes) {
+                        shapes[shape].move(axis, direction * board.step);
+                }
             }
-        }
+            break;
     }
 
     board.draw(shapes[state.value]);
@@ -111,7 +115,6 @@ function rotateShape() {
 
 
 <style scoped>
-
 .tetris {
     width: 340px;
 }
@@ -146,8 +149,4 @@ function rotateShape() {
     text-align: center;
     margin: auto;
 }
-
-
-
-
 </style>
