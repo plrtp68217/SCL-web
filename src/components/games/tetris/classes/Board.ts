@@ -28,7 +28,8 @@ export class Board {
     }
 
     isCollision(shape: Shape, axis: 'x' | 'y', direction: -1 | 1 | 0 = 0): boolean {
-        const shapesOnBoard = this.shapesOnBoard.filter(shapeOnBoard => !this.isEqualsShapes(shape, shapeOnBoard))
+        const shapesOnBoard = this.shapesOnBoard.filter(shapeOnBoard => !this.isEqualsShapes(shape, shapeOnBoard));
+        
         for (let block of shape.blocks) {
             const nextX = axis === 'x' ? block.x + direction * this.step : block.x;
             const nextY = axis === 'y' ? block.y + (direction || 1) * this.step : block.y;
