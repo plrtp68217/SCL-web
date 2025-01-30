@@ -42,8 +42,8 @@ export class Board {
         return false;
     }
 
-    isRotationCollision(nextShape: Shape): boolean {
-        for (let block of nextShape.blocks) {
+    isRotationCollision(nextShapeState: Shape): boolean {
+        for (let block of nextShapeState.blocks) {
             if (block.x < 0 || block.x >= this.width || block.y >= this.height) {
                 return true;
             }
@@ -51,7 +51,7 @@ export class Board {
         
         if (this.shapesOnBoard) {
             for (let shapeOnBoard of this.shapesOnBoard) {
-                for (let block of nextShape.blocks) {
+                for (let block of nextShapeState.blocks) {
                     const isShapeCollision = shapeOnBoard.blocks.some(blockOnBoard =>
                         blockOnBoard.x === block.x && blockOnBoard.y === block.y
                     );
@@ -65,14 +65,27 @@ export class Board {
         return false;
     }
 
-    draw(shape: Shape) {
+    checkAndClearLines(): void {
+
+    }
+
+    drawOnCenter(shape: Shape): void {
+        const centerX = (this.width / 2);
+        const centerY = this.height / 2
+        for (let block of shape.blocks) {
+            this.context.fillStyle = block.color;
+            this.context.fillRect(block.x + centerX, block.y + centerY, this.step, this.step);
+        }
+    }
+
+    draw(shape: Shape): void {
         for (let block of shape.blocks) {
             this.context.fillStyle = block.color;
             this.context.fillRect(block.x, block.y, this.step, this.step);
         }
     }
 
-    clear(shape: Shape) {
+    clear(shape: Shape): void {
         for (let block of shape.blocks) {
             this.context.fillStyle = block.color;
             this.context.clearRect(block.x, block.y, this.step, this.step);

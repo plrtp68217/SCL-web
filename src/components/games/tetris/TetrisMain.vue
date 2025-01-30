@@ -35,16 +35,18 @@ import { Shape } from './classes/Shape';
 import { State } from './classes/State';
 import type { IMove } from './interfaces/move';
 import { getRandomShapes } from './utils/random';
-import { getRandomPosition } from './utils/random';
 import { shapeList } from './assets/shapeList';
+import { getShapesWithStartPosition } from './utils/position';
 
 let board: Board;
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
     shapes = getRandomShapes(shapeList);
-    setStartPosition(shapes)
+    shapes = getShapesWithStartPosition(shapes, board);
     state = new State();
+
+    nextShapes = getRandomShapes(shapeList);
 }
 
 let secondBoard: Board;
@@ -52,7 +54,7 @@ let secondBoard: Board;
 function defineSecondBoard(newBoard: Board) {
     secondBoard = newBoard;
     secondBoard.step = 20;
-    secondBoard.draw(nextShapes[0])
+    secondBoard.draw(nextShapes[0]);
 }
 
 let speed: number = 400;
@@ -61,20 +63,18 @@ let gameLoopID: number;
 let shapes: Shape[];
 let state: State;
 
-let nextShapes: Shape[] = getRandomShapes(shapeList);
+let nextShapes: Shape[];
 
 gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
     if (!shapes[state.value].isFalling) {
-
         board.shapesOnBoard.push(shapes[state.value]);
-        
         state.reset()
 
         shapes = [...nextShapes];
-        setStartPosition(shapes);
+        shapes = getShapesWithStartPosition(shapes, board);
 
         secondBoard.clear(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
@@ -84,7 +84,6 @@ function gameLoop() {
     else {
         moveShape({ axis: 'y', direction: 1 });
     }
-
 }
 
 function moveShape(value: IMove): void {
@@ -123,17 +122,6 @@ function rotateShape(): void {
         board.clear(shapes[state.value]);
         state.increment(shapes)
         board.draw(shapes[state.value]);
-    }
-}
-
-function setStartPosition(shapes: Shape[]): void {
-    console.log(board);
-    
-    const startPosition = getRandomPosition(0, board.width - (3 * board.step), board.step);
-    for (let shape of shapes) {
-        for (let block of shape.blocks) {
-            block.x += startPosition;
-        }
     }
 }
 
