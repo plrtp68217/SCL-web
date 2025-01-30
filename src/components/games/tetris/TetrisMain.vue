@@ -60,7 +60,7 @@ function defineSecondBoard(newBoard: Board) {
     secondBoard.draw(nextShapes[0]);
 }
 
-let speed: number = 400;
+let speed: number = 200;
 let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
@@ -81,6 +81,20 @@ function gameLoop() {
     }
     else {
         moveShape({ axis: 'y', direction: 1 });
+        moveShapesOnBoard();
+    }
+}
+
+function moveShapesOnBoard() {
+    const axis: 'x' | 'y' = 'y';
+    const direction: -1 | 1 = 1;
+
+    for (let shape in board.shapesOnBoard) {
+        if (!board.isCollision(board.shapesOnBoard[shape], axis, direction)) {
+            board.clear(board.shapesOnBoard[shape]);
+            board.shapesOnBoard[shape].move(axis, direction * board.step);
+            board.draw(board.shapesOnBoard[shape]);
+        }
     }
 }
 
