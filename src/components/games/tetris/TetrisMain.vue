@@ -99,31 +99,34 @@ function moveShapesOnBoard() {
 }
 
 function moveShape(value: IMove): void {
-    const { axis, direction } = value;
-
-    board.clear(shapes[state.value]);
-
-    switch (axis) {
-        case 'x':
-            for (let shape in shapes) {
-                if (!board.isCollision(shapes[shape], axis, direction)) {
-                    shapes[shape].move(axis, direction * board.step);
-                }
-            }
-            break;
-
-        case 'y':
-            if (board.isCollision(shapes[state.value], axis, direction)) {
-                shapes[state.value].stop();
-            }
-            else {
+    if (shapes[state.value].isFalling) {
+        
+        const { axis, direction } = value;
+    
+        board.clear(shapes[state.value]);
+    
+        switch (axis) {
+            case 'x':
                 for (let shape in shapes) {
+                    if (!board.isCollision(shapes[shape], axis, direction)) {
                         shapes[shape].move(axis, direction * board.step);
+                    }
                 }
-            }
-            break;
+                break;
+    
+            case 'y':
+                if (board.isCollision(shapes[state.value], axis, direction)) {
+                    shapes[state.value].stop();
+                }
+                else {
+                    for (let shape in shapes) {
+                            shapes[shape].move(axis, direction * board.step);
+                    }
+                }
+                break;
+        }
+        board.draw(shapes[state.value]);
     }
-    board.draw(shapes[state.value]);
 }
 
 function rotateShape(): void {
