@@ -89,11 +89,12 @@ function moveShapesOnBoard() {
     const axis: 'x' | 'y' = 'y';
     const direction: -1 | 1 = 1;
 
-    for (let shape in board.shapesOnBoard) {
-        if (!board.isCollision(board.shapesOnBoard[shape], axis, direction)) {
-            board.clear(board.shapesOnBoard[shape]);
-            board.shapesOnBoard[shape].move(axis, direction * board.step);
-            board.draw(board.shapesOnBoard[shape]);
+    for (let shape of board.shapesOnBoard) {
+        if (!board.isCollision(shape, axis, direction)) {
+            shape.start();
+            board.clear(shape);
+            shape.move(axis, direction * board.step);
+            board.draw(shape);
         }
     }
 }

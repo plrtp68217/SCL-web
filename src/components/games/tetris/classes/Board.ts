@@ -16,7 +16,19 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
     }
 
+    isEqualsShapes(shape: Shape, shapeOnBoard: Shape) {
+        let isEquals: boolean = true;
+        
+        for (let block of shape.blocks) {
+            isEquals &&= shapeOnBoard.blocks.some(blockOnBoard => blockOnBoard.x === block.x && blockOnBoard.y === block.y);
+        }
+        if (isEquals) {return true}
+
+        return false;
+    }
+
     isCollision(shape: Shape, axis: 'x' | 'y', direction: -1 | 1 | 0 = 0): boolean {
+        const shapesOnBoard = this.shapesOnBoard.filter(shapeOnBoard => !this.isEqualsShapes(shape, shapeOnBoard))
         for (let block of shape.blocks) {
             const nextX = axis === 'x' ? block.x + direction * this.step : block.x;
             const nextY = axis === 'y' ? block.y + (direction || 1) * this.step : block.y;
@@ -29,7 +41,7 @@ export class Board {
             }
     
             if (this.shapesOnBoard) {
-                for (let shapeOnBoard of this.shapesOnBoard) {
+                for (let shapeOnBoard of shapesOnBoard) {
                     const isShapeCollision = shapeOnBoard.blocks.some(blockOnBoard =>
                         blockOnBoard.x === nextX && blockOnBoard.y === nextY
                     );
