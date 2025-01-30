@@ -1,5 +1,5 @@
 import { Block, Shape } from "../classes/Shape";
-import type { IShapeList, IBlock } from "../assets/shapeList";
+import type { IShapeList } from "../assets/shapeList";
 
 function getRandomItem<T>(array: T[]) {
     const randomIndex = Math.floor(Math.random() * array.length);

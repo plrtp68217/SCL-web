@@ -39,6 +39,9 @@ import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
 
 let board: Board;
+let shapes: Shape[];
+let state: State;
+let nextShapes: Shape[];
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
@@ -59,11 +62,6 @@ function defineSecondBoard(newBoard: Board) {
 
 let speed: number = 400;
 let gameLoopID: number;
-
-let shapes: Shape[];
-let state: State;
-
-let nextShapes: Shape[];
 
 gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
