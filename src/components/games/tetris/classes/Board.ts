@@ -1,4 +1,4 @@
-import { Shape } from "./Shape";
+import { Block, Shape } from "./Shape";
 import euclidAlg from "../utils/euclidAlg";
 
 export class Board {
@@ -20,19 +20,21 @@ export class Board {
         let isEquals: boolean = true;
         
         for (let block of shape.blocks) {
-            isEquals &&= shapeOnBoard.blocks.some(blockOnBoard => blockOnBoard.x === block.x && blockOnBoard.y === block.y);
+            isEquals &&= shapeOnBoard.blocks.some(blockOnBoard =>
+                blockOnBoard.x === block.x && blockOnBoard.y === block.y);
         }
+
         if (isEquals) {return true}
 
         return false;
     }
 
-    isCollision(shape: Shape, axis: 'x' | 'y', direction: -1 | 1 | 0 = 0): boolean {
+    isCollision(shape: Shape, axis: 'x' | 'y', direction: -1 | 1): boolean {
         const shapesOnBoard = this.shapesOnBoard.filter(shapeOnBoard => !this.isEqualsShapes(shape, shapeOnBoard));
         
         for (let block of shape.blocks) {
             const nextX = axis === 'x' ? block.x + direction * this.step : block.x;
-            const nextY = axis === 'y' ? block.y + (direction || 1) * this.step : block.y;
+            const nextY = axis === 'y' ? block.y + direction * this.step : block.y;
     
             const isBoardCollision =
                 nextX < 0 || nextX >= this.width ||
@@ -78,13 +80,40 @@ export class Board {
         return false;
     }
 
-    checkAndClearLines(): void {
+    checkFilledLines() {
+        const filledLineLen = this.width / this.step;
+        console.log('1');
+        
+        let blocksOfFilledLines: Block[] = [];
+        
+        for (let lineY = this.height - this.step; lineY >= 0; lineY -= this.step) {
+            let blocksOnCurrentLine: Block[] = [];
 
+            for (let shapeOnBoard of this.shapesOnBoard) {
+                let blocksY =  shapeOnBoard.blocks.filter(block => block.y === lineY)
+                if(blocksY) {
+                    blocksOnCurrentLine = [... blocksOnCurrentLine, ...blocksY];
+                }
+            }
+
+            if (blocksOnCurrentLine.length === filledLineLen) {
+                blocksOfFilledLines = [...blocksOfFilledLines, ...blocksOnCurrentLine];
+                console.log('filledLine ');
+            }
+        }
+    }
+
+    clearFilledLines() {
+    }
+    
+    checkAndClearFilledLines(): void {
+        this.checkFilledLines()
     }
 
     drawOnCenter(shape: Shape): void {
         const centerX = (this.width / 2);
         const centerY = this.height / 2
+
         for (let block of shape.blocks) {
             this.context.fillStyle = block.color;
             this.context.fillRect(block.x + centerX, block.y + centerY, this.step, this.step);

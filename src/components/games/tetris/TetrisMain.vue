@@ -67,17 +67,21 @@ gameLoopID = setInterval(gameLoop, speed);
 // clearInterval(gameLoopID);
 
 function gameLoop() {
+
     if (!shapes[state.value].isFalling) {
         board.shapesOnBoard.push(shapes[state.value]);
         state.reset()
-
+        
+        board.checkAndClearFilledLines()
+        
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
-
+        
         secondBoard.clear(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
         secondBoard.draw(nextShapes[0]);
 
+        
     }
     else {
         moveShape({ axis: 'y', direction: 1 });
@@ -91,7 +95,6 @@ function moveShapesOnBoard() {
 
     for (let shape of board.shapesOnBoard) {
         if (!board.isCollision(shape, axis, direction)) {
-            shape.start();
             board.clear(shape);
             shape.move(axis, direction * board.step);
             board.draw(shape);
