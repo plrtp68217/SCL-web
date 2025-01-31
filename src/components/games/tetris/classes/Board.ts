@@ -16,7 +16,7 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
     }
 
-    isEqualsShapes(shape: Shape, shapeOnBoard: Shape) {
+    isEqualsShapes(shape: Shape, shapeOnBoard: Shape): boolean {
         let isEquals: boolean = true;
         
         for (let block of shape.blocks) {
@@ -80,34 +80,42 @@ export class Board {
         return false;
     }
 
-    checkFilledLines() {
+    checkFilledLines(): number[] {
         const filledLineLen = this.width / this.step;
-        console.log('1');
-        
-        let blocksOfFilledLines: Block[] = [];
+        let filledLinesY: number[] = [];
         
         for (let lineY = this.height - this.step; lineY >= 0; lineY -= this.step) {
-            let blocksOnCurrentLine: Block[] = [];
+            let blocksOfCurrentLine: Block[] = [];
 
             for (let shapeOnBoard of this.shapesOnBoard) {
                 let blocksY =  shapeOnBoard.blocks.filter(block => block.y === lineY)
                 if(blocksY) {
-                    blocksOnCurrentLine = [... blocksOnCurrentLine, ...blocksY];
+                    blocksOfCurrentLine = [... blocksOfCurrentLine, ...blocksY];
                 }
             }
 
-            if (blocksOnCurrentLine.length === filledLineLen) {
-                blocksOfFilledLines = [...blocksOfFilledLines, ...blocksOnCurrentLine];
-                console.log('filledLine ');
+            if (blocksOfCurrentLine.length === filledLineLen) {
+                filledLinesY.push(lineY);
+            }
+        }
+        return filledLinesY;
+    }
+
+    clearFilledLines(filledLinesY: number[]): void {
+        for (let lineY of filledLinesY) {
+            for (let shape of this.shapesOnBoard) {
+                this.clear(shape)
+                shape.blocks = shape.blocks.filter(block => block.y !== lineY)
+                this.draw(shape)
             }
         }
     }
-
-    clearFilledLines() {
-    }
     
     checkAndClearFilledLines(): void {
-        this.checkFilledLines()
+        const filledLines = this.checkFilledLines()
+        if (filledLines) {
+            this.clearFilledLines(filledLines)
+        }
     }
 
     drawOnCenter(shape: Shape): void {
