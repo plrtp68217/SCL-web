@@ -5,11 +5,11 @@
         <div class="tetris-header">
 
             <div class="tetris-header-left">
-                <TetrisBoard @main_board="defineMainBoard" />
+                <TetrisMainBoard @main_board="defineMainBoard" />
             </div>
 
             <div class="tetris-header-right">
-                <TetrisNextShape @second_board="defineSecondBoard" />
+                <TetrisSecondBoard @second_board="defineSecondBoard" />
                 <TetrisHud />
             </div>
 
@@ -26,8 +26,8 @@
 
 
 <script setup lang="ts">
-import TetrisBoard from './TetrisBoard.vue';
-import TetrisNextShape from './TetrisNextShape.vue';
+import TetrisMainBoard from './TetrisMainBoard.vue';
+import TetrisSecondBoard from './TetrisSecondBoard.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 import { Board } from './classes/Board';
@@ -73,7 +73,7 @@ function gameLoop() {
         state.reset()
         
         board.checkAndClearFilledLines()
-        
+
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
         

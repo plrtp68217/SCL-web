@@ -25,14 +25,10 @@
 
 
 <script setup lang="ts">
-import type { IMove } from './interfaces/move';
+import type { ControlEmits } from './interfaces/emits'
 
-interface Emits {
-    (emit: 'move', value: IMove): void;
-    (emit: 'rotate'): void
-}
 
-const emit = defineEmits<Emits>();
+const emit = defineEmits<ControlEmits>();
 
 </script>
 
