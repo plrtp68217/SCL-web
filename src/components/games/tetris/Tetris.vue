@@ -64,7 +64,6 @@ let speed: number = 200;
 let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
-// clearInterval(gameLoopID);
 
 function gameLoop() {
 
@@ -76,6 +75,13 @@ function gameLoop() {
 
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
+
+        board.draw(shapes[state.value])
+
+        if (board.isCollision(shapes[state.value], 'y', 1)) {
+            clearInterval(gameLoopID);
+            console.log('game over')
+        }
         
         secondBoard.clear(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
