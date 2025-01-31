@@ -19,7 +19,7 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    board = new Board(context, width, height)
+    board = new Board(context, width, height);
 
     emit('main_board', board);
 })

@@ -8,7 +8,6 @@ import { onMounted } from 'vue';
 import { Board } from './classes/Board';
 import type { SecondBoardEmits } from './interfaces/emits'
 
-
 let board: Board;
 
 const emit = defineEmits<SecondBoardEmits>();
@@ -20,7 +19,7 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    board = new Board(context, width, height)
+    board = new Board(context, width, height);
 
     emit('second_board', board);
 })

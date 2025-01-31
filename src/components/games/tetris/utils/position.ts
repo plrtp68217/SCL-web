@@ -21,7 +21,7 @@ export function getShapesWithStartPosition(shapes: Shape[], board: Board): Shape
     for (let shape of shapes) {
         const shapeWithStartPosition: Shape = new Shape();
 
-        shapeWithStartPosition.blocks = shape.blocks.map(block => new Block(block.x + position, block.y, block.color))
+        shapeWithStartPosition.blocks = shape.blocks.map(block => new Block(block.x + position, block.y, block.color));
         shapesWithStartPosition.push(shapeWithStartPosition);
     }
     return shapesWithStartPosition;

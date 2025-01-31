@@ -65,22 +65,22 @@ let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
 
-function gameLoop() {
+function gameLoop(): void {
 
     if (!shapes[state.value].isFalling) {
         board.shapesOnBoard.push(shapes[state.value]);
-        state.reset()
+        state.reset();
         
-        board.checkAndClearFilledLines()
+        board.checkAndClearFilledLines();
 
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
 
-        board.draw(shapes[state.value])
+        board.draw(shapes[state.value]);
 
         if (board.isCollision(shapes[state.value], 'y', 1)) {
             clearInterval(gameLoopID);
-            console.log('game over')
+            console.log('game over');
         }
         
         secondBoard.clear(nextShapes[0]);
@@ -95,7 +95,7 @@ function gameLoop() {
     }
 }
 
-function moveShapesOnBoard() {
+function moveShapesOnBoard(): void {
     const axis: 'x' | 'y' = 'y';
     const direction: -1 | 1 = 1;
 
@@ -145,7 +145,7 @@ function rotateShape(): void {
 
     if (!board.isRotationCollision(nextState)) {
         board.clear(shapes[state.value]);
-        state.increment(shapes)
+        state.increment(shapes);
         board.draw(shapes[state.value]);
     }
 }

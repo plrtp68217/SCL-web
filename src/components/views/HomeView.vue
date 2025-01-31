@@ -52,12 +52,12 @@
 import { onMounted } from 'vue';
 import GameCard from '../main-menu/GameCard.vue';
 
-type Game = {
+interface Game {
   label: string;
   image: string;
 };
 
-type Games = {
+interface Games {
   snake: Game;
   tetris: Game;
   wolf: Game;

@@ -88,7 +88,7 @@ export class Board {
             let blocksOfCurrentLine: Block[] = [];
 
             for (let shapeOnBoard of this.shapesOnBoard) {
-                let blocksY =  shapeOnBoard.blocks.filter(block => block.y === lineY)
+                let blocksY =  shapeOnBoard.blocks.filter(block => block.y === lineY);
                 if(blocksY) {
                     blocksOfCurrentLine = [... blocksOfCurrentLine, ...blocksY];
                 }
@@ -104,23 +104,23 @@ export class Board {
     clearFilledLines(filledLinesY: number[]): void {
         for (let lineY of filledLinesY) {
             for (let shape of this.shapesOnBoard) {
-                this.clear(shape)
-                shape.blocks = shape.blocks.filter(block => block.y !== lineY)
-                this.draw(shape)
+                this.clear(shape);
+                shape.blocks = shape.blocks.filter(block => block.y !== lineY);
+                this.draw(shape);
             }
         }
     }
     
     checkAndClearFilledLines(): void {
-        const filledLines = this.checkFilledLines()
+        const filledLines = this.checkFilledLines();
         if (filledLines) {
-            this.clearFilledLines(filledLines)
+            this.clearFilledLines(filledLines);
         }
     }
 
     drawOnCenter(shape: Shape): void {
-        const centerX = (this.width / 2);
-        const centerY = this.height / 2
+        const centerX = this.width / 2;
+        const centerY = this.height / 2;
 
         for (let block of shape.blocks) {
             this.context.fillStyle = block.color;

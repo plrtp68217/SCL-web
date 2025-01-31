@@ -11,7 +11,7 @@ export class Block {
 }
 
 export class Shape {
-    blocks: Block[]
+    blocks: Block[];
     isFalling: boolean;
 
     constructor() {
@@ -21,7 +21,7 @@ export class Shape {
 
     move(axis: 'x' | 'y', step: number) {
         for (let block in this.blocks) {
-            this.blocks[block][axis] += step
+            this.blocks[block][axis] += step;
         }
     }
 

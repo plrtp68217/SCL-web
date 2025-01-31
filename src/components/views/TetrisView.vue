@@ -2,11 +2,8 @@
 
     <div class="tetris">
         <div class="tetris-label">TETRIS DEMO</div>
-
         <Tetris/>
-
     </div>
-
     
 </template>
 

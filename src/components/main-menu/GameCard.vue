@@ -9,13 +9,9 @@
 
 
 <script setup lang="ts">
+import type { GameCard } from '@/components/games/tetris/interfaces/props';
 
-interface Props {
-  label: string
-  image: string
-}
-
-const { label, image } = defineProps<Props>()
+const { label, image } = defineProps<GameCard>();
 
 </script>
 
