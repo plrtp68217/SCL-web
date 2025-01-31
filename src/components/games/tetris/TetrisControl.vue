@@ -27,7 +27,12 @@
 <script setup lang="ts">
 import type { IMove } from './interfaces/move';
 
-const emit = defineEmits<{(e: 'move', value: IMove): void; (e: 'rotate'): void}>();
+interface Emits {
+    (emit: 'move', value: IMove): void;
+    (emit: 'rotate'): void
+}
+
+const emit = defineEmits<Emits>();
 
 </script>
 
