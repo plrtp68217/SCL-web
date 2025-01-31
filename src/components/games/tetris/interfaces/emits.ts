@@ -1,8 +1,8 @@
-import type { IMove } from "./move";
+import type { IMoveShape } from "./move";
 import { Board } from "../classes/Board";
 
 export interface ControlEmits {
-    (emit: 'move', value: IMove): void;
+    (emit: 'move', value: IMoveShape): void;
     (emit: 'rotate'): void;
 }
 
