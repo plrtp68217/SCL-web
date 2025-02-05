@@ -20,8 +20,8 @@
 
         </header>
 
-        <!-- Средняя часть: Баланс игрока -->
-        <section class="balance-section">
+        <!-- Средняя часть: Баланс игрока && Логотип -->
+        <section class="balance-logo">
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
@@ -29,10 +29,23 @@
                 <img class="balance-coin" src="/images/coin.png">
             </div>
 
+            <div class="logo-container">
+
+                <div class="circle">
+                    <img class="circle_img" src="/images/menu/circle.svg">
+                </div>
+
+                <div class="ballerina_star">
+                    <img class="star_img" src="/images/menu/star.svg">
+                    <img class="ballerina_img" src="/images/menu/ballerina.svg">
+                </div>
+
+            </div>
+
         </section>
 
         <!-- Нижняя часть: Карточки игр -->
-        <section class="games-section">
+        <section class="games">
 
             <div v-for="game in games">
                 <GameCard :label="game.label" :image="game.image"/>
@@ -136,12 +149,12 @@ onMounted(() => {
 }
 
 /* Средняя часть: Баланс игрока */
-.balance-section {
+.balance-logo {
     height: 68%;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .balance-container {
@@ -167,8 +180,77 @@ onMounted(() => {
     height: 30px;
 }
 
+
+/* Логотип - баллерина, звезда, кольцо */
+.logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle_img {
+    width: 400px;
+    height: 400px;
+    animation: 
+        glow 1.5s infinite alternate,
+        rotate 60s infinite linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg); /* Начальное положение */
+    }
+    to {
+        transform: rotate(360deg); /* Конечное положение */
+    }
+}
+
+.ballerina_star {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+
+.ballerina_img {
+    height: 300px;
+    animation: glow 1.5s infinite alternate;
+}
+
+.star_img {
+    width: 30px;
+    height: 30px;
+    align-self: flex-end;
+    animation: 
+        glow 1.5s infinite alternate,
+        sway 2.5s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0% {
+        transform: rotate(-3deg); /* Наклон влево */
+    }
+    50% {
+        transform: rotate(3deg); /* Наклон вправо */
+    }
+    100% {
+        transform: rotate(-3deg); /* Возврат влево */
+    }
+}
+
+@keyframes glow {
+    0% {
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) 
+              drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+    100% {
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) 
+              drop-shadow(0 0 30px rgba(255, 255, 255, 0.7));
+    }
+  }
+
 /* Нижняя часть: Карточки игр */
-.games-section {
+.games {
     height: 22%;
     padding: 5px 10px;
     display: flex;
