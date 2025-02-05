@@ -47,10 +47,6 @@ const coverflowEffect =  ref({
 
 <style scoped>
 
-.swiper-container {
-  /* display: flex; */
-}
-
 .swiper-slide {
   width: 150px;
   display: flex;
