@@ -1,5 +1,5 @@
 <template>
-    <div class="game-card">
+    <div class="game-card" @click="console.log('запускаемся')">
         <div class="game-card-label">
             <p>{{label}}</p>
         </div>

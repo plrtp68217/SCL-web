@@ -248,8 +248,9 @@ onMounted(() => {
 
 /* Нижняя часть: Карточки игр */
 .games {
-    position: fixed;
     width: 100%;
+    position: fixed;
+    margin: 0 auto;
     bottom: 0;
     right: 0;
     padding: 5px 10px;
