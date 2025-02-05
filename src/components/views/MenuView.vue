@@ -47,9 +47,11 @@
         <!-- Нижняя часть: Карточки игр -->
         <section class="games">
 
-            <div v-for="game in games">
+            <!-- <div v-for="game in games">
                 <GameCard :label="game.label" :image="game.image"/>
-            </div>
+            </div> -->
+
+            <SwiperGames :games="games"/>
             
         </section>
     </div>
@@ -59,34 +61,24 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import GameCard from '../main-menu/GameCard.vue';
 import Background from '../background/Background.vue';
+import SwiperGames from '../menu/SwiperGames.vue';
+import type { Game } from './interfaces/game';
 
-interface Game {
-  label: string;
-  image: string;
-};
-
-interface Games {
-  snake: Game;
-  tetris: Game;
-  wolf: Game;
-};
-
-const games: Games = {
-    snake: {
+const games: Game[] = [
+    {
         label: 'Snake',
         image: '/images/menu/snake.png'
     },
-    tetris: {
+    {
         label: 'Tetris',
         image: '/images/menu/tetris.png'
     },
-    wolf: {
+    {
         label: 'Wolf Cathes Eggs',
         image: '/images/menu/wolf.png'
     },
-}
+]
 
 onMounted(() => {
 
@@ -114,6 +106,7 @@ onMounted(() => {
     backdrop-filter: blur(1px);
     border-bottom: 1px solid rgba(250, 9, 198, 0.3);
     box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.27);
+    font-size: 15px;
     font-family: "Roboto", serif;
     color: white;
 }
@@ -127,7 +120,6 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 20px;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -153,7 +145,8 @@ onMounted(() => {
 /* Средняя часть: Баланс игрока */
 .balance-logo {
     height: 100%;
-    padding: 10px;
+    position: fixed;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,12 +157,12 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: center;
     gap: 5px;
     font-size: 20px;
     font-weight: 400;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
 .balance-label {
@@ -186,9 +179,8 @@ onMounted(() => {
 }
 
 
-/* Логотип - баллерина, звезда, кольцо */
+/* Средняя часть: Логотип - баллерина, звезда, кольцо */
 .logo-container {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,9 +253,6 @@ onMounted(() => {
     bottom: 0;
     right: 0;
     padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
     backdrop-filter: blur(1px);
     border-top: 1px solid rgba(250, 9, 198, 0.3);
     box-shadow: 12px -11px 16px 2px rgba(250, 9, 198, 0.27);

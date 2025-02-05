@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
-import HomeView from '@/components/views/HomeView.vue'
+import MenuView from '@/components/views/MenuView.vue'
 import TetrisView from '@/components/views/TetrisView.vue'
 
 
@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: HomeView,
+    component: MenuView,
   },
   {
     path: '/tetris',
