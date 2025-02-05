@@ -7,6 +7,7 @@
       :coverflowEffect="coverflowEffect"
       :modules="modules"
       :initialSlide="1"
+      :autoplay="autoplayOptions"
       class="swiper-container"
     >
     
@@ -22,7 +23,7 @@
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { EffectCoverflow, Navigation } from 'swiper/modules';
+import { EffectCoverflow, Navigation, Autoplay  } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { defineProps, ref } from 'vue';
 import type { Game } from '../views/interfaces/game';
@@ -32,7 +33,7 @@ const props = defineProps<{
     games: Game[];
 }>();
 
-const modules = ref([EffectCoverflow, Navigation]);
+const modules = ref([EffectCoverflow, Navigation, Autoplay]);
 
 const coverflowEffect =  ref({
   rotate: 30, // Угол поворота слайдов
@@ -41,6 +42,11 @@ const coverflowEffect =  ref({
   modifier: 1, // Модификатор эффекта
   slideShadows: false, // Включаем тени
 });
+
+const autoplayOptions = {
+  delay: 3000, // Задержка между слайдами (3 секунды)
+  disableOnInteraction: true, // Не останавливать автопрокрутку при взаимодействии
+}
 
 </script>
 

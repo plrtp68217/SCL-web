@@ -15,7 +15,7 @@
             <!-- Список лучших игроков -->
             <div class="leaderboard-section">
                 <h2 class="leaderboard-section-label">The best of the best</h2>
-                <img class="leaderboard-section-image" src="/images/menu/best-players.png">
+                <img class="leaderboard-section-image" src="/images/menu/best-players.svg">
             </div>
 
         </header>
@@ -138,8 +138,8 @@ onMounted(() => {
 }
 
 .leaderboard-section-image {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 80px;
 }
 
 /* Средняя часть: Баланс игрока */
