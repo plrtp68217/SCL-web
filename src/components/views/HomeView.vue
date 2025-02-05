@@ -1,7 +1,7 @@
 <template>
 
     <div class="menu">
-        <img class="menu-image" src="/images/menu-background2.gif">
+         <Background/>
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
@@ -9,23 +9,19 @@
             <!-- Задачи для игроков -->
             <div class="earn-section">
                 <h2 class="earn-section-label">Earn</h2>
-                <img class="earn-section-image" src="/images/earn.png">
+                <img class="earn-section-image" src="/images/menu/earn.png">
             </div>
 
             <!-- Список лучших игроков -->
             <div class="leaderboard-section">
                 <h2 class="leaderboard-section-label">The best of the best</h2>
-                <img class="leaderboard-section-image" src="/images/best-players.png">
+                <img class="leaderboard-section-image" src="/images/menu/best-players.png">
             </div>
 
         </header>
 
         <!-- Средняя часть: Баланс игрока -->
         <section class="balance-section">
-
-            <div class="balance-section-logo">
-                <p>SCL Games</p>
-            </div>
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
@@ -51,6 +47,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import GameCard from '../main-menu/GameCard.vue';
+import Background from '../background/Background.vue';
 
 interface Game {
   label: string;
@@ -66,15 +63,15 @@ interface Games {
 const games: Games = {
     snake: {
         label: 'Snake',
-        image: '/images/snake.png'
+        image: '/images/menu/snake.png'
     },
     tetris: {
         label: 'Tetris',
-        image: '/images/tetris.png'
+        image: '/images/menu/tetris.png'
     },
     wolf: {
         label: 'Wolf Cathes Eggs',
-        image: '/images/wolf.png'
+        image: '/images/menu/wolf.png'
     },
 }
 
@@ -90,17 +87,6 @@ onMounted(() => {
 .menu {
     height: 100vh;
     font-family: "Jersey 15", serif;
-}
-
-/* Изображение на заднем фоне */
-.menu-image {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
 }
 
 /* Верхняя часть: Earn и Лучшие игроки */
@@ -157,25 +143,6 @@ onMounted(() => {
     flex-direction: column;
     justify-content: space-between;
 }
-
-.balance-section-logo {
-    text-align: center;
-    font-size: 55px;
-    background: linear-gradient(90deg, #4400fd, #ff0800, #4400fd); /* Градиент с повторением */
-    background-size: 200% auto; /* Увеличиваем размер фона для анимации */
-    background-clip: text; /* Обрезаем фон по тексту */
-    color: transparent; /* Делаем текст прозрачным */
-    animation: gradientAnimation 8s linear infinite;
-}
-
-@keyframes gradientAnimation {
-    0% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: -100% 50%;
-    }
-  }
 
 .balance-container {
     display: flex;
