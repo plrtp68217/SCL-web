@@ -9,7 +9,7 @@
             <!-- Задачи для игроков -->
             <div class="earn-section">
                 <h2 class="earn-section-label">Earn</h2>
-                <img class="earn-section-image" src="/images/menu/earn.png">
+                <img class="earn-section-image" src="/images/menu/earn.svg">
             </div>
 
             <!-- Список лучших игроков -->
@@ -104,7 +104,9 @@ onMounted(() => {
 
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
-    height: 10%;
+    position: fixed;
+    width: 100%;
+    top: 0;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -113,6 +115,7 @@ onMounted(() => {
     border-bottom: 1px solid rgba(250, 9, 198, 0.3);
     box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.27);
     font-family: "Roboto", serif;
+    color: white;
 }
 
 .leaderboard-section-label {
@@ -125,20 +128,19 @@ onMounted(() => {
     align-items: center;
     gap: 5px;
     font-size: 20px;
-    color: rgb(51, 209, 72);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .earn-section-image {
     margin-top: 8px;
-    width: 30px;
-    height: 30px;
+    width: 70px;
+    height: 70px;
+    filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 1)) 
 }
 
 .leaderboard-section {
     display: flex;
     align-items: center;
-    color: rgb(217, 255, 0);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 }
@@ -150,18 +152,21 @@ onMounted(() => {
 
 /* Средняя часть: Баланс игрока */
 .balance-logo {
-    height: 68%;
+    height: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 .balance-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
     gap: 5px;
+    font-size: 20px;
     font-weight: 400;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     letter-spacing: 1px;
@@ -251,7 +256,10 @@ onMounted(() => {
 
 /* Нижняя часть: Карточки игр */
 .games {
-    height: 22%;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    right: 0;
     padding: 5px 10px;
     display: flex;
     align-items: center;
