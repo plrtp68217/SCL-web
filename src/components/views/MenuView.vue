@@ -127,7 +127,7 @@ onMounted(() => {
     margin-top: 8px;
     width: 70px;
     height: 70px;
-    filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 1)) 
+    animation: glow 1.5s infinite alternate;
 }
 
 .leaderboard-section {
@@ -140,6 +140,7 @@ onMounted(() => {
 .leaderboard-section-image {
     width: 50px;
     height: 80px;
+    animation: glow 1.5s infinite alternate;
 }
 
 /* Средняя часть: Баланс игрока */

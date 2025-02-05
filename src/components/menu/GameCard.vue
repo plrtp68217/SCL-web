@@ -38,10 +38,9 @@ const { label, image } = defineProps<GameCard>();
     height: 50px;
     margin-bottom: 5px;
     border-radius: 10%;
-    color: rgb(243, 185, 255);
+    color: white;
     font-family: "Roboto", serif;
-    font-size: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 17px;
     text-wrap: wrap;
 }
 
