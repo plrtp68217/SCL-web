@@ -26,6 +26,7 @@
 
 
 <script setup lang="ts">
+import { onUnmounted } from 'vue';
 import TetrisMainBoard from './TetrisMainBoard.vue';
 import TetrisSecondBoard from './TetrisSecondBoard.vue';
 import TetrisHud from './TetrisHud.vue';
@@ -149,6 +150,10 @@ function rotateShape(): void {
         board.draw(shapes[state.value]);
     }
 }
+
+onUnmounted(() => {
+    clearInterval(gameLoopID)
+})
 
 </script>
 
