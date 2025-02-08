@@ -1,17 +1,17 @@
 <template>
-    <div class="game-card" @click="console.log('запускаемся')">
+    <div class="game-card" @click="$router.push(game.path)">
         <div class="game-card-label">
-            <p>{{label}}</p>
+            <p>{{game.label}}</p>
         </div>
-        <img class="game-card-image" :src="image" />
+        <img class="game-card-image" :src="game.image" />
     </div>
 </template>
 
 
 <script setup lang="ts">
-import type { GameCard } from './interfaces/props';
+import type { Game } from './interfaces/game';
 
-const { label, image } = defineProps<GameCard>();
+const { game } = defineProps<{game: Game}>();
 
 </script>
 

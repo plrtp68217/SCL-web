@@ -46,13 +46,7 @@
 
         <!-- Нижняя часть: Карточки игр -->
         <section class="games">
-
-            <!-- <div v-for="game in games">
-                <GameCard :label="game.label" :image="game.image"/>
-            </div> -->
-
             <SwiperGames :games="games"/>
-            
         </section>
     </div>
 
@@ -60,28 +54,31 @@
 
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import Background from '../background/Background.vue';
 import SwiperGames from '../menu/SwiperGames.vue';
-import type { Game } from './interfaces/game';
+import type { Game } from '../menu/interfaces/game';
 
 const games: Game[] = [
     {
         label: 'Snake',
-        image: '/images/menu/snake.png'
+        image: '/images/menu/snake.png',
+        path: '/snake',
     },
     {
         label: 'Tetris',
-        image: '/images/menu/tetris.png'
+        image: '/images/menu/tetris.png',
+        path: '/tetris',
     },
     {
         label: 'Wolf Cathes Eggs',
-        image: '/images/menu/wolf.png'
+        image: '/images/menu/wolf.png',
+        path: '/wolf',
     },
 ]
 
 onMounted(() => {
-
+    
 })
 
 </script>

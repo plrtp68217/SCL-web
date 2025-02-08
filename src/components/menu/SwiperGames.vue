@@ -12,7 +12,8 @@
     >
     
     <SwiperSlide class="swiper-slide" v-for="game in props.games" :key="game.label">
-      <GameCard :label="game.label" :image="game.image"/>
+      <!-- {{ game }} -->
+      <GameCard :game="game" />
     </SwiperSlide>
 
   </Swiper>
@@ -26,7 +27,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { EffectCoverflow, Navigation, Autoplay  } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { defineProps, ref } from 'vue';
-import type { Game } from '../views/interfaces/game';
+import type { Game } from './interfaces/game';
 import GameCard from './GameCard.vue';
 
 const props = defineProps<{
