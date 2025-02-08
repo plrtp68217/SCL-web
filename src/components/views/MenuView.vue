@@ -54,7 +54,7 @@
 
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted} from 'vue';
 import Background from '../background/Background.vue';
 import SwiperGames from '../menu/SwiperGames.vue';
 import type { Game } from '../menu/interfaces/game';
@@ -78,7 +78,7 @@ const games: Game[] = [
 ]
 
 onMounted(() => {
-    
+
 })
 
 </script>
