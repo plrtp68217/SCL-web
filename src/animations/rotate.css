@@ -1,0 +1,8 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg); /* Начальное положение */
+    }
+    to {
+        transform: rotate(360deg); /* Конечное положение */
+    }
+}

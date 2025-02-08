@@ -1,9 +1,9 @@
 <template>
-    
+
     <Background/>
 
     <div class="header">
-
+        <GameHeader/>
     </div>
 
     <div class="main">
@@ -11,7 +11,7 @@
     </div>
 
     <div class="footer">
-
+        <GameFooter/>
     </div>
 
 </template>
@@ -21,6 +21,8 @@
 import { onMounted } from 'vue';
 import Tetris from "@/components/games/tetris/Tetris.vue";
 import Background from '../background/Background.vue';
+import GameHeader from '../game-layout/GameHeader.vue';
+import GameFooter from '../game-layout/GameFooter.vue';
 
 onMounted(() => {
 

@@ -1,5 +1,18 @@
 <template>
-    
+    <div class="header">
+
+        <div class="header-balance">
+            <div class="header-balance-label">Your balance:</div>
+
+            <div class="header-balance-count">{{ 1000 }}</div>
+
+            <img class="header-balance-image" src="/images/coin.png">
+
+        </div>
+
+        <div class="header-nickname">Plrtp</div>
+
+    </div>
 </template>
 
 
@@ -8,4 +21,32 @@
 </script>
 
 
-<style></style>
+<style scoped>
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    backdrop-filter: blur(2px);
+}
+
+.header-balance {
+    display: flex;
+}
+
+.header-balance-count {
+    margin: 0 5px;
+}
+
+.header-balance-image {
+    width: 30px;
+    height: 30px;
+}
+
+</style>

@@ -1,0 +1,11 @@
+@keyframes sway {
+    0% {
+        transform: rotate(-3deg); /* Наклон влево */
+    }
+    50% {
+        transform: rotate(3deg); /* Наклон вправо */
+    }
+    100% {
+        transform: rotate(-3deg); /* Возврат влево */
+    }
+}

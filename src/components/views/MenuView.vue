@@ -85,6 +85,9 @@ onMounted(() => {
 
 
 <style scoped>
+@import url('/src/animations/glow.css');
+@import url('/src/animations/rotate.css');
+@import url('/src/animations/sway.css');
 
 .menu {
     height: 100vh;
@@ -192,15 +195,6 @@ onMounted(() => {
         rotate 60s infinite linear;
 }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg); /* Начальное положение */
-    }
-    to {
-        transform: rotate(360deg); /* Конечное положение */
-    }
-}
-
 .ballerina_star {
     position: absolute;
     display: flex;
@@ -220,29 +214,6 @@ onMounted(() => {
         glow 1.5s infinite alternate,
         sway 2.5s ease-in-out infinite;
 }
-
-@keyframes sway {
-    0% {
-        transform: rotate(-3deg); /* Наклон влево */
-    }
-    50% {
-        transform: rotate(3deg); /* Наклон вправо */
-    }
-    100% {
-        transform: rotate(-3deg); /* Возврат влево */
-    }
-}
-
-@keyframes glow {
-    0% {
-      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) 
-              drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-    }
-    100% {
-      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) 
-              drop-shadow(0 0 30px rgba(255, 255, 255, 0.7));
-    }
-  }
 
 /* Нижняя часть: Карточки игр */
 .games {
