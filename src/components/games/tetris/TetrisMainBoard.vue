@@ -1,5 +1,5 @@
 <template>
-    <canvas id="tetris_board" width="220" height="400"></canvas>
+    <canvas id="tetris_board" width="260" height="500"></canvas>
 </template>
 
 

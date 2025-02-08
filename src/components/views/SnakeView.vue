@@ -1,6 +1,19 @@
 <template>
-    <Snake/>
+    
     <Background/>
+
+    <div class="header">
+
+    </div>
+
+    <div class="main">
+        <Snake/>
+    </div>
+
+    <div class="footer">
+
+    </div>
+
 </template>
 
 

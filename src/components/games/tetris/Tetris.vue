@@ -159,9 +159,6 @@ onUnmounted(() => {
 
 
 <style scoped>
-.tetris {
-    width: 340px;
-}
 
 .tetris-header {
     display: flex;

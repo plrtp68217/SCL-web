@@ -1,11 +1,19 @@
 <template>
-
-    <div class="tetris">
-        <div class="tetris-label"></div>
-        <Tetris/>
-        <Background/>
-    </div>
     
+    <Background/>
+
+    <div class="header">
+
+    </div>
+
+    <div class="main">
+        <Tetris/>
+    </div>
+
+    <div class="footer">
+
+    </div>
+
 </template>
 
 
@@ -22,7 +30,7 @@ onMounted(() => {
 
 <style scoped>
 
-.tetris {
+.main {
     height: 100vh;
     display: flex;
     flex-direction: column;
