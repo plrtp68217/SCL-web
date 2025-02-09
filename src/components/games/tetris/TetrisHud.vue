@@ -1,16 +1,16 @@
 <template>
-    <div class="hud">
+    <div class="tetris-hud">
 
-        <div class="hud-score">Score: {{ 1000 }}</div>
+        <div class="tetris-hud-score">Score: {{ 1000 }}</div>
 
-        <div class="hud-bonuses">
+        <div class="tetris-hud-bonuses">
 
-            <div class="hud-bonuses-title">Bonuses:</div>
+            <div class="tetris-hud-bonuses-title">Bonuses:</div>
 
-            <div class="hud-bonuses-variants">
-                <div class="hud-bonuses-variant">5 /*</div>
-                <div class="hud-bonuses-variant">3 O*</div>
-                <div class="hud-bonuses-variant">1 |_|=*</div>
+            <div class="tetris-hud-bonuses-variants">
+                <div class="tetris-hud-bonuses-variant">5 /*</div>
+                <div class="tetris-hud-bonuses-variant">3 O*</div>
+                <div class="tetris-hud-bonuses-variant">1 |_|=*</div>
             </div>
 
         </div>

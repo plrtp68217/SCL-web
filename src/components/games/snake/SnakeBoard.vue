@@ -1,5 +1,5 @@
 <template>
-    <canvas id="board" width="260" height="300"></canvas>
+    <canvas id="board" width="300" height="400"></canvas>
 </template>
 
 
@@ -29,7 +29,7 @@ onMounted(() => {
 
 <style scoped>
 
-#tetris_board {
+#board {
     border: 1px solid black;
     background-color: #3d3c3c;
 }

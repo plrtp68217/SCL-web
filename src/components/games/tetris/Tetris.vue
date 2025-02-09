@@ -164,7 +164,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: space-around;
     background-color: rgb(194, 132, 252);
-    width: 100%;
     padding: 10px;
     border: 5px solid #3d3c3c;
 }
