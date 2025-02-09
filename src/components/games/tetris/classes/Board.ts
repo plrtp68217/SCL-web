@@ -1,5 +1,5 @@
 import { Block, Shape } from "./Shape";
-import euclidAlg from "../utils/euclidAlg";
+import euclidAlg from "../../common/utils/euclid";
 
 export class Board {
     context: CanvasRenderingContext2D;

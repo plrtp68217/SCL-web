@@ -1,5 +1,5 @@
 <template>
-    <canvas id="tetris_board" width="260" height="500"></canvas>
+    <canvas id="main_board" width="260" height="500"></canvas>
 </template>
 
 
@@ -13,7 +13,7 @@ let board: Board;
 const emit = defineEmits<MainBoardEmits>();
 
 onMounted(() => {
-    const canvas = document.querySelector('#tetris_board') as HTMLCanvasElement;
+    const canvas = document.querySelector('#main_board') as HTMLCanvasElement;
     const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     const width: number = canvas.width;
@@ -29,7 +29,7 @@ onMounted(() => {
 
 <style scoped>
 
-#tetris_board {
+#main_board {
     border: 1px solid black;
     background-color: #3d3c3c;
 }
