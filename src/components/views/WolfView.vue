@@ -1,17 +1,21 @@
 <template>
 
-    <Background/>
+    <div class="wolf-container">
 
-    <div class="header">
-        <GameHeader/>
-    </div>
+        <Background/>
+    
+        <div class="header">
+            <GameHeader/>
+        </div>
+    
+        <div class="main">
+    
+        </div>
+    
+        <div class="footer">
+            <GameFooter/>
+        </div>
 
-    <div class="main">
-
-    </div>
-
-    <div class="footer">
-        <GameFooter/>
     </div>
 
 </template>

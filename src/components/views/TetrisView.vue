@@ -1,17 +1,21 @@
 <template>
 
-    <Background/>
+    <div class="tetris-container">
+        
+        <Background/>
+    
+        <div class="header">
+            <GameHeader/>
+        </div>
+    
+        <div class="main">
+            <Tetris/>
+        </div>
+    
+        <div class="footer">
+            <GameFooter/>
+        </div>
 
-    <div class="header">
-        <GameHeader/>
-    </div>
-
-    <div class="main">
-        <Tetris/>
-    </div>
-
-    <div class="footer">
-        <GameFooter/>
     </div>
 
 </template>

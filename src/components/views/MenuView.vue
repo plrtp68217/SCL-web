@@ -48,6 +48,7 @@
         <section class="games">
             <SwiperGames :games="games"/>
         </section>
+        
     </div>
 
 </template>

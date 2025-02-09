@@ -1,18 +1,21 @@
 <template>
 
-    <Background/>
+    <div class="snake-container">
+
+        <Background/>
+        
+        <div class="header">
+            <GameHeader/>
+        </div>
     
-    <div class="header">
-        <GameHeader/>
-    </div>
+        <div class="main">
+            <Snake/>
+        </div>
+    
+        <div class="footer">
+            <GameFooter/>
+        </div>
 
-
-    <div class="main">
-        <Snake/>
-    </div>
-
-    <div class="footer">
-        <GameFooter/>
     </div>
 
 </template>
