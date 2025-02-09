@@ -36,6 +36,21 @@ function defineBoard(newBoard: Board) {
     board = newBoard;
 }
 
+let speed: number = 200;
+let gameLoopID: number;
+
+gameLoopID = setInterval(gameLoop, speed);
+
+function gameLoop(): void {
+
+
+}
+
+function moveSnake() {
+
+}
+
+
 </script>
 
 
@@ -63,11 +78,6 @@ function defineBoard(newBoard: Board) {
     display: flex;
     align-items: center;
 }
-
-.snake-footer-hud {
-
-}
-
 
 </style>
   
