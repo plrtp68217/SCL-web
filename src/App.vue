@@ -1,19 +1,27 @@
 <template>
 
   <div>
-    <transition name="image-fade">
+
+    <transition name="image-fade" mode="out-in">
+
       <img
         v-if="showImage"
         src="/images/menu/ballerina.svg"
         alt="Transition Image"
-        class="transition-image"
+        class="transition__image"
       />
+
     </transition>
+
     
     <router-view v-slot="{ Component }">
+
       <transition name="page-fade" mode="out-in">
+
         <component :is="Component" />
+
       </transition>
+
     </router-view>
 
   </div>
@@ -45,10 +53,11 @@ watch(
 
 <style scoped>
 
-/* Стили и анимации остаются такими же, как в предыдущем примере */
+@import url(./animations/glow.css);
+
 .image-fade-enter-active,
 .image-fade-leave-active {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 .image-fade-enter-from,
@@ -59,7 +68,7 @@ watch(
 
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 1s ease;
 }
 
 .page-fade-enter-from,
@@ -67,11 +76,13 @@ watch(
   opacity: 0;
 }
 
-.transition-image {
+.transition__image {
   position: fixed;
-  z-index: 1000;
-  top: 15%;
-  width: 100%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glow 1s ease;
 }
 
 </style>
