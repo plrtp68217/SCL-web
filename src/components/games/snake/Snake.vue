@@ -43,11 +43,10 @@ gameLoopID = setInterval(gameLoop, speed);
 
 function gameLoop(): void {
 
-
 }
 
 function moveSnake() {
-
+    
 }
 
 

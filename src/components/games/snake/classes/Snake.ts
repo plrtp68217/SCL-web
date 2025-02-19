@@ -10,4 +10,13 @@ export class Snake {
         this.axis = 'x';
         this.direction = -1;
     }
+
+    move() {
+
+    }
+
+    enlarge() {
+
+    }
+
 }
