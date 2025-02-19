@@ -23,18 +23,27 @@ export class Board {
         this.bonuses = [];
     }
 
-    getFreeBlocks(busyBlocks: Block[]): Block[] { // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
+    // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
+    getFreeBlocks(busyBlocks: Block[]): Block[] {
         const rowsNumber = this.height / this.step;
         const columnsNumber = this.width / this.step;
 
-        let allBlocks: Block[] = []; // сформировать массив всех блоков, из которых состоит игровое поле
+        let freeBlocks: Block[] = [];
 
+        // в начале добавляем все блоки, из которых состоит поле
         for (let row = 0; row <= rowsNumber; row++) {
             for (let column = 0; column <= columnsNumber; column++) {
                 const block = new Block(row * this.step, column * this.step);
-                allBlocks.push(block);
+                freeBlocks.push(block);
             }
         }
+
+        // удаляем блоки, которые уже есть на поле
+        for (let busyBlock of busyBlocks) {
+            freeBlocks = freeBlocks.filter(block => !(block.x == busyBlock.x && block.y == busyBlock.y))
+        }
+
+        return freeBlocks;
     }
 
     draw(block: Block) {
