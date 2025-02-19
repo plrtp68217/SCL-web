@@ -45,7 +45,7 @@ export class Board {
         for (let busyBlock of busyBlocks) {
             freeBlocks = freeBlocks.filter(block => !(block.x == busyBlock.x && block.y == busyBlock.y));
         }
-        
+
         return freeBlocks;
     }
 
@@ -88,6 +88,14 @@ export class Board {
         const type = getRandomItem<BonuseType>(['small', 'medium', 'large']);
 
         this.bonuse = new Bonuse(block.x, block.y, type);
+    }
+
+    isCollision() {
+        // TODO:
+        // проверка на коллизию с:
+        // - границами игрового поля
+        // - сама с собой
+        // яблоко или бонус
     }
 
 }
