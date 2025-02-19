@@ -137,7 +137,6 @@ export class Board {
 
     clear(shape: Shape): void {
         for (let block of shape.blocks) {
-            this.context.fillStyle = block.color;
             this.context.clearRect(block.x, block.y, this.step, this.step);
         }
     }

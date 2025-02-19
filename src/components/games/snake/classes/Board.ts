@@ -53,6 +53,10 @@ export class Board {
         this.context.fillStyle = block.color;
         this.context.fillRect(block.x, block.y, this.step, this.step);
     }
+    
+    clear(block: Block) {
+        this.context.clearRect(block.x, block.y, this.step, this.step);
+    }
 
     createSnake(): void {
         const axis = getRandomItem<'x' |'y'>(['x', 'y']);
