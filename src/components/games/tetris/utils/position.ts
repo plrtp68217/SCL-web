@@ -9,12 +9,12 @@ import { Block } from "../classes/Shape";
 * @param {number} num - Шаг.
 * @returns {number}
 */
-function getStartPosition(min: number, max: number, num: number): number {
+function getStartXPosition(min: number, max: number, num: number): number {
     return Math.floor(Math.floor(Math.random() * (max - min + 1) + min) / num) * num;
 }
 
 export function getShapesWithStartPosition(shapes: Shape[], board: Board): Shape[] {
-    const position = getStartPosition(0, board.width - (3 * board.step), board.step);
+    const position = getStartXPosition(0, board.width - (3 * board.step), board.step);
 
     const shapesWithStartPosition: Shape[] = [];
 
