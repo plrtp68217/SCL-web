@@ -18,8 +18,8 @@ export class Snake {
     createNewHead(): Block {
         const oldHead = this.blocks[0];
 
-        const newHeadPositionX = this.axis === 'x' ? oldHead.x + (this.step * this.direction) : oldHead.x;
-        const newHeadPositionY = this.axis === 'y' ? oldHead.y + (this.step * this.direction) : oldHead.y;
+        const newHeadPositionX = this.axis === 'x' ? oldHead.x + this.step * this.direction : oldHead.x;
+        const newHeadPositionY = this.axis === 'y' ? oldHead.y + this.step * this.direction : oldHead.y;
 
         const newHead = new Block(newHeadPositionX, newHeadPositionY, this.color);
 

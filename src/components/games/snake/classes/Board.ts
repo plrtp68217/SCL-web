@@ -45,7 +45,7 @@ export class Board {
         for (let busyBlock of busyBlocks) {
             freeBlocks = freeBlocks.filter(block => !(block.x == busyBlock.x && block.y == busyBlock.y));
         }
-
+        
         return freeBlocks;
     }
 

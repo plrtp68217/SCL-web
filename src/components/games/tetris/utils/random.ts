@@ -1,4 +1,5 @@
-import { Block, Shape } from "../classes/Shape";
+import { Shape } from "../classes/Shape";
+import { Block } from "../classes/Block";
 import type { IShapeList } from "../assets/shapeList";
 import { getRandomItem } from "../../common/utils/random";
 

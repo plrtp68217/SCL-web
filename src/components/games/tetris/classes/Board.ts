@@ -1,4 +1,5 @@
-import { Block, Shape } from "./Shape";
+import { Shape } from "./Shape";
+import { Block } from "./Block";
 import euclidAlg from "../../common/utils/euclid";
 
 export class Board {

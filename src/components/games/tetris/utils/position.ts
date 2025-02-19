@@ -1,6 +1,6 @@
 import { Shape } from "../classes/Shape";
 import { Board } from "../classes/Board";
-import { Block } from "../classes/Shape";
+import { Block } from "../classes/Block";
 
 /**
 * Возвращает случайную позицию в нужном диапазоне с нужным шагом.
