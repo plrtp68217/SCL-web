@@ -23,16 +23,16 @@ export class Board {
         this.bonuses = [];
     }
 
-    getFreeBlocks(busyBlocks: Block[]): Block[] { // поиск пустых блоков для генерации яблока или бонуса
+    getFreeBlocks(busyBlocks: Block[]): Block[] { // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
         const rowsNumber = this.height / this.step;
         const columnsNumber = this.width / this.step;
 
-        let allBlocks: Block[] = []; // сформировать массив блоков, из которых состоит игровое поле
+        let allBlocks: Block[] = []; // сформировать массив всех блоков, из которых состоит игровое поле
 
         for (let row = 0; row <= rowsNumber; row++) {
             for (let column = 0; column <= columnsNumber; column++) {
-                const block = new Block(row * this.step, column * this.step)
-                allBlocks.push(block)
+                const block = new Block(row * this.step, column * this.step);
+                allBlocks.push(block);
             }
         }
     }
