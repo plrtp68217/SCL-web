@@ -1,11 +1,6 @@
 import { Block, Shape } from "../classes/Shape";
 import type { IShapeList } from "../assets/shapeList";
-
-function getRandomItem<T>(array: T[]) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    const randomItem = array[randomIndex];
-    return randomItem;
-}
+import { getRandomItem } from "../../common/utils/random";
 
 export function getRandomShapes(shapeList: IShapeList): Shape[] {
     const shapesId: string[] = ['I', 'J', 'L', 'O', 'S', 'Z', 'T'];

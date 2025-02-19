@@ -52,7 +52,7 @@ export class Board {
     }
 
     createSnake() {
-
+        
     }
 
     createApple(): void {
