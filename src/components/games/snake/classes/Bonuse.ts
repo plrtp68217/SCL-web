@@ -1,15 +1,13 @@
 import { Block } from "./Block";
+import type { BonuseType } from "../interfaces/bonuse";
+import type { BonuseRewards } from "../interfaces/bonuse";
 
-type BonuseType = 'small' | 'medium' | 'large';
-
-type BonuseRewards = Record<BonuseType, number>;
 
 export class Bonuse extends Block {
     type: BonuseType;
     rewards: BonuseRewards;
-    color: string;
 
-    constructor(x: number, y: number, color: string, type: BonuseType) {
+    constructor(x: number, y: number, type: BonuseType, color: string = 'yellow',) {
         super(x, y, color);
         this.type = type;
         this.rewards = {

@@ -5,6 +5,7 @@ import { Bonuse } from "./Bonuse";
 import { Block } from "./Block";
 import { getStartPosition } from "../utils/position";
 import { getRandomItem } from "../../common/utils/random";
+import type { BonuseType } from "../interfaces/bonuse";
 
 export class Board {
     context: CanvasRenderingContext2D;
@@ -13,7 +14,7 @@ export class Board {
     step: number;
     snake: Snake;
     apple: Apple;
-    bonuses: Bonuse[];
+    bonuse: Bonuse;
 
     constructor(context: CanvasRenderingContext2D, width: number, height: number) {
         this.context = context;
@@ -22,7 +23,7 @@ export class Board {
         this.step = euclidAlg(this.width, this.height);
         this.snake = {} as Snake;
         this.apple = {} as Apple;
-        this.bonuses = [];
+        this.bonuse = {} as Bonuse;
     }
 
     // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
@@ -42,7 +43,7 @@ export class Board {
 
         // удаляем блоки, которые уже есть на поле
         for (let busyBlock of busyBlocks) {
-            freeBlocks = freeBlocks.filter(block => !(block.x == busyBlock.x && block.y == busyBlock.y))
+            freeBlocks = freeBlocks.filter(block => !(block.x == busyBlock.x && block.y == busyBlock.y));
         }
 
         return freeBlocks;
@@ -64,11 +65,25 @@ export class Board {
     }
 
     createApple(): void {
-        
+        let busyBlocks = this.snake.blocks;
+        if (this.bonuse) busyBlocks.push(this.bonuse);
+
+        const freeBlocks = this.getFreeBlocks(busyBlocks);
+
+        const block = getRandomItem<Block>(freeBlocks);
+        this.apple = new Apple(block.x, block.y);
     }
 
     createBonuse(): void {
+        let busyBlocks = this.snake.blocks;
+        if (this.apple) busyBlocks.push(this.apple);
 
+        const freeBlocks = this.getFreeBlocks(busyBlocks);
+
+        const block = getRandomItem<Block>(freeBlocks);
+        const type = getRandomItem<BonuseType>(['small', 'medium', 'large']);
+
+        this.bonuse = new Bonuse(block.x, block.y, type);
     }
 
 }
