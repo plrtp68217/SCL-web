@@ -10,6 +10,7 @@ export class Snake {
         this.blocks = [];
         this.axis = axis;
         this.direction = direction;
+        this.color = color;
     }
 
     move() {
