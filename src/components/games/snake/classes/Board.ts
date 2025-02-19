@@ -61,7 +61,7 @@ export class Board {
     createSnake(): void {
         const axis = getRandomItem<'x' |'y'>(['x', 'y']);
         const direction = getRandomItem<-1 | 1>([-1, 1]);
-        this.snake = new Snake(axis, direction);
+        this.snake = new Snake(axis, direction, this.step);
 
         const position = getStartPosition(this);
         const block = new Block(position.x, position.y);
