@@ -2,11 +2,9 @@ import { Block } from "./Block"
 
 export class Apple extends Block {
     reward: number;
-    color: string;
 
-    constructor(x: number, y: number) {
-        super(x, y)
+    constructor(x: number, y: number, color: string) {
+        super(x, y, color)
         this.reward = 10;
-        this.color = 'red';
     }
 }
