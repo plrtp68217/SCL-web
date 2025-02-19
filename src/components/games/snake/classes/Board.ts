@@ -3,6 +3,8 @@ import { Snake } from "./Snake";
 import { Apple } from "./Apple";
 import { Bonuse } from "./Bonuse";
 import { Block } from "./Block";
+import { getStartPosition } from "../utils/position";
+import { getRandomItem } from "../../common/utils/random";
 
 export class Board {
     context: CanvasRenderingContext2D;
@@ -51,15 +53,21 @@ export class Board {
         this.context.fillRect(block.x, block.y, this.step, this.step);
     }
 
-    createSnake() {
-        
+    createSnake(): void {
+        const axis = getRandomItem<'x' |'y'>(['x', 'y']);
+        const direction = getRandomItem<-1 | 1>([-1, 1]);
+        this.snake = new Snake(axis, direction);
+
+        const position = getStartPosition(this);
+        const block = new Block(position.x, position.y);
+        this.snake.blocks.push(block);
     }
 
     createApple(): void {
         
     }
 
-    createBonuse() {
+    createBonuse(): void {
 
     }
 

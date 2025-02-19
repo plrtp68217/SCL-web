@@ -4,11 +4,12 @@ export class Snake {
     blocks: Block[];
     axis: 'x' | 'y';
     direction: -1 | 1;
+    color?: string
 
-    constructor() {
+    constructor(axis: 'x' | 'y', direction: -1 | 1, color: string = 'green') {
         this.blocks = [];
-        this.axis = 'x';
-        this.direction = -1;
+        this.axis = axis;
+        this.direction = direction;
     }
 
     move() {
