@@ -25,9 +25,10 @@
 
 
 <script setup lang="ts">
-import type { ControlEmits } from './interfaces/emits';
+import type { ControlEmit } from './interfaces/emits';
 
-const emit = defineEmits<ControlEmits>();
+
+const emit = defineEmits<ControlEmit>();
 
 </script>
 

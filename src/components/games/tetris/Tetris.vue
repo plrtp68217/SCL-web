@@ -34,7 +34,7 @@ import TetrisControl from './TetrisControl.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
-import type { IMoveShape } from './interfaces/move';
+import type { IMove } from '../common/interfaces/move';
 import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
@@ -109,7 +109,7 @@ function moveShapesOnBoard(): void {
     }
 }
 
-function moveShape(value: IMoveShape): void {
+function moveShape(value: IMove): void {
     if (shapes[state.value].isFalling) {
         
         const { axis, direction } = value;

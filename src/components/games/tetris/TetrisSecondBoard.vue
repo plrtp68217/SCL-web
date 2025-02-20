@@ -6,11 +6,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { Board } from './classes/Board';
-import type { SecondBoardEmits } from './interfaces/emits'
+import type { SecondBoardEmit } from './interfaces/emits'
 
 let board: Board;
 
-const emit = defineEmits<SecondBoardEmits>();
+const emit = defineEmits<SecondBoardEmit>();
 
 onMounted(() => {
     const canvas = document.querySelector('#second-board') as HTMLCanvasElement;

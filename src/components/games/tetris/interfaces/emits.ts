@@ -1,15 +1,15 @@
-import type { IMoveShape } from "./move";
+import type { IMove } from "../../common/interfaces/move";
 import { Board } from "../classes/Board";
 
-export interface ControlEmits {
-    (emit: 'move', value: IMoveShape): void;
+export interface ControlEmit {
+    (emit: 'move', value: IMove): void;
     (emit: 'rotate'): void;
 }
 
-export interface MainBoardEmits {
-    (e: 'main_board', value: Board): void;
+export interface MainBoardEmit {
+    (emit: 'main_board', value: Board): void;
 }
 
-export interface SecondBoardEmits {
-    (e: 'second_board', value: Board): void;
+export interface SecondBoardEmit {
+    (emit: 'second_board', value: Board): void;
 }
