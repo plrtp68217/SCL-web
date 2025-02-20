@@ -91,11 +91,40 @@ export class Board {
     }
 
     isCollision() {
-        // TODO:
-        // проверка на коллизию с:
-        // - границами игрового поля
-        // - сама с собой
-        // яблоко или бонус
+        const snakeHead = this.snake.blocks[0];
+        
+        if (snakeHead.x < 0 || snakeHead.x > this.width ||
+            snakeHead.y < 0 || snakeHead.y > this.height) {
+            return true;
+        }
+
+        const snakeWithoutHead = this.snake.blocks.slice(1);
+
+        if (snakeWithoutHead.find(block => block.x === snakeHead.x  && block.y === snakeHead.y)) {
+            return true
+        }
+
+        return false;
+
+    }
+
+    isApple() {
+        const snakeHead = this.snake.blocks[0];
+
+        if (snakeHead.x === this.apple.x && snakeHead.y === this.apple.y) {
+            return true
+        }
+        return false
+
+    }
+
+    isBonuse() {
+        const snakeHead = this.snake.blocks[0];
+
+        if (snakeHead.x === this.bonuse.x && snakeHead.y === this.bonuse.y) {
+            return true
+        }
+        return false
     }
 
 }

@@ -15,7 +15,7 @@ export class Bonuse extends Block {
             'medium': 20,
             'large': 30,
         }
-        this.color = 'yellow';
+        this.color = color;
     }
 
     get reward(): number {
