@@ -108,23 +108,15 @@ export class Board {
 
     }
 
-    isApple() {
+    // общий метод, который указывает, съели ли змейка что-то или нет (яблоко, бонус и т.д)
+    isFeed(feed: Block) {
         const snakeHead = this.snake.blocks[0];
 
-        if (snakeHead.x === this.apple.x && snakeHead.y === this.apple.y) {
+        if (snakeHead.x === feed.x && snakeHead.y === feed.y) {
             return true
         }
         return false
 
-    }
-
-    isBonuse() {
-        const snakeHead = this.snake.blocks[0];
-
-        if (snakeHead.x === this.bonuse.x && snakeHead.y === this.bonuse.y) {
-            return true
-        }
-        return false
     }
 
 }
