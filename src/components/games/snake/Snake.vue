@@ -10,7 +10,7 @@
             <div class="snake-footer-sound">SOUND</div>
 
             <div class="snake-footer-control">
-                <SnakeControl/>
+                <SnakeControl @move="changeDirection"/>
             </div>
 
             <div class="snake-footer-hud">
@@ -29,11 +29,19 @@ import { Board } from './classes/Board';
 import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
+import type { IMove } from '../common/interfaces/move';
 
 let board: Board;
 
-function defineBoard(newBoard: Board) {
+function defineBoard(newBoard: Board): void {
     board = newBoard;
+    board.createSnake();
+    board.createApple();
+}
+
+function changeDirection({axis, direction}: IMove): void {
+    board.snake.axis = axis;
+    board.snake.direction = direction;
 }
 
 let speed: number = 200;

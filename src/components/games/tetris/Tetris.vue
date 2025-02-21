@@ -109,11 +109,9 @@ function moveShapesOnBoard(): void {
     }
 }
 
-function moveShape(value: IMove): void {
+function moveShape({axis, direction}: IMove): void {
     if (shapes[state.value].isFalling) {
         
-        const { axis, direction } = value;
-    
         board.clear(shapes[state.value]);
     
         switch (axis) {

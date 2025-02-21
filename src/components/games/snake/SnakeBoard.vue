@@ -4,7 +4,7 @@
 
 
 <script setup lang="ts">
-import { onMounted, defineEmits } from 'vue';
+import { onMounted } from 'vue';
 import { Board } from './classes/Board';
 import type { BoardEmit } from './interfaces/emits';
 

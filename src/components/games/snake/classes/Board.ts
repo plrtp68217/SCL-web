@@ -1,4 +1,5 @@
 import euclidAlg from "../../common/utils/euclid";
+import { isIterable } from "../../common/utils/iterable";
 import { Snake } from "./Snake";
 import { Apple } from "./Apple";
 import { Bonuse } from "./Bonuse";
@@ -27,9 +28,16 @@ export class Board {
     }
 
     
-    draw(block: Block) {
+    drawBlock(block: Block) {
         this.context.fillStyle = block.color;
         this.context.fillRect(block.x, block.y, this.step, this.step);
+        
+    }
+
+    drawEntitie(entitie: Block[]) {
+        for (let block of entitie) {
+            this.drawBlock(block);
+        }
     }
     
     clear(block: Block) {
@@ -110,7 +118,7 @@ export class Board {
 
     }
 
-    // общий метод, который указывает, съели ли змейка что-то или нет (яблоко, бонус и т.д)
+    // общий метод, который указывает, съела ли змейка что-то или нет (яблоко, бонус и т.д)
     isFeed(feed: Block) {
         const snakeHead = this.snake.blocks[0];
 

@@ -1,20 +1,25 @@
 <template>
     <div class="snake-control">
         <div class="snake-control-up">
-            <button>UP</button>
+            <button @click="emit('move', {axis: 'y', direction: -1})">UP</button>
         </div>
         <div class="snake-control-left-right">
-            <button>LEFT</button>
-            <button>RIGHT</button>
+            <button @click="emit('move', {axis: 'x', direction: -1})">LEFT</button>
+            <button @click="emit('move', {axis: 'x', direction: 1})">RIGHT</button>
         </div>
         <div class="snake-control-down">
-            <button>DOWN</button>
+            <button @click="emit('move', {axis: 'y', direction: 1})">DOWN</button>
         </div>
     </div>
 </template>
 
 
 <script setup lang="ts">
+
+import type { ControlEmit } from './interfaces/emits';
+
+const emit = defineEmits<ControlEmit>();
+
 
 
 </script>
