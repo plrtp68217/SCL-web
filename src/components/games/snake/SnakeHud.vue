@@ -1,7 +1,7 @@
 <template>
 
     <div class="snake-hud">
-        <div class="snake-hud-score">Score: 1000</div>
+        <div class="snake-hud-score">Score: {{ props.score }}</div>
         <div class="snake-hud-bonuses">BONUSES</div>
     </div>
 
@@ -9,6 +9,10 @@
 
 
 <script setup lang="ts">
+
+let props = defineProps({
+    score: Number
+})
 
 </script>
 

@@ -5,7 +5,7 @@ export class Snake {
     axis: 'x' | 'y';
     direction: -1 | 1;
     step: number;
-    color?: string
+    color?: string;
 
     constructor(axis: 'x' | 'y', direction: -1 | 1, step: number, color: string = 'green') {
         this.blocks = [];
@@ -22,19 +22,18 @@ export class Snake {
         const newHeadPositionY = this.axis === 'y' ? oldHead.y + this.step * this.direction : oldHead.y;
 
         const newHead = new Block(newHeadPositionX, newHeadPositionY, this.color);
-
-        return newHead
+        return newHead;
     }
 
     move(): void {
-        const newHead = this.createNewHead()
+        const newHead = this.createNewHead();
 
-        this.blocks.unshift(newHead);
         this.blocks.pop();
+        this.blocks.unshift(newHead);
     }
 
     enlarge(): void {
-        const newHead = this.createNewHead()
+        const newHead = this.createNewHead();
         
         this.blocks.unshift(newHead);
     }

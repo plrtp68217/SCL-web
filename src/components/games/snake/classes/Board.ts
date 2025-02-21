@@ -5,6 +5,7 @@ import { Bonuse } from "./Bonuse";
 import { Block } from "./Block";
 import { getStartPosition } from "../utils/position";
 import { getRandomItem } from "../../common/utils/random";
+import { isChance } from "../../common/utils/random";
 import type { BonuseType } from "../interfaces/bonuse";
 
 export class Board {
@@ -55,7 +56,7 @@ export class Board {
         this.snake = new Snake(axis, direction, this.step);
         
         const position = getStartPosition(this);
-        const block = new Block(position.x, position.y);
+        const block = new Block(position.x, position.y, this.snake.color);
         this.snake.blocks.push(block);
     }
     
@@ -67,9 +68,9 @@ export class Board {
         let freeBlocks: Block[] = [];
 
         // в начале добавляем все блоки, из которых состоит поле
-        for (let row = 0; row <= rowsNumber; row++) {
-            for (let column = 0; column <= columnsNumber; column++) {
-                const block = new Block(row * this.step, column * this.step);
+        for (let row = 0; row < rowsNumber; row++) {
+            for (let column = 0; column < columnsNumber; column++) {
+                const block = new Block(column * this.step, row * this.step);
                 freeBlocks.push(block);
             }
         }
@@ -108,14 +109,14 @@ export class Board {
     isCollision() {
         const snakeHead = this.snake.blocks[0];
         
-        if (snakeHead.x < 0 || snakeHead.x > this.width ||
-            snakeHead.y < 0 || snakeHead.y > this.height) {
+        if (snakeHead.x < 0 || snakeHead.x > this.width - this.step ||
+            snakeHead.y < 0 || snakeHead.y > this.height - this.step) {
             return true;
         }
 
         const snakeWithoutHead = this.snake.blocks.slice(1);
 
-        if (snakeWithoutHead.find(block => block.x === snakeHead.x  && block.y === snakeHead.y)) {
+        if (snakeWithoutHead.find(block => block.x === snakeHead.x && block.y === snakeHead.y)) {
             return true
         }
 
