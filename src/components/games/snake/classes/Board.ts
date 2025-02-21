@@ -1,5 +1,4 @@
 import euclidAlg from "../../common/utils/euclid";
-import { isIterable } from "../../common/utils/iterable";
 import { Snake } from "./Snake";
 import { Apple } from "./Apple";
 import { Bonuse } from "./Bonuse";
@@ -40,8 +39,14 @@ export class Board {
         }
     }
     
-    clear(block: Block) {
+    clearBlock(block: Block) {
         this.context.clearRect(block.x, block.y, this.step, this.step);
+    }
+
+    clearEntitie(entitie: Block[]) {
+        for (let block of entitie) {
+            this.clearBlock(block);
+        }
     }
 
     createSnake(): void {
