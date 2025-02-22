@@ -5,7 +5,6 @@ import { Bonuse } from "./Bonuse";
 import { Block } from "./Block";
 import { getStartPosition } from "../utils/position";
 import { getRandomItem } from "../../common/utils/random";
-import { isChance } from "../../common/utils/random";
 import type { BonuseType } from "../interfaces/bonuse";
 
 export class Board {
@@ -98,9 +97,7 @@ export class Board {
     createBonuse(): void {
         let busyBlocks = [...this.snake.blocks];
 
-        if (this.apple) {
-            busyBlocks.push(this.apple);
-        } 
+        if (this.apple) busyBlocks.push(this.apple);
 
         const freeBlocks = this.getFreeBlocks(busyBlocks);
 
@@ -121,11 +118,10 @@ export class Board {
         const snakeWithoutHead = this.snake.blocks.slice(1);
 
         if (snakeWithoutHead.find(block => block.x === snakeHead.x && block.y === snakeHead.y)) {
-            return true
+            return true;
         }
-
+        
         return false;
-
     }
 
     // общий метод, который указывает, съела ли змейка что-то или нет (яблоко, бонус и т.д)
@@ -133,10 +129,9 @@ export class Board {
         const snakeHead = this.snake.blocks[0];
 
         if (snakeHead.x === feed.x && snakeHead.y === feed.y) {
-            return true
+            return true;
         }
-        return false
 
+        return false;
     }
-
 }

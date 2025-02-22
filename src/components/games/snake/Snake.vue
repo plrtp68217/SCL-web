@@ -26,8 +26,6 @@
 
 <script setup lang="ts">
 import { Board } from './classes/Board';
-import { Snake } from './classes/Snake';
-import { Apple } from './classes/Apple';
 import { Bonuse } from './classes/Bonuse';
 import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
@@ -44,9 +42,7 @@ function defineBoard(newBoard: Board): void {
     board.createSnake();
     board.createApple();
 
-    console.log(board.snake);
-
-    if(isChance(0.1)) {
+    if(isChance(0.5)) {
         board.createBonuse();
     }
 }
@@ -61,7 +57,7 @@ function changeDirection({axis, direction}: IMove): void {
     board.snake.axis = axis;
 }
 
-let score = ref<number>(0)
+let score = ref<number>(0);
 
 let speed: number = 300;
 let gameLoopID: number;
@@ -69,12 +65,14 @@ let gameLoopID: number;
 gameLoopID = setInterval(gameLoop, speed);
 
 function gameLoop(): void {
-    board.clearEntitie(board.snake.blocks)
+    board.clearEntitie(board.snake.blocks);
 
-    board.snake.move()
+    board.snake.move();
 
     if (board.isCollision()) {
-        clearInterval(gameLoopID)
+        clearInterval(gameLoopID);
+        console.log('game over');
+        
     }
 
     if (board.isFeed(board.apple)) {
@@ -84,12 +82,20 @@ function gameLoop(): void {
     }
 
     if (board.isFeed(board.bonuse)) {
-        score.value += board.bonuse.reward
+        score.value += board.bonuse.reward;
+        board.bonuse = {} as Bonuse;
+    }
+
+    if(!(board.bonuse instanceof Bonuse) && isChance(0.95)) {
+        board.createBonuse();   
     }
     
-    
-    board.drawBlock(board.apple)
-    board.drawEntitie(board.snake.blocks)
+    if (board.bonuse instanceof Bonuse) {
+        board.drawBlock(board.bonuse);
+    }
+
+    board.drawBlock(board.apple);
+    board.drawEntitie(board.snake.blocks);
 
 }
 
