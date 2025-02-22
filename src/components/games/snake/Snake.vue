@@ -52,13 +52,18 @@ function defineBoard(newBoard: Board): void {
 }
 
 function changeDirection({axis, direction}: IMove): void {
+    board.snake.direction = board.snake.axis === axis && board.snake.direction !== direction 
+                            ? 
+                            board.snake.direction 
+                            : 
+                            direction
+
     board.snake.axis = axis;
-    board.snake.direction = direction;
 }
 
 let score = ref<number>(0)
 
-let speed: number = 500;
+let speed: number = 300;
 let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
