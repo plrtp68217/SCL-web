@@ -61,7 +61,7 @@ let score = ref<number>(0)
 let speed: number = 500;
 let gameLoopID: number;
 
-// gameLoopID = setInterval(gameLoop, speed);
+gameLoopID = setInterval(gameLoop, speed);
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks)
@@ -69,7 +69,7 @@ function gameLoop(): void {
     board.snake.move()
 
     if (board.isCollision()) {
-        // clearInterval(gameLoopID)
+        clearInterval(gameLoopID)
     }
 
     if (board.isFeed(board.apple)) {

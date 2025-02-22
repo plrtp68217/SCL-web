@@ -50,16 +50,6 @@ export class Board {
         }
     }
 
-    createSnake(): void {
-        const axis = getRandomItem<'x' |'y'>(['x', 'y']);
-        const direction = getRandomItem<-1 | 1>([-1, 1]);
-        this.snake = new Snake(axis, direction, this.step);
-        
-        const position = getStartPosition(this);
-        const block = new Block(position.x, position.y, this.snake.color);
-        this.snake.blocks.push(block);
-    }
-    
     // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
     getFreeBlocks(busyBlocks: Block[]): Block[] {
         const rowsNumber = this.height / this.step;
@@ -82,9 +72,20 @@ export class Board {
 
         return freeBlocks;
     }
+
+    createSnake(): void {
+        const axis = getRandomItem<'x' |'y'>(['x', 'y']);
+        const direction = getRandomItem<-1 | 1>([-1, 1]);
+        this.snake = new Snake(axis, direction, this.step);
+        
+        const position = getStartPosition(this);
+        const block = new Block(position.x, position.y, this.snake.color);
+        this.snake.blocks.push(block);
+    }
+    
     
     createApple(): void {
-        let busyBlocks = this.snake.blocks;
+        let busyBlocks = [...this.snake.blocks];
         if (this.bonuse) busyBlocks.push(this.bonuse);
         
         const freeBlocks = this.getFreeBlocks(busyBlocks);
@@ -95,8 +96,11 @@ export class Board {
     
 
     createBonuse(): void {
-        let busyBlocks = this.snake.blocks;
-        if (this.apple) busyBlocks.push(this.apple);
+        let busyBlocks = [...this.snake.blocks];
+
+        if (this.apple) {
+            busyBlocks.push(this.apple);
+        } 
 
         const freeBlocks = this.getFreeBlocks(busyBlocks);
 
