@@ -9,7 +9,7 @@
         </div>
     
         <div class="main">
-    
+            <Wolf/>
         </div>
     
         <div class="footer">
@@ -25,9 +25,20 @@
 import Background from '../background/Background.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
 import GameFooter from '../game-layout/GameFooter.vue';
+import Wolf from '../games/wolf/Wolf.vue';
 
 </script>
 
 
-<style></style>
+<style scoped>
+
+.main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+</style>
   

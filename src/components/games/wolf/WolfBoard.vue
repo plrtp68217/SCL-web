@@ -1,13 +1,38 @@
 <template>
-  
+    <canvas id="board" width="340" height="260"></canvas>
 </template>
 
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { Board } from './classes/Board';
+import type { BoardEmit } from './interfaces/emits';
+
+let board: Board;
+
+const emit = defineEmits<BoardEmit>();
+
+onMounted(() => {
+    const canvas = document.querySelector('#board') as HTMLCanvasElement;
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    const width: number = canvas.width;
+    const height: number = canvas.height;
+
+    board = new Board(context, width, height);
+
+    emit('board', board);
+})
+
 
 </script>
 
 
 <style scoped>
+
+#board {
+    border: 1px solid black;
+    background-color: #3d3c3c;
+}
 
 </style>
