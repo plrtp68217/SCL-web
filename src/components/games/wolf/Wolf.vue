@@ -13,7 +13,7 @@
       </div>
 
       <div class="wolf-main-hud">
-        HUD
+        <WolfHud/>
       </div>
       
     </div>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import WolfBoard from './WolfBoard.vue';
 import WolfControl from './WolfControl.vue';
+import WolfHud from './WolfHud.vue';
 
 </script>
 
@@ -48,9 +49,11 @@ import WolfControl from './WolfControl.vue';
   padding: 10px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   background-color: rgb(204, 94, 248);
   border-left: 5px solid #3d3c3c;
   border-right: 5px solid #3d3c3c;
+  color: white;
 }
 
 .wolf-footer {
