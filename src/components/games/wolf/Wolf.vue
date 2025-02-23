@@ -58,6 +58,7 @@ import WolfHud from './WolfHud.vue';
 
 .wolf-footer {
   border: 5px solid #3d3c3c;
+  border-top: none;
   padding: 10px;
   background-color: rgb(204, 94, 248);
 
