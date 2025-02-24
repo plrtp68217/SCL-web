@@ -3,7 +3,7 @@
   <div class="wolf">
 
     <div class="wolf-header">
-      <WolfBoard/>
+      <WolfBoard @board="defineBoard"/>
     </div>
 
     <div class="wolf-main">
@@ -22,16 +22,34 @@
       <WolfControl/>
     </div>
 
-
   </div>
+
+  <img id="wolf" src="/images/wolf/wolf-sprite-sheet.png" style="display: none;">
   
 </template>
 
 
 <script setup lang="ts">
+import { Board } from './classes/Board';
+import type { Wolf } from './classes/Wolf';
 import WolfBoard from './WolfBoard.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
+
+let board: Board;
+let wolf: Wolf;
+let context: CanvasRenderingContext2D;
+
+function defineBoard(newBoard: Board) {
+  board = newBoard;
+  wolf = board.wolf;
+  context = board.context;
+
+  wolf.draw(context)
+  
+  // board.drawCollision()
+}
+
 
 </script>
 
