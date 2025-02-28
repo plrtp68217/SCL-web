@@ -48,22 +48,25 @@ function defineBoard(newBoard: Board) {
   context = board.context;
 }
 
-let speed: number = 200;
+let speed: number = 300;
 let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
 
 function gameLoop() {
+  board.clear();
+
   wolf.draw(context);
   board.drawCollision();
-
-  wolf.clear(context);
-  // board.clearCollision();
 }
 
 function moveWolf({side, basket}: IMove) {
+  wolf.clear(context)
+
   wolf.state.side = side;
   wolf.state.basket = basket;
+
+  wolf.draw(context)
 }
 
 onUnmounted(() => {

@@ -28,11 +28,7 @@ export class Board {
 
   }
 
-  clearCollision() {
-    this.context.clearRect(this.wolf.collisionX,
-                           this.wolf.collisionY,
-                           this.wolf.collisionWidth,
-                           this.wolf.collisionHeight,
-                          )
+  clear() {
+    this.context.clearRect(0, 0, this.width, this.height)
   }
 }
