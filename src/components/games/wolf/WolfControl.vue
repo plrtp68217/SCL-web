@@ -3,7 +3,7 @@
   <div class="wolf-control">
 
     <div class="wolf-control-buttons">
-      <button>LT</button>
+      <button @click="">LT</button>
       <button>LB</button>
     </div>
     

@@ -25,7 +25,7 @@
   </div>
 
   <img id="wolf" src="/images/wolf/wolf-sprite-sheet.png" style="display: none;">
-  
+
 </template>
 
 
@@ -44,10 +44,16 @@ function defineBoard(newBoard: Board) {
   board = newBoard;
   wolf = board.wolf;
   context = board.context;
+}
 
+let speed: number = 200;
+let gameLoopID: number;
+
+gameLoopID = setInterval(gameLoop, speed);
+
+function gameLoop() {
   wolf.draw(context)
-  
-  // board.drawCollision()
+  board.drawCollision()
 }
 
 

@@ -19,7 +19,11 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    board = new Board(context, width, height);
+    const spriteSheet = document.getElementById('wolf') as HTMLImageElement;
+    console.log(spriteSheet);
+    
+
+    board = new Board(context, width, height, spriteSheet);
 
     emit('board', board);
 })

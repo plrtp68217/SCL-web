@@ -5,29 +5,19 @@ export class Board {
   context: CanvasRenderingContext2D;
   width: number;
   height: number;
+  spriteSheet: HTMLImageElement;
   wolf: Wolf;
   eggs: Egg[]
 
-  constructor(context: CanvasRenderingContext2D, width: number, height: number) {
+  constructor(context: CanvasRenderingContext2D, width: number, height: number, spriteSheet: HTMLImageElement) {
     this.context = context;
     this.width = width;
     this.height = height;
-    const spriteSheet = document.getElementById('wolf') as HTMLImageElement;
+    this.spriteSheet = spriteSheet;
     this.wolf = new Wolf(this, spriteSheet);
     this.eggs = [];
   }
 
-
-  // drawWolf() {
-  //   this.context.drawImage(this.wolf.spriteSheet,
-  //     1, 1,
-  //     200, 200,
-  //     this.wolf.spriteX, this.wolf.spriteY,
-  //     200, 200);
-    
-  //   console.log(this.wolf.spriteSheet);
-    
-  // }
 
   drawCollision() {
     this.context.fillStyle = 'black';

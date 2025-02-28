@@ -21,26 +21,26 @@ export class Wolf {
   state: WolfState;
 
   constructor(board: Board, spriteSheet: HTMLImageElement) {
-    this.width = 200;
-    this.height = 200;
+    this.width = 150;
+    this.height = 150;
 
     this.spriteX = board.width * 0.5 - this.width * 0.5;
-    this.spriteY = board.height * 0.5;
+    this.spriteY = board.height - this.height;
 
-    this.collisionWidth = this.width * 0.5;
+    this.collisionWidth = this.width * 0.4;
     this.collisionHeight = 40;
 
     this.spriteSheet = spriteSheet;
 
-    this.state = {side: 0, basket: 0}
+    this.state = {side: 0, basket: 1}
   }
 
   get collisionX() {
     if (this.state.side === 0) {
-      return this.spriteX - this.collisionWidth // side 0 (лево)
+      return this.spriteX // side 0 (лево)
     }
     else {
-      return this.spriteX + this.width // side 1 (право)
+      return this.spriteX + this.width - this.collisionWidth// side 1 (право)
     }
   }
 
@@ -49,7 +49,7 @@ export class Wolf {
       return this.spriteY + this.height * 0.5 // basket 0 (вниз)
     }
     else {
-      return this.spriteY // basket 1 (вверх)
+      return this.spriteY + this.collisionHeight * 0.5 // basket 1 (вверх)
     }
   }
 
@@ -62,14 +62,14 @@ export class Wolf {
 
   draw(context: CanvasRenderingContext2D) {
 
-    const sheetX = this.state.basket === 0 ? 0 : this.width;
-    const spriteY = this.state.side === 0 ? 0 : this.height;
+    const sheetX = this.state.basket === 0 ? 0 : 200;
+    const sheetY = this.state.side === 0 ? 0 : 200;
 
     context.drawImage(this.spriteSheet,
-      sheetX, spriteY,
+      sheetX, sheetY,
       200, 200,
-      0, 0,
-      200, 200);
+      this.spriteX, this.spriteY,
+      this.width, this.height);
   }
 
 
