@@ -1,4 +1,4 @@
-import type { IMove } from "../../common/interfaces/move";
+import type { IMove } from "../../common/interfaces/emits";
 import { Board } from "../classes/Board";
 
 export interface ControlEmit {

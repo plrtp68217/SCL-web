@@ -19,7 +19,7 @@
     </div>
 
     <div class="wolf-footer">
-      <WolfControl/>
+      <WolfControl @move="moveWolf"/>
     </div>
 
   </div>
@@ -31,10 +31,12 @@
 
 <script setup lang="ts">
 import { Board } from './classes/Board';
-import type { Wolf } from './classes/Wolf';
+import { Wolf } from './classes/Wolf';
 import WolfBoard from './WolfBoard.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
+import type { IMove } from './interfaces/emits';
+import { onUnmounted } from 'vue';
 
 let board: Board;
 let wolf: Wolf;
@@ -52,10 +54,21 @@ let gameLoopID: number;
 gameLoopID = setInterval(gameLoop, speed);
 
 function gameLoop() {
-  wolf.draw(context)
-  board.drawCollision()
+  wolf.draw(context);
+  board.drawCollision();
+
+  wolf.clear(context);
+  // board.clearCollision();
 }
 
+function moveWolf({side, basket}: IMove) {
+  wolf.state.side = side;
+  wolf.state.basket = basket;
+}
+
+onUnmounted(() => {
+  clearInterval(gameLoopID)
+})
 
 </script>
 

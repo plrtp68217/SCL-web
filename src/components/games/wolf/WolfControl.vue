@@ -3,13 +3,13 @@
   <div class="wolf-control">
 
     <div class="wolf-control-buttons">
-      <button @click="">LT</button>
-      <button>LB</button>
+      <button @click="emit('move', {side: 0, basket: 1})">LT</button>
+      <button @click="emit('move', {side: 0, basket: 0})">LB</button>
     </div>
     
     <div class="wolf-control-buttons">
-      <button>RT</button>
-      <button>RB</button>
+      <button @click="emit('move', {side: 1, basket: 1})">RT</button>
+      <button @click="emit('move', {side: 1, basket: 0})">RB</button>
     </div> 
 
   </div>
@@ -18,6 +18,9 @@
 
 
 <script setup lang="ts">
+import type { ControlEmit } from './interfaces/emits';
+
+const emit = defineEmits<ControlEmit>();
   
 </script>
 

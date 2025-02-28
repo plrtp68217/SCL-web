@@ -18,10 +18,21 @@ export class Board {
     this.eggs = [];
   }
 
-
   drawCollision() {
     this.context.fillStyle = 'black';
-    this.context.fillRect(this.wolf.collisionX, this.wolf.collisionY, this.wolf.collisionWidth, this.wolf.collisionHeight);
+    this.context.fillRect(this.wolf.collisionX,
+                          this.wolf.collisionY,
+                          this.wolf.collisionWidth,
+                          this.wolf.collisionHeight,
+                         );
 
+  }
+
+  clearCollision() {
+    this.context.clearRect(this.wolf.collisionX,
+                           this.wolf.collisionY,
+                           this.wolf.collisionWidth,
+                           this.wolf.collisionHeight,
+                          )
   }
 }

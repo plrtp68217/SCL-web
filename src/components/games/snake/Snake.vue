@@ -30,9 +30,10 @@ import { Bonuse } from './classes/Bonuse';
 import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
-import type { IMove } from '../common/interfaces/move';
+import type { IMove } from '../common/interfaces/emits';
 import { ref } from 'vue';
 import { isChance } from '../common/utils/random';
+import { onUnmounted } from 'vue';
 
 let board: Board;
 
@@ -99,6 +100,9 @@ function gameLoop(): void {
 
 }
 
+onUnmounted(() => {
+  clearInterval(gameLoopID)
+})
 
 </script>
 

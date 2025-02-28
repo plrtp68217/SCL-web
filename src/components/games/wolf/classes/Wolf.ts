@@ -1,5 +1,5 @@
 import { Board } from "./Board";
-import type { Egg } from "./Egg";
+// import type { Egg } from "./Egg";
 
 interface WolfState {
   side: 0 | 1;
@@ -45,18 +45,23 @@ export class Wolf {
   }
 
   get collisionY() {
-    if (this.state.basket === 0) {
-      return this.spriteY + this.height * 0.5 // basket 0 (вниз)
-    }
-    else {
-      return this.spriteY + this.collisionHeight * 0.5 // basket 1 (вверх)
-    }
+    this.state.basket === 0
+    ?
+    this.spriteY + this.height * 0.5 // basket 0 (вниз)
+    :
+    this.spriteY + this.collisionHeight * 0.5 // basket 1 (вверх)
+
+
+    // if (this.state.basket === 0) {
+    //   return this.spriteY + this.height * 0.5 // basket 0 (вниз)
+    // }
+    // else {
+    //   return this.spriteY + this.collisionHeight * 0.5 // basket 1 (вверх)
+    // }
+    return this.state.basket
   }
 
-
-  isCollision(egg: Egg) {
-  
-    // const horizontalBorder = egg.x >= this.collisionX && egg.x + egg.width <=  this.collisionX + 
+  isCollision() {
   
   }
 
@@ -66,11 +71,14 @@ export class Wolf {
     const sheetY = this.state.side === 0 ? 0 : 200;
 
     context.drawImage(this.spriteSheet,
-      sheetX, sheetY,
-      200, 200,
-      this.spriteX, this.spriteY,
-      this.width, this.height);
+                      sheetX, sheetY,
+                      200, 200,
+                      this.spriteX, this.spriteY,
+                      this.width, this.height);
   }
 
+  clear(context: CanvasRenderingContext2D) {
+    context.clearRect(this.spriteX, this.spriteY, this.width, this.height)
+  }
 
 }

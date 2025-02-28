@@ -34,7 +34,7 @@ import TetrisControl from './TetrisControl.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
-import type { IMove } from '../common/interfaces/move';
+import type { IMove } from '../common/interfaces/emits';
 import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
