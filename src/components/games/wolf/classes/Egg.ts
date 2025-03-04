@@ -5,11 +5,10 @@ export class Egg {
     width: number;
     height: number;
 
-    
-
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, width: number, height: number) {
         this.x = x;
         this.y = y;
-        this.width = this.height = 30;
+        this.width = width;
+        this.height = height;
     }
 }
