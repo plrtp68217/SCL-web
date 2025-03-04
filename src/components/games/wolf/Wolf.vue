@@ -37,15 +37,37 @@ import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
 import type { IMove } from './interfaces/emits';
 import { onUnmounted } from 'vue';
+import type { ILine } from './interfaces/line';
 
 let board: Board;
 let wolf: Wolf;
 let context: CanvasRenderingContext2D;
 
+const angle: number = 30;
+const length: number = 140;
+
+let lines: ILine[];
+let deviationTopY: number;
+let deviationBottomY: number;
+
+
 function defineBoard(newBoard: Board) {
   board = newBoard;
   wolf = board.wolf;
   context = board.context;
+
+  deviationTopY = board.height * 0.3;
+
+  deviationBottomY = board.height * 0.45
+
+  
+  lines = [
+    {startX: 0 , startY: deviationTopY, length: length, angle: angle, direction: 1},
+    {startX: 0, startY: board.height - deviationBottomY, length: length, angle: angle, direction: 1},
+    {startX: board.width, startY: deviationTopY, length: length, angle: angle, direction: -1},
+    {startX: board.width, startY: board.height - deviationBottomY, length: length, angle: angle, direction: -1},
+  ]
+  
 }
 
 let speed: number = 300;
@@ -53,11 +75,16 @@ let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
 
+ 
+
 function gameLoop() {
   board.clear();
-
+  
   wolf.draw(context);
-  board.drawCollision();
+  
+  board.drawLines(lines);
+
+  // board.drawCollision();
 }
 
 function moveWolf({side, basket}: IMove) {

@@ -5,6 +5,8 @@ export class Egg {
     width: number;
     height: number;
 
+    
+
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;

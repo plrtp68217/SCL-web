@@ -1,5 +1,9 @@
 import { Wolf } from "./Wolf";
 import { Egg } from "./Egg";
+import type { ILine } from "../interfaces/line";
+
+
+
 
 export class Board {
   context: CanvasRenderingContext2D;
@@ -30,5 +34,23 @@ export class Board {
 
   clear() {
     this.context.clearRect(0, 0, this.width, this.height)
+  }
+
+  drawLine(line: ILine) {
+    const angleInRadians = line.angle * (Math.PI / 180);
+
+    const endX = line.startX + line.direction * (line.length * Math.cos(angleInRadians));
+    const endY = line.startY + line.length * Math.sin(angleInRadians);
+
+    this.context.beginPath();
+    this.context.moveTo(line.startX, line.startY);
+    this.context.lineTo(endX, endY);
+    this.context.stroke();
+  }
+
+  drawLines(lines: ILine[]) {
+    lines.forEach(line => {
+      this.drawLine(line);
+    });
   }
 }
