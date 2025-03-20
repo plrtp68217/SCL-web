@@ -22,7 +22,37 @@
       <WolfControl @move="moveWolf"/>
     </div>
 
-    <Modal/>
+    <Modal v-if="gameIsFirst || gameIsOver">
+
+      <div class="modal-container">
+
+        <h1 class="modal-container__title">
+          Wolf Cathes Eggs
+        </h1>
+
+        <div v-if="gameIsOver">
+
+          <h2 class="modal-container__score">
+            Your score: {{ score }}
+          </h2>
+
+        </div>
+
+        <div v-else>
+
+          <h2 class="modal-container__score">
+            Your best score: {{20000}}
+          </h2>
+
+        </div>
+
+        <div class="modal-container__start-button">
+          <button @click="startGame">Start</button>
+        </div>
+
+      </div>
+
+    </Modal>
 
   </div>
 
@@ -32,6 +62,8 @@
 
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
 import WolfBoard from './WolfBoard.vue';
@@ -77,14 +109,26 @@ function defineBoard(newBoard: Board) {
   
 }
 
+let gameIsOver = ref<boolean>(false);
+let gameIsFirst = ref<boolean>(true);
+
+let score = ref<number>(0)
 let speed: number = 300;
+
 let gameLoopID: number;
 
-gameLoopID = setInterval(gameLoop, speed);
+function startGame() {
+  if (gameIsFirst) gameIsFirst.value = false;
+
+  gameIsOver.value = false;
+
+  gameLoopID = setInterval(gameLoop, speed);
+
+}
+
 
 function gameLoop() {
   board.clear();
-  
   
   board.drawLines(lines);
   
@@ -138,6 +182,15 @@ onUnmounted(() => {
   padding: 10px;
   background-color: rgb(204, 94, 248);
 
+}
+
+.modal-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
 }
 
 </style>

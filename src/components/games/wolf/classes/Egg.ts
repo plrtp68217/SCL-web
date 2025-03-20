@@ -7,6 +7,7 @@ export class Egg {
     y: number;
     radius: number;
 
+    isFalling: boolean;
     isInBasket: boolean;
 
     constructor(board: Board, x: number, y: number, radius: number) {
@@ -16,6 +17,7 @@ export class Egg {
         this.y = y;
         this.radius = radius;
 
+        this.isFalling = false;
         this.isInBasket = false;
     }
 
@@ -25,11 +27,23 @@ export class Egg {
         context.fill();
     }
 
-    move(angle: number, step: number, directon: -1 | 1) {
-        const deltaX = directon * step * Math.cos(angle);
-        const deltaY = directon * step * Math.sin(angle);
+    clear(context: CanvasRenderingContext2D) {
+        context.fillStyle = '#3d3c3c'; // board background-color
+        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        context.fill();
+    }
 
-        this.x += deltaX;
-        this.y += deltaY;
+    move(angle: number, step: number, directon: -1 | 1) {
+        if (!this.isFalling) {
+            const deltaX = directon * step * Math.cos(angle);
+            const deltaY = directon * step * Math.sin(angle);
+    
+            this.x += deltaX;
+            this.y += deltaY;
+        }
+        else {
+            this.y += step;
+        }
+
     }
 }
