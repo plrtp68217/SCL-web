@@ -13,7 +13,7 @@ onMounted(() => {
     background = new Board(canvas);
     window.addEventListener('resize', resizeBackground);
     resizeBackground();
-    requestAnimationFrame(animateSquares);
+    animateSquares(0);
 
 })
 
