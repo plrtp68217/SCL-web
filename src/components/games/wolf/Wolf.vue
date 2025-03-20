@@ -22,6 +22,8 @@
       <WolfControl @move="moveWolf"/>
     </div>
 
+    <Modal/>
+
   </div>
 
   <img id="wolf" src="/images/wolf/wolf-sprite-sheet.png" style="display: none;">
@@ -33,22 +35,27 @@
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
 import WolfBoard from './WolfBoard.vue';
+import Modal from '@/components/UI/Modal.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
 import type { IMove } from './interfaces/emits';
 import { onUnmounted } from 'vue';
 import type { ILine } from './interfaces/line';
+import type { Egg } from './classes/Egg';
 
 let board: Board;
 let wolf: Wolf;
 let context: CanvasRenderingContext2D;
 
-const angle: number = 30;
-const length: number = 140;
+let eggs: Egg[] = [];
+const maxEggsOnBoard: number = 4
+
+const lineAngle: number = 30;
+const lineLength: number = 140;
 
 let lines: ILine[];
-let deviationTopY: number;
-let deviationBottomY: number;
+let lineDeviationTopY: number;
+let lineDeviationBottomY: number;
 
 
 function defineBoard(newBoard: Board) {
@@ -56,16 +63,16 @@ function defineBoard(newBoard: Board) {
   wolf = board.wolf;
   context = board.context;
 
-  deviationTopY = board.height * 0.3;
+  lineDeviationTopY = board.height * 0.3;
 
-  deviationBottomY = board.height * 0.45
+  lineDeviationBottomY = board.height * 0.45
 
   
   lines = [
-    {startX: 0 , startY: deviationTopY, length: length, angle: angle, direction: 1},
-    {startX: 0, startY: board.height - deviationBottomY, length: length, angle: angle, direction: 1},
-    {startX: board.width, startY: deviationTopY, length: length, angle: angle, direction: -1},
-    {startX: board.width, startY: board.height - deviationBottomY, length: length, angle: angle, direction: -1},
+    {startX: 0 , startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: 1},
+    {startX: 0, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: 1},
+    {startX: board.width, startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: -1},
+    {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
   ]
   
 }
@@ -75,15 +82,13 @@ let gameLoopID: number;
 
 gameLoopID = setInterval(gameLoop, speed);
 
- 
-
 function gameLoop() {
   board.clear();
   
-  wolf.draw(context);
   
   board.drawLines(lines);
-
+  
+  wolf.draw(context);
   // board.drawCollision();
 }
 
@@ -104,6 +109,10 @@ onUnmounted(() => {
 
 
 <style scoped>
+
+.wolf {
+  position: relative;
+}
 
 .wolf-header {
   padding: 10px;
