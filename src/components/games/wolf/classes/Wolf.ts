@@ -1,4 +1,5 @@
 import { Board } from "./Board";
+import type { Egg } from "./Egg";
 // import type { Egg } from "./Egg";
 
 interface WolfState {
@@ -28,7 +29,7 @@ export class Wolf {
     this.spriteY = board.height - this.height;
 
     this.collisionWidth = this.width * 0.4;
-    this.collisionHeight = 40;
+    this.collisionHeight = 20;
 
     this.spriteSheet = spriteSheet;
 
@@ -70,8 +71,14 @@ export class Wolf {
                     );
   }
 
-  isCollision() {
-  
+  isEggInBasket(egg: Egg) {
+    const isInsideX = egg.x - egg.radius >= this.collisionX &&
+                      egg.x + egg.radius <= this.collisionX  + this.collisionWidth;
+
+    const isInsideY = egg.y - egg.radius >= this.collisionY &&
+                      egg.y + egg.radius <= this.collisionY + this.collisionHeight;
+
+    return isInsideX && isInsideY;
   }
 
 }

@@ -23,6 +23,7 @@ export class Board {
   }
 
   drawCollision() {
+    this.context.beginPath();
     this.context.fillStyle = 'black';
     this.context.fillRect(this.wolf.collisionX,
                           this.wolf.collisionY,
@@ -33,13 +34,14 @@ export class Board {
   }
 
   clear() {
+    this.context.beginPath();
     this.context.clearRect(0, 0, this.width, this.height)
   }
 
   drawLine(line: ILine) {
     const angleInRadians = line.angle * (Math.PI / 180);
 
-    const endX = line.startX + line.direction * (line.length * Math.cos(angleInRadians));
+    const endX = line.startX + line.direction * line.length * Math.cos(angleInRadians);
     const endY = line.startY + line.length * Math.sin(angleInRadians);
 
     this.context.beginPath();

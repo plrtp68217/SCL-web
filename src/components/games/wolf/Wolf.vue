@@ -13,7 +13,7 @@
       </div>
 
       <div class="wolf-main-hud">
-        <WolfHud/>
+        <WolfHud :score="score"/>
       </div>
       
     </div>
@@ -22,7 +22,7 @@
       <WolfControl @move="moveWolf"/>
     </div>
 
-    <Modal v-if="gameIsFirst || gameIsOver">
+    <Overlay v-if="gameIsFirst || gameIsOver">
 
       <div class="modal-container">
 
@@ -52,7 +52,7 @@
 
       </div>
 
-    </Modal>
+    </Overlay>
 
   </div>
 
@@ -66,28 +66,30 @@ import { ref } from 'vue';
 
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
+import { Egg } from './classes/Egg';
 import WolfBoard from './WolfBoard.vue';
-import Modal from '@/components/UI/Modal.vue';
+import Overlay from '@/components/UI/Overlay.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
 import type { IMove } from './interfaces/emits';
 import { onUnmounted } from 'vue';
 import type { ILine } from './interfaces/line';
-import type { Egg } from './classes/Egg';
+import type { IEggStartPositions } from './interfaces/egg';
 
 let board: Board;
 let wolf: Wolf;
 let context: CanvasRenderingContext2D;
 
 let eggs: Egg[] = [];
-const maxEggsOnBoard: number = 4
-
-const lineAngle: number = 30;
-const lineLength: number = 140;
+const maxEggsOnBoard: number = 4;
+const eggRadius = 6;
+let eggsStartPositions: IEggStartPositions;
 
 let lines: ILine[];
 let lineDeviationTopY: number;
 let lineDeviationBottomY: number;
+const lineAngle: number = 30;
+const lineLength: number = 140;
 
 
 function defineBoard(newBoard: Board) {
@@ -95,10 +97,9 @@ function defineBoard(newBoard: Board) {
   wolf = board.wolf;
   context = board.context;
 
-  lineDeviationTopY = board.height * 0.3;
+  lineDeviationTopY = board.height * 0.35;
 
   lineDeviationBottomY = board.height * 0.45
-
   
   lines = [
     {startX: 0 , startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: 1},
@@ -106,13 +107,29 @@ function defineBoard(newBoard: Board) {
     {startX: board.width, startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: -1},
     {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
   ]
+
+  eggsStartPositions = {
+    'topleft': {x: 0, y: lineDeviationTopY},
+    'bottomleft': {x: 0, y: board.height - lineDeviationBottomY},
+    'topright': {x: board.width, y: lineDeviationTopY},
+    'bottomright': {x: board.width, y: board.height - lineDeviationBottomY},
+  }
+
+  const egg1 = new Egg(board, eggsStartPositions['topleft'].x, eggsStartPositions['topleft'].y - eggRadius, eggRadius)
+  const egg2 = new Egg(board, eggsStartPositions['bottomleft'].x, eggsStartPositions['bottomleft'].y - eggRadius, eggRadius)
+  const egg3 = new Egg(board, eggsStartPositions['topright'].x, eggsStartPositions['topright'].y - eggRadius, eggRadius)
+  const egg4 = new Egg(board, eggsStartPositions['bottomright'].x, eggsStartPositions['bottomright'].y - eggRadius, eggRadius)
+
+  console.log(egg1);
+
+  eggs.push(...[egg1, egg2, egg3, egg4]);
   
 }
 
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
 
-let score = ref<number>(0)
+let score = ref<number>(0);
 let speed: number = 300;
 
 let gameLoopID: number;
@@ -126,27 +143,55 @@ function startGame() {
 
 }
 
-
 function gameLoop() {
   board.clear();
   
   board.drawLines(lines);
+
+  deleteFallenEggs(eggs);
+  moveAndCheckEggs(eggs, 10);
   
   wolf.draw(context);
-  // board.drawCollision();
+  board.drawCollision();
+}
+
+function moveAndCheckEggs(eggs: Egg[], step: number) {
+  eggs.forEach((egg) => {
+    egg.draw(context);
+    egg.move(lineAngle, step);
+
+    if (egg.distanceMove > lineLength) {
+      egg.isFalling = true;
+      egg.distanceMove = 0;
+    }
+    else if (wolf.isEggInBasket(egg)) {
+      score.value += 10;
+      egg.isFallen = true;
+    }
+    else if (egg.distanceMove >= (2 * step) && egg.isFalling) {
+      egg.isFallen = true;
+    }
+  })
+}
+
+function deleteFallenEggs(eggs: Egg[]) {
+  eggs = eggs.filter((egg) => {
+    console.log(!egg.isFallen);
+    return !egg.isFallen
+  })
 }
 
 function moveWolf({side, basket}: IMove) {
-  wolf.clear(context)
+  wolf.clear(context);
 
   wolf.state.side = side;
   wolf.state.basket = basket;
 
-  wolf.draw(context)
+  wolf.draw(context);
 }
 
 onUnmounted(() => {
-  clearInterval(gameLoopID)
+  clearInterval(gameLoopID);
 })
 
 </script>
