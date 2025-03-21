@@ -148,7 +148,7 @@ function gameLoop() {
   
   board.drawLines(lines);
 
-  if (eggs.length < 4) {
+  if (eggs.length < maxEggsOnBoard) {
     appendEgg(eggs);
   }
 
