@@ -83,7 +83,7 @@ let context: CanvasRenderingContext2D;
 let eggs: Egg[] = [];
 const maxEggsOnBoard: number = 4;
 const eggRadius = 6;
-let eggsStartPositions: IEggStartPositions;
+let eggStartPositions: IEggStartPositions;
 
 let lines: ILine[];
 let lineDeviationTopY: number;
@@ -108,21 +108,21 @@ function defineBoard(newBoard: Board) {
     {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
   ]
 
-  eggsStartPositions = {
+  eggStartPositions = {
     'topleft': {x: 0, y: lineDeviationTopY},
     'bottomleft': {x: 0, y: board.height - lineDeviationBottomY},
     'topright': {x: board.width, y: lineDeviationTopY},
     'bottomright': {x: board.width, y: board.height - lineDeviationBottomY},
   }
 
-  const egg1 = new Egg(board, eggsStartPositions['topleft'].x, eggsStartPositions['topleft'].y - eggRadius, eggRadius)
-  const egg2 = new Egg(board, eggsStartPositions['bottomleft'].x, eggsStartPositions['bottomleft'].y - eggRadius, eggRadius)
-  const egg3 = new Egg(board, eggsStartPositions['topright'].x, eggsStartPositions['topright'].y - eggRadius, eggRadius)
-  const egg4 = new Egg(board, eggsStartPositions['bottomright'].x, eggsStartPositions['bottomright'].y - eggRadius, eggRadius)
+  // const egg1 = new Egg(board, eggsStartPositions['topleft'].x, eggsStartPositions['topleft'].y - eggRadius, eggRadius)
+  // const egg2 = new Egg(board, eggsStartPositions['bottomleft'].x, eggsStartPositions['bottomleft'].y - eggRadius, eggRadius)
+  // const egg3 = new Egg(board, eggsStartPositions['topright'].x, eggsStartPositions['topright'].y - eggRadius, eggRadius)
+  // const egg4 = new Egg(board, eggsStartPositions['bottomright'].x, eggsStartPositions['bottomright'].y - eggRadius, eggRadius)
 
-  console.log(egg1);
+  // console.log(egg1);
 
-  eggs.push(...[egg1, egg2, egg3, egg4]);
+  // eggs.push(...[egg1, egg2, egg3, egg4]);
   
 }
 
@@ -148,15 +148,20 @@ function gameLoop() {
   
   board.drawLines(lines);
 
+  if (eggs.length < 4) {
+    appendEgg(eggs);
+  }
+
   eggs = deleteFallenEggs(eggs);
   moveAndCheckEggs(eggs, 10);
 
   wolf.draw(context);
-  board.drawCollision();
+  // board.drawCollision();
 }
 
 function moveAndCheckEggs(eggs: Egg[], step: number) {
   eggs.forEach((egg) => {
+
     egg.draw(context);
     egg.move(lineAngle, step);
 
@@ -179,6 +184,16 @@ function deleteFallenEggs(eggs: Egg[]) {
     return !egg.isFallen
   })
   return eggs;
+}
+
+function appendEgg(eggs: Egg[]) {
+  const keys = Object.keys(eggStartPositions);
+  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+
+  const eggPosition = eggStartPositions[randomKey];
+
+  const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
+  eggs.push(egg);
 }
 
 function moveWolf({side, basket}: IMove) {
