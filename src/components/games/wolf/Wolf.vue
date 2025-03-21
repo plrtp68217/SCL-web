@@ -148,9 +148,9 @@ function gameLoop() {
   
   board.drawLines(lines);
 
-  deleteFallenEggs(eggs);
+  eggs = deleteFallenEggs(eggs);
   moveAndCheckEggs(eggs, 10);
-  
+
   wolf.draw(context);
   board.drawCollision();
 }
@@ -176,9 +176,9 @@ function moveAndCheckEggs(eggs: Egg[], step: number) {
 
 function deleteFallenEggs(eggs: Egg[]) {
   eggs = eggs.filter((egg) => {
-    console.log(!egg.isFallen);
     return !egg.isFallen
   })
+  return eggs;
 }
 
 function moveWolf({side, basket}: IMove) {
