@@ -25,7 +25,7 @@
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
-                <h2 class="balance-count">0</h2>
+                <h2 class="balance-count">{{ balance }}</h2>
                 <img class="balance-coin" src="/images/coin.png">
             </div>
 
@@ -59,6 +59,13 @@ import { onMounted} from 'vue';
 import Background from '../background/Background.vue';
 import SwiperGames from '../menu/SwiperGames.vue';
 import type { Game } from '../menu/interfaces/game';
+
+import { useBalanceStore } from '@/stores/balance';
+import { storeToRefs } from 'pinia';
+
+const balanceStore = useBalanceStore()
+
+const { balance } = storeToRefs(balanceStore);
 
 const games: Game[] = [
     {

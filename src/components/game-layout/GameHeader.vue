@@ -4,7 +4,7 @@
         <div class="header-balance">
             <div class="header-balance-label">Your balance:</div>
 
-            <div class="header-balance-count">{{ 1000 }}</div>
+            <div class="header-balance-count">{{ balance }}</div>
 
             <img class="header-balance-image" src="/images/coin.png">
 
@@ -17,6 +17,13 @@
 
 
 <script setup lang="ts">
+
+import { useBalanceStore } from '@/stores/balance';
+import { storeToRefs } from 'pinia';
+
+const balanceStore = useBalanceStore()
+
+const { balance } = storeToRefs(balanceStore);
 
 </script>
 
