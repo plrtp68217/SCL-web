@@ -25,7 +25,7 @@
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
-                <h2 class="balance-count">1000</h2>
+                <h2 class="balance-count">0</h2>
                 <img class="balance-coin" src="/images/coin.png">
             </div>
 

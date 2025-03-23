@@ -198,16 +198,6 @@ function deleteFallenEggs(eggs: Egg[]) {
   return eggs;
 }
 
-// function appendEgg(eggs: Egg[]) {
-//   const keys = Object.keys(eggStartPositions);
-//   const randomKey = keys[Math.floor(Math.random() * keys.length)];
-
-//   const eggPosition = eggStartPositions[randomKey];
-
-//   const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
-//   eggs.push(egg);
-// }
-
 function createEggAdder() {
   let callCount: number = 0;
 
