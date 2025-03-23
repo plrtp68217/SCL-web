@@ -194,6 +194,7 @@ onUnmounted(() => {
 .snake-footer-sound {
     display: flex;
     align-items: center;
+    font-size: 20px;
 }
 
 .modal-container {

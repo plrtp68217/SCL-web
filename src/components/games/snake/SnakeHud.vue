@@ -24,6 +24,7 @@ let props = defineProps({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-size: 20px;
 }
 
 </style>
