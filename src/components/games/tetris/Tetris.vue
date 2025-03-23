@@ -25,7 +25,7 @@
             <div class="modal-container">
             
               <h1 class="modal-container__title">
-                Wolf Cathes Eggs
+                Tetris
               </h1>
           
               <div v-if="gameIsOver">
@@ -45,7 +45,8 @@
               </div>
           
               <div class="modal-container__start-button">
-                <button @click="startGame">Start</button>
+                <MyButton @click="startGame">Start</MyButton>
+                
               </div>
           
             </div>
@@ -65,10 +66,14 @@ import TetrisSecondBoard from './TetrisSecondBoard.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
+import MyButton from '@/components/UI/MyButton.vue';
+
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
+
 import type { IMove } from '../common/interfaces/emits';
+
 import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
@@ -244,13 +249,16 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
 .tetris-footer {
     width: 100%;
+    padding: 10px;
     background-color: #cc74ff;
     display: flex;
-    height: 80px;
+    /* height: 80px; */
+
     border-right: 5px solid #3d3c3c;
     border-bottom: 5px solid #3d3c3c;
     border-left: 5px solid #3d3c3c;
@@ -260,6 +268,8 @@ onUnmounted(() => {
     width: 30%;
     text-align: center;
     margin: auto;
+    color: white;
+    font-size: 20px;
 }
 
 .modal-container {

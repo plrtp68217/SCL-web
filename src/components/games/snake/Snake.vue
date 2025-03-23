@@ -24,7 +24,7 @@
             <div class="modal-container">
             
               <h1 class="modal-container__title">
-                Wolf Cathes Eggs
+                Snake
               </h1>
           
               <div v-if="gameIsOver">
@@ -44,7 +44,7 @@
               </div>
           
               <div class="modal-container__start-button">
-                <button @click="startGame">Start</button>
+                <MyButton @click="startGame">Start</MyButton>
               </div>
           
             </div>
@@ -61,10 +61,13 @@ import { ref, onUnmounted } from 'vue';
 
 import { Board } from './classes/Board';
 import { Bonuse } from './classes/Bonuse';
+
 import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
+import MyButton from '@/components/UI/MyButton.vue';
+
 import { isChance } from '../common/utils/random';
 import type { IMove } from '../common/interfaces/emits';
 

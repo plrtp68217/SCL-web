@@ -1,14 +1,14 @@
 <template>
     <div class="snake-control">
         <div class="snake-control-up">
-            <button @click="emit('move', {axis: 'y', direction: -1})">UP</button>
+            <MyButton @click="emit('move', {axis: 'y', direction: -1})">UP</MyButton>
         </div>
         <div class="snake-control-left-right">
-            <button @click="emit('move', {axis: 'x', direction: -1})">LEFT</button>
-            <button @click="emit('move', {axis: 'x', direction: 1})">RIGHT</button>
+            <MyButton @click="emit('move', {axis: 'x', direction: -1})">LEFT</MyButton>
+            <MyButton @click="emit('move', {axis: 'x', direction: 1})">RIGHT</MyButton>
         </div>
         <div class="snake-control-down">
-            <button @click="emit('move', {axis: 'y', direction: 1})">DOWN</button>
+            <MyButton @click="emit('move', {axis: 'y', direction: 1})">DOWN</MyButton>
         </div>
     </div>
 </template>
@@ -17,6 +17,8 @@
 <script setup lang="ts">
 
 import type { ControlEmit } from './interfaces/emits';
+
+import MyButton from '@/components/UI/MyButton.vue';
 
 const emit = defineEmits<ControlEmit>();
 
@@ -31,6 +33,12 @@ const emit = defineEmits<ControlEmit>();
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
+}
+
+.snake-control-left-right {
+    display: flex;
+    gap: 5px;
 }
 
 </style>

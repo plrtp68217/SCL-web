@@ -35,4 +35,9 @@ const props = defineProps(
 
 <style scoped>
 
+.tetris-hud {
+    color: white;
+    font-size: 20px;
+}
+
 </style>

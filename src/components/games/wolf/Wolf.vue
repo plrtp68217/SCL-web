@@ -50,7 +50,7 @@
         </div>
 
         <div class="modal-container__start-button">
-          <button @click="startGame">Start</button>
+          <MyButton @click="startGame">Start</MyButton>
         </div>
 
       </div>
@@ -65,17 +65,19 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onUnmounted } from 'vue';
 
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
 import { Egg } from './classes/Egg';
+
 import WolfBoard from './WolfBoard.vue';
 import Overlay from '@/components/UI/Overlay.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
+import MyButton from '@/components/UI/MyButton.vue';
+
 import type { IMove } from './interfaces/emits';
-import { onUnmounted } from 'vue';
 import type { ILine } from './interfaces/line';
 import type { IEggStartPositions } from './interfaces/egg';
 
@@ -250,6 +252,7 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-size: 20px;
   background-color: rgb(204, 94, 248);
   border-left: 5px solid #3d3c3c;
   border-right: 5px solid #3d3c3c;
