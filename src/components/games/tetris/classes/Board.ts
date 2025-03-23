@@ -81,6 +81,14 @@ export class Board {
         return false;
     }
 
+    checkAndClearFilledLines(): number {
+        const filledLines = this.checkFilledLines();
+        if (filledLines) {
+            this.clearFilledLines(filledLines);
+        }
+        return filledLines.length;
+    }
+
     checkFilledLines(): number[] {
         const filledLineLen = this.width / this.step;
         let filledLinesY: number[] = [];
@@ -111,13 +119,6 @@ export class Board {
             }
         }
     }
-    
-    checkAndClearFilledLines(): void {
-        const filledLines = this.checkFilledLines();
-        if (filledLines) {
-            this.clearFilledLines(filledLines);
-        }
-    }
 
     drawOnCenter(shape: Shape): void {
         const centerX = this.width / 2;
@@ -140,5 +141,10 @@ export class Board {
         for (let block of shape.blocks) {
             this.context.clearRect(block.x, block.y, this.step, this.step);
         }
+    }
+
+    reset() {
+        this.shapesOnBoard = []
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 }

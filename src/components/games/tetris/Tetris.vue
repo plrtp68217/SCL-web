@@ -10,7 +10,7 @@
 
             <div class="tetris-header-right">
                 <TetrisSecondBoard @second_board="defineSecondBoard" />
-                <TetrisHud />
+                <TetrisHud :score="score" />
             </div>
 
         </div>
@@ -20,17 +20,51 @@
             <TetrisControl @move="moveShape" @rotate="rotateShape" />
         </div>
 
+        <Overlay v-if="gameIsFirst || gameIsOver">
+
+            <div class="modal-container">
+            
+              <h1 class="modal-container__title">
+                Wolf Cathes Eggs
+              </h1>
+          
+              <div v-if="gameIsOver">
+            
+                <h2 class="modal-container__score">
+                  Your score: {{ score }}
+                </h2>
+            
+              </div>
+          
+              <div v-else>
+            
+                <h2 class="modal-container__score">
+                  Your best score: {{20000}}
+                </h2>
+            
+              </div>
+          
+              <div class="modal-container__start-button">
+                <button @click="startGame">Start</button>
+              </div>
+          
+            </div>
+
+        </Overlay>
+
     </div>
 
 </template>
 
 
 <script setup lang="ts">
-import { onUnmounted } from 'vue';
+import { onUnmounted, ref } from 'vue';
+
 import TetrisMainBoard from './TetrisMainBoard.vue';
 import TetrisSecondBoard from './TetrisSecondBoard.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
+import Overlay from '@/components/UI/Overlay.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
@@ -46,11 +80,11 @@ let nextShapes: Shape[];
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
-    shapes = getRandomShapes(shapeList);
-    shapes = getShapesWithStartPosition(shapes, board);
-    state = new State();
+    // shapes = getRandomShapes(shapeList);
+    // shapes = getShapesWithStartPosition(shapes, board);
+    // state = new State();
 
-    nextShapes = getRandomShapes(shapeList);
+    // nextShapes = getRandomShapes(shapeList);
 }
 
 let secondBoard: Board;
@@ -58,13 +92,46 @@ let secondBoard: Board;
 function defineSecondBoard(newBoard: Board) {
     secondBoard = newBoard;
     secondBoard.step = 20;
-    secondBoard.draw(nextShapes[0]);
+    // secondBoard.draw(nextShapes[0]);
 }
 
+let gameIsOver = ref<boolean>(false);
+let gameIsFirst = ref<boolean>(true);
+
+const reward = 100;
+let score = ref<number>(0);
 let speed: number = 200;
+
 let gameLoopID: number;
 
-gameLoopID = setInterval(gameLoop, speed);
+
+function startGame() {
+    if (gameIsFirst) gameIsFirst.value = false;
+
+    gameIsOver.value = false;
+
+    score.value = 0;
+
+    shapes = getRandomShapes(shapeList);
+    shapes = getShapesWithStartPosition(shapes, board);
+
+    board.reset();
+    secondBoard.reset();
+
+    state = new State();
+
+    nextShapes = getRandomShapes(shapeList);
+
+    secondBoard.draw(nextShapes[0]);
+
+    gameLoopID = setInterval(gameLoop, speed);
+
+}
+
+function gameOver() {
+    gameIsOver.value = true;
+    clearInterval(gameLoopID);
+}
 
 function gameLoop(): void {
 
@@ -72,7 +139,11 @@ function gameLoop(): void {
         board.shapesOnBoard.push(shapes[state.value]);
         state.reset();
         
-        board.checkAndClearFilledLines();
+        const filledLinesCount = board.checkAndClearFilledLines();
+
+        if (!filledLinesCount) {
+            score.value += reward * filledLinesCount;
+        }
 
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
@@ -80,8 +151,7 @@ function gameLoop(): void {
         board.draw(shapes[state.value]);
 
         if (board.isCollision(shapes[state.value], 'y', 1)) {
-            clearInterval(gameLoopID);
-            console.log('game over');
+            gameOver();
         }
         
         secondBoard.clear(nextShapes[0]);
@@ -158,6 +228,10 @@ onUnmounted(() => {
 
 <style scoped>
 
+.tetris {
+    position: relative;
+}
+
 .tetris-header {
     display: flex;
     justify-content: space-around;
@@ -187,4 +261,14 @@ onUnmounted(() => {
     text-align: center;
     margin: auto;
 }
+
+.modal-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+
 </style>

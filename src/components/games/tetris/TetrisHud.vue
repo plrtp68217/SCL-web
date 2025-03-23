@@ -1,7 +1,7 @@
 <template>
     <div class="tetris-hud">
 
-        <div class="tetris-hud-score">Score: {{ 1000 }}</div>
+        <div class="tetris-hud-score">Score: {{ props.score }}</div>
 
         <div class="tetris-hud-bonuses">
 
@@ -20,6 +20,15 @@
 
 
 <script setup lang="ts">
+
+const props = defineProps(
+    {
+        score: {
+            type: Number,
+            required: true,
+        }
+    }
+)
 
 </script>
 
