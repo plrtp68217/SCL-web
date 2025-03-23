@@ -19,33 +19,66 @@
 
         </div>
 
+        <Overlay v-if="gameIsFirst || gameIsOver">
+
+            <div class="modal-container">
+            
+              <h1 class="modal-container__title">
+                Wolf Cathes Eggs
+              </h1>
+          
+              <div v-if="gameIsOver">
+            
+                <h2 class="modal-container__score">
+                  Your score: {{ score }}
+                </h2>
+            
+              </div>
+          
+              <div v-else>
+            
+                <h2 class="modal-container__score">
+                  Your best score: {{20000}}
+                </h2>
+            
+              </div>
+          
+              <div class="modal-container__start-button">
+                <button @click="startGame">Start</button>
+              </div>
+          
+            </div>
+
+        </Overlay>
+
     </div>
 
 </template>
 
 
 <script setup lang="ts">
+import { ref, onUnmounted } from 'vue';
+
 import { Board } from './classes/Board';
 import { Bonuse } from './classes/Bonuse';
 import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
-import type { IMove } from '../common/interfaces/emits';
-import { ref } from 'vue';
+import Overlay from '@/components/UI/Overlay.vue';
 import { isChance } from '../common/utils/random';
-import { onUnmounted } from 'vue';
+import type { IMove } from '../common/interfaces/emits';
 
 let board: Board;
 
 function defineBoard(newBoard: Board): void {
     board = newBoard;
 
-    board.createSnake();
-    board.createApple();
+    // board.createSnake();
+    // board.createApple();
 
-    if(isChance(0.5)) {
-        board.createBonuse();
-    }
+    // if(isChance(0.5)) {
+    //     board.createBonuse();
+    // }
 }
 
 function changeDirection({axis, direction}: IMove): void {
@@ -58,12 +91,38 @@ function changeDirection({axis, direction}: IMove): void {
     board.snake.axis = axis;
 }
 
+let gameIsOver = ref<boolean>(false);
+let gameIsFirst = ref<boolean>(true);
+
 let score = ref<number>(0);
 
 let speed: number = 300;
 let gameLoopID: number;
 
-gameLoopID = setInterval(gameLoop, speed);
+
+function startGame() {
+    board.clear();
+
+    if (gameIsFirst) gameIsFirst.value = false;
+
+    gameIsOver.value = false;
+
+    score.value = 0;
+
+    gameLoopID = setInterval(gameLoop, speed);
+
+    board.createSnake();
+    board.createApple();
+
+    if(isChance(0.5)) {
+        board.createBonuse();
+    }
+}
+
+function gameOver() {
+    gameIsOver.value = true;
+    clearInterval(gameLoopID);
+}
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
@@ -71,9 +130,7 @@ function gameLoop(): void {
     board.snake.move();
 
     if (board.isCollision()) {
-        clearInterval(gameLoopID);
-        console.log('game over');
-        
+        gameOver()
     }
 
     if (board.isFeed(board.apple)) {
@@ -109,6 +166,10 @@ onUnmounted(() => {
 
 <style scoped>
 
+.snake {
+    position: relative;
+}
+
 .snake-header {
     padding: 10px;
     border: 5px solid #3d3c3c;
@@ -130,6 +191,15 @@ onUnmounted(() => {
 .snake-footer-sound {
     display: flex;
     align-items: center;
+}
+
+.modal-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
 }
 
 </style>

@@ -49,6 +49,10 @@ export class Board {
         }
     }
 
+    clear() {
+        this.context.clearRect(0, 0, this.width, this.height);
+    }
+
     // поиск пустых блоков для генерации яблока или бонуса на пустом месте в поле
     getFreeBlocks(busyBlocks: Block[]): Block[] {
         const rowsNumber = this.height / this.step;
