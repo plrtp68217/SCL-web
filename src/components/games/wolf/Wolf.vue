@@ -13,7 +13,10 @@
       </div>
 
       <div class="wolf-main-hud">
-        <WolfHud :score="score"/>
+        <WolfHud
+          :score="score"
+          :lives="lives"
+        />
       </div>
       
     </div>
@@ -84,6 +87,7 @@ let eggs: Egg[] = [];
 const maxEggsOnBoard: number = 4;
 const eggRadius = 6;
 let eggStartPositions: IEggStartPositions;
+let addEgg: Function;
 
 let lines: ILine[];
 let lineDeviationTopY: number;
@@ -114,15 +118,6 @@ function defineBoard(newBoard: Board) {
     'topright': {x: board.width, y: lineDeviationTopY},
     'bottomright': {x: board.width, y: board.height - lineDeviationBottomY},
   }
-
-  // const egg1 = new Egg(board, eggsStartPositions['topleft'].x, eggsStartPositions['topleft'].y - eggRadius, eggRadius)
-  // const egg2 = new Egg(board, eggsStartPositions['bottomleft'].x, eggsStartPositions['bottomleft'].y - eggRadius, eggRadius)
-  // const egg3 = new Egg(board, eggsStartPositions['topright'].x, eggsStartPositions['topright'].y - eggRadius, eggRadius)
-  // const egg4 = new Egg(board, eggsStartPositions['bottomright'].x, eggsStartPositions['bottomright'].y - eggRadius, eggRadius)
-
-  // console.log(egg1);
-
-  // eggs.push(...[egg1, egg2, egg3, egg4]);
   
 }
 
@@ -130,6 +125,8 @@ let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
 
 let score = ref<number>(0);
+let lives = ref<number>(0);
+const livesCount: number = 5;
 let speed: number = 300;
 
 let gameLoopID: number;
@@ -139,8 +136,18 @@ function startGame() {
 
   gameIsOver.value = false;
 
-  gameLoopID = setInterval(gameLoop, speed);
+  score.value = 0;
+  lives.value = livesCount;
 
+  eggs = [];
+  addEgg = createEggAdder();
+
+  gameLoopID = setInterval(gameLoop, speed);
+}
+
+function gameOver() {
+  gameIsOver.value = true;
+  clearInterval(gameLoopID);
 }
 
 function gameLoop() {
@@ -148,8 +155,12 @@ function gameLoop() {
   
   board.drawLines(lines);
 
+  if (lives.value < 0) {
+    gameOver();
+  }
+
   if (eggs.length < maxEggsOnBoard) {
-    appendEgg(eggs);
+    addEgg(eggs);
   }
 
   eggs = deleteFallenEggs(eggs);
@@ -175,6 +186,7 @@ function moveAndCheckEggs(eggs: Egg[], step: number) {
     }
     else if (egg.distanceMove >= (2 * step) && egg.isFalling) {
       egg.isFallen = true;
+      lives.value -=1;
     }
   })
 }
@@ -186,14 +198,32 @@ function deleteFallenEggs(eggs: Egg[]) {
   return eggs;
 }
 
-function appendEgg(eggs: Egg[]) {
-  const keys = Object.keys(eggStartPositions);
-  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+// function appendEgg(eggs: Egg[]) {
+//   const keys = Object.keys(eggStartPositions);
+//   const randomKey = keys[Math.floor(Math.random() * keys.length)];
 
-  const eggPosition = eggStartPositions[randomKey];
+//   const eggPosition = eggStartPositions[randomKey];
 
-  const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
-  eggs.push(egg);
+//   const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
+//   eggs.push(egg);
+// }
+
+function createEggAdder() {
+  let callCount: number = 0;
+
+  return function(eggs: Egg[]) {
+    callCount += 1;
+
+    if (callCount % 3 === 0) {
+      const keys = Object.keys(eggStartPositions);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+
+      const eggPosition = eggStartPositions[randomKey];
+
+      const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
+      eggs.push(egg);
+    }
+  }
 }
 
 function moveWolf({side, basket}: IMove) {
