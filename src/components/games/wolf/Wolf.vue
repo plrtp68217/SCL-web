@@ -157,7 +157,7 @@ function gameLoop() {
   
   board.drawLines(lines);
 
-  if (lives.value < 0) {
+  if (lives.value === 0) {
     gameOver();
   }
 
