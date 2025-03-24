@@ -25,6 +25,7 @@
   font-size: 20px;
   color: white;
   transition: transform 0.1s ease;
+  user-select: none;
 }
 
 .my-button:active {
