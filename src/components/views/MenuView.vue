@@ -45,9 +45,9 @@
         </section>
 
         <!-- Нижняя часть: Карточки игр -->
-        <section class="games">
+        <footer class="games">
             <SwiperGames :games="games"/>
-        </section>
+        </footer>
         
     </div>
 
