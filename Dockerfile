@@ -1,5 +1,5 @@
 # Используем базовый образ Node.js
-FROM node:16-alpine as build-stage
+FROM node:18-alpine as build-stage
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
