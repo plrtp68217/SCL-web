@@ -1,8 +1,13 @@
 <template>
 
+    <div v-if="loading" class="loading-spinner">
+        <Spinner/>
+        <p class="text-loading">{{ textLoading }}</p>
+        
+    </div>
+
     <div class="menu">
          <Background/>
-
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
 
@@ -25,7 +30,7 @@
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
-                <h2 class="balance-count">{{ balance }}</h2>
+                <h2 class="balance-count">{{ userData.balance }}</h2>
                 <img class="balance-coin" src="/images/coin.png">
             </div>
 
@@ -55,22 +60,30 @@
 
 
 <script setup lang="ts">
-import { onMounted} from 'vue';
+import { onMounted, ref, type Ref} from 'vue';
+
 import Background from '../background/Background.vue';
 import SwiperGames from '../menu/SwiperGames.vue';
+import Spinner from '../spinner/Spinner.vue';
+
 import type { Game } from '../menu/interfaces/game';
 
-import { useBalanceStore } from '@/stores/balance';
+import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+
+import { getTgUserData } from '@/telegram/useTelegram';
 
 import type { LoginUserDto } from '@/api/types/authorization';
 
 import { api } from '@/api';
 
+let loading: boolean = true;
 
-const balanceStore = useBalanceStore()
+let textLoading: Ref<string> = ref('Получение данных с сервера...');
 
-const { balance } = storeToRefs(balanceStore);
+const userStore = useUserStore()
+
+let userData = storeToRefs(userStore);
 
 const games: Game[] = [
     {
@@ -97,6 +110,26 @@ async function loginUser(dto: LoginUserDto) {
 }
 
 onMounted(() => {
+    const {userId, name} = getTgUserData();
+
+    if (userId && name) {
+        loginUser({userId, name})
+        .then((response) => {
+            loading = false;
+            // получить данные из response
+            // response нужно типизировать (функцию loginUser ?)
+
+            // из response записать в userStore
+            // рекорды из всех игр тоже в userStore
+
+        })
+        .catch(() => {
+            textLoading.value = 'Ошибка загрузки. Перезагрузите страницу'
+        })
+    }
+    else {
+        textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :('
+    }
     
 })
 
@@ -111,6 +144,24 @@ onMounted(() => {
 .menu {
     height: 100vh;
     font-family: "Jersey 15", serif;
+}
+
+/* Экран загрузки */
+.loading-spinner {
+    position: fixed;
+    background-color: #09122C;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-loading {
+    color: white;
+    margin-top: 20px;
 }
 
 /* Верхняя часть: Earn и Лучшие игроки */

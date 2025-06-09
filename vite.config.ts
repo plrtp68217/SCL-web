@@ -9,5 +9,11 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     }
-  }
+  },
+  server: {
+    allowedHosts: [
+      '', // сюда записать адрес из https://serveo.net/
+      'localhost',
+    ],
+  },
 });
