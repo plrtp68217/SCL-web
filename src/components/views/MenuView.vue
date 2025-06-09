@@ -63,6 +63,11 @@ import type { Game } from '../menu/interfaces/game';
 import { useBalanceStore } from '@/stores/balance';
 import { storeToRefs } from 'pinia';
 
+import type { LoginUserDto } from '@/api/types/authorization';
+
+import { api } from '@/api';
+
+
 const balanceStore = useBalanceStore()
 
 const { balance } = storeToRefs(balanceStore);
@@ -85,8 +90,14 @@ const games: Game[] = [
     },
 ]
 
-onMounted(() => {
+async function loginUser(dto: LoginUserDto) {
+    let user = await api.auth.login(dto);
 
+    return user;
+}
+
+onMounted(() => {
+    
 })
 
 </script>
