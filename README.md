@@ -15,7 +15,7 @@
 
 ## Технологии:
 1. 🛠️ Frontend: Vue.js, TypeScript, Vite.
-2. ⚙️ Backend: Node.js, Express, WebSocket.
+2. ⚙️ Backend: Node.js, Nest, WebSocket.
 3. 🔗 Блокчейн: Интеграция с Ethereum, Binance Smart Chain или Solana.
 4. 🤖 Telegram API: Для создания бота и управления игровым процессом.
 
