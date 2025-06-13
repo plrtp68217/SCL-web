@@ -12,7 +12,7 @@ export default defineConfig({
   },
   server: {
     allowedHosts: [
-      'd2817a60daabc15c6f7aaedbd5069736.serveo.net', // сюда записать адрес из https://serveo.net/
+      'fe52f788f938a04e5e99a0c32ecef1d0.serveo.net', // сюда записать адрес из https://serveo.net/
       'localhost',
     ],
   },

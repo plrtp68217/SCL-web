@@ -56,7 +56,7 @@ const showImage = ref<boolean>(false);
 
 const route = useRoute();
 
-let loading: boolean = true;
+let loading = ref<boolean>(true);
 let textLoading: Ref<string> = ref('Получение данных с сервера...');
 
 
@@ -84,13 +84,10 @@ async function loginUser(dto: LoginUserDto): Promise<User> {
 onMounted(() => {
     const {userId, name} = getTgUserData();
 
-    console.log({userId, name});
-    
-
     if (userId && name) {
         loginUser({userId, name})
             .then((userData: User) => {
-                loading = false;
+                loading.value = false;
                 userStore.setUser(userData);
             })
             .catch((error) => {
