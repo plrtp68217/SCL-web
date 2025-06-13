@@ -4,13 +4,13 @@
         <div class="header-balance">
             <div class="header-balance-label">Your balance:</div>
 
-            <div class="header-balance-count">{{ userData.balance }}</div>
+            <div class="header-balance-count">{{ user.getBalance }}</div>
 
             <img class="header-balance-image" src="/images/coin.png">
 
         </div>
 
-        <div class="header-nickname">Plrtp</div>
+        <div class="header-nickname">{{ user.getName }}</div>
 
     </div>
 </template>
@@ -21,9 +21,9 @@
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
 
-const balanceStore = useUserStore()
+const userStore = useUserStore()
 
-const userData = storeToRefs(balanceStore);
+let user = storeToRefs(userStore);
 
 </script>
 
