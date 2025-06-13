@@ -44,7 +44,7 @@
         <div v-else>
 
           <h2 class="modal-container__score">
-            Your best score: {{20000}}
+            Your best score: {{ props.bestScore }}
           </h2>
 
         </div>
@@ -65,7 +65,7 @@
 
 
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted, watch } from 'vue';
 
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
@@ -81,13 +81,30 @@ import type { IMove } from './interfaces/emits';
 import type { ILine } from './interfaces/line';
 import type { IEggStartPositions } from './interfaces/egg';
 
+const emit = defineEmits<{
+  (e: 'newScore', score: number): void
+}>()
+
+const props = defineProps(
+  { 
+    gameId: {
+      type: String,
+      required: true,
+    },
+    bestScore: {
+      type: Number,
+      required: true,
+    }
+  }
+)
+
 let board: Board;
 let wolf: Wolf;
 let context: CanvasRenderingContext2D;
 
 let eggs: Egg[] = [];
 const maxEggsOnBoard: number = 4;
-const eggRadius = 6;
+const eggRadius: number = 6;
 let eggStartPositions: IEggStartPositions;
 let addEgg: Function;
 
@@ -120,7 +137,6 @@ function defineBoard(newBoard: Board) {
     'topright': {x: board.width, y: lineDeviationTopY},
     'bottomright': {x: board.width, y: board.height - lineDeviationBottomY},
   }
-  
 }
 
 let gameIsOver = ref<boolean>(false);
@@ -151,6 +167,14 @@ function gameOver() {
   gameIsOver.value = true;
   clearInterval(gameLoopID);
 }
+
+watch(gameIsOver, (gameOver) => {
+  if (gameOver) {
+    if (score.value > props.bestScore) {
+      emit('newScore', score.value);
+    }
+  }
+});
 
 function gameLoop() {
   board.clear();

@@ -15,6 +15,7 @@ export const useUserStore = defineStore('user', {
     getBalance: (state) => state.user?.balance,
 
     getRecords: (state) => state.records,
+
   },
 
   actions: {
@@ -24,6 +25,16 @@ export const useUserStore = defineStore('user', {
 
     addRecord(record: Record) {
       this.records.push(record);
+    },
+
+    findRecordByGameId(gameId: string): Record {
+      const record = this.records.find(record => record.gameId === gameId);
+      return record!;
+    },
+
+    updateScore(gameId: string, score: number) {
+      const record = this.findRecordByGameId(gameId);
+      record.score = score;
     }
   }
 })

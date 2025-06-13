@@ -1,0 +1,1 @@
+export type GameId = 'tetris' | 'wolf' | 'snake';
