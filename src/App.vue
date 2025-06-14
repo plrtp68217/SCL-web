@@ -104,33 +104,33 @@ async function getRecords(userId: number, allGameIds: GameId[]) {
 }
 
 onMounted(() => {
-    const {userId, name} = getTgUserData();
-
-    if (userId && name) {
-        loginUser({userId, name})
-          .then((userData: User) => {
-              loading.value = false;
-              userStore.setUser(userData);
-          })
-          .catch((error) => {
-              loading.value = true;
-              isError.value = true;
-              textLoading.value += `\n[Auth: ${error}].`;
-          })
-        
-        getRecords(userId, allGameIds)
-          .then(() => {
+  const {userId, name} = getTgUserData();
+  
+  if (userId && name) {
+      loginUser({userId, name})
+        .then((userData: User) => {
             loading.value = false;
-          })
-          .catch((error) => {
+            userStore.setUser(userData);
+        })
+        .catch((error) => {
             loading.value = true;
             isError.value = true;
-            textLoading.value += `\n[Records: ${error}].`;
-          })
-    }
-    else {
-        textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :('
-    }
+            textLoading.value += `\n[Auth: ${error}].`;
+        })
+      
+      getRecords(userId, allGameIds)
+        .then(() => {
+          loading.value = false;
+        })
+        .catch((error) => {
+          loading.value = true;
+          isError.value = true;
+          textLoading.value += `\n[Records: ${error}].`;
+        })
+  }
+  else {
+      textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :('
+  }
     
 })
 
