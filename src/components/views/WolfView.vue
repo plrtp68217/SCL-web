@@ -10,7 +10,6 @@
     
         <div class="main">
             <Wolf
-                :gameId
                 :bestScore="wolfRecord.score"
                 @newScore="updateScore"
             />
@@ -31,10 +30,7 @@ import GameHeader from '../game-layout/GameHeader.vue';
 import GameFooter from '../game-layout/GameFooter.vue';
 import Wolf from '../games/wolf/Wolf.vue';
 
-import { onMounted } from 'vue';
-
 import type { GameId } from '../games/common/types/records';
-import type { Record } from '@/api/types/records';
 
 import { useUserStore } from '@/stores/user';
 
@@ -43,31 +39,20 @@ import { getTgUserData } from '@/telegram/useTelegram';
 
 const gameId: GameId = 'wolf';
 
-const userStore = useUserStore()
+const userStore = useUserStore();
+
 const wolfRecord = userStore.findRecordByGameId(gameId);
 
-function updateScore(score: number) {
-    const { userId } = getTgUserData();
+
+async function updateScore(score: number) {
+    // const { userId } = getTgUserData();
+
+    const userId = 1943659272;
 
     wolfRecord.score = score;
 
-    api.records.updateRecord({userId, gameId, score});
+    await api.records.updateRecord({userId, gameId, score});
 }
-
-onMounted(async () => {
-    const { userId } = getTgUserData();
-
-    let record: Record | null;
-    
-    record = await api.records.getRecord(userId, gameId);
-
-    if (!record) {
-        record = await api.records.createRecord({userId, gameId});
-        userStore.addRecord(record);
-    }
-
-    // если есть в сторе -> запрос к бд не нужен. 
-})
 
 </script>
 

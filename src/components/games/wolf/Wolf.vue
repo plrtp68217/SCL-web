@@ -87,10 +87,6 @@ const emit = defineEmits<{
 
 const props = defineProps(
   { 
-    gameId: {
-      type: String,
-      required: true,
-    },
     bestScore: {
       type: Number,
       required: true,

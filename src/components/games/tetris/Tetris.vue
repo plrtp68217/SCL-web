@@ -39,7 +39,7 @@
               <div v-else>
             
                 <h2 class="modal-container__score">
-                  Your best score: {{20000}}
+                  Your best score: {{ props.bestScore }}
                 </h2>
             
               </div>
@@ -59,7 +59,7 @@
 
 
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
 
 import TetrisMainBoard from './TetrisMainBoard.vue';
 import TetrisSecondBoard from './TetrisSecondBoard.vue';
@@ -78,10 +78,25 @@ import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
 
+const emit = defineEmits<{
+  (e: 'newScore', score: number): void
+}>()
+
+const props = defineProps(
+  { 
+    bestScore: {
+      type: Number,
+      required: true,
+    }
+  }
+)
+
+
 let board: Board;
 let shapes: Shape[];
 let state: State;
 let nextShapes: Shape[];
+
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
@@ -138,6 +153,15 @@ function gameOver() {
     clearInterval(gameLoopID);
 }
 
+watch(gameIsOver, (gameOver) => {
+  if (gameOver) {
+    if (score.value > props.bestScore) {
+      emit('newScore', score.value);
+    }
+  }
+});
+
+
 function gameLoop(): void {
 
     if (!shapes[state.value].isFalling) {
@@ -146,7 +170,7 @@ function gameLoop(): void {
         
         const filledLinesCount = board.checkAndClearFilledLines();
 
-        if (!filledLinesCount) {
+        if (filledLinesCount) {
             score.value += reward * filledLinesCount;
         }
 
@@ -162,8 +186,6 @@ function gameLoop(): void {
         secondBoard.clear(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
         secondBoard.draw(nextShapes[0]);
-
-        
     }
     else {
         moveShape({ axis: 'y', direction: 1 });

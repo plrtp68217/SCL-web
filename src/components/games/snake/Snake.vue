@@ -38,7 +38,7 @@
               <div v-else>
             
                 <h2 class="modal-container__score">
-                  Your best score: {{20000}}
+                  Your best score: {{ props.bestScore }}
                 </h2>
             
               </div>
@@ -57,7 +57,7 @@
 
 
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted, watch } from 'vue';
 
 import { Board } from './classes/Board';
 import { Bonuse } from './classes/Bonuse';
@@ -71,7 +71,21 @@ import MyButton from '@/components/UI/MyButton.vue';
 import { isChance } from '../common/utils/random';
 import type { IMove } from '../common/interfaces/emits';
 
+const emit = defineEmits<{
+  (e: 'newScore', score: number): void
+}>()
+
+const props = defineProps(
+  { 
+    bestScore: {
+      type: Number,
+      required: true,
+    }
+  }
+)
+
 let board: Board;
+
 
 function defineBoard(newBoard: Board): void {
     board = newBoard;
@@ -126,6 +140,15 @@ function gameOver() {
     gameIsOver.value = true;
     clearInterval(gameLoopID);
 }
+
+watch(gameIsOver, (gameOver) => {
+  if (gameOver) {
+    if (score.value > props.bestScore) {
+      emit('newScore', score.value);
+    }
+  }
+});
+
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
