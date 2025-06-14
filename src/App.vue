@@ -50,7 +50,7 @@ import type { LoginUserDto } from './api/types/authorization';
 import type { User } from './api/types/users';
 
 import type { GameId } from './components/games/common/types/records';
-import type { CreateRecordDto, Record } from './api/types/records';
+import type { Record } from './api/types/records';
 
 import { getTgUserData } from './telegram/useTelegram';
 
@@ -104,10 +104,7 @@ async function getRecords(userId: number, allGameIds: GameId[]) {
 }
 
 onMounted(() => {
-    // const {userId, name} = getTgUserData();
-
-    const userId = 1943659272;
-    const name = 'plrtp';
+    const {userId, name} = getTgUserData();
 
     if (userId && name) {
         loginUser({userId, name})

@@ -45,9 +45,7 @@ const wolfRecord = userStore.findRecordByGameId(gameId);
 
 
 async function updateScore(score: number) {
-    // const { userId } = getTgUserData();
-
-    const userId = 1943659272;
+    const { userId } = getTgUserData();
 
     wolfRecord.score = score;
 

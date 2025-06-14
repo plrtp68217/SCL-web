@@ -25,7 +25,6 @@
 
 
 <script setup lang="ts">
-
 import Tetris from "@/components/games/tetris/Tetris.vue";
 import Background from '../background/Background.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
@@ -46,9 +45,7 @@ const tetrisRecord = userStore.findRecordByGameId(gameId);
 
 
 async function updateScore(score: number) {
-    // const { userId } = getTgUserData();
-
-    const userId = 1943659272;
+    const { userId } = getTgUserData();
 
     tetrisRecord.score = score;
 
