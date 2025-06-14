@@ -73,7 +73,7 @@ import type { IMove } from '../common/interfaces/emits';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
-}>()
+}>();
 
 const props = defineProps(
   { 
@@ -82,7 +82,7 @@ const props = defineProps(
       required: true,
     }
   }
-)
+);
 
 let board: Board;
 
@@ -185,7 +185,7 @@ function gameLoop(): void {
 
 onUnmounted(() => {
   clearInterval(gameLoopID)
-})
+});
 
 </script>
 

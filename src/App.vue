@@ -105,7 +105,7 @@ async function getRecords(userId: number, allGameIds: GameId[]) {
 
 onMounted(() => {
   const {userId, name} = getTgUserData();
-  
+
   if (userId && name) {
       loginUser({userId, name})
         .then((userData: User) => {
@@ -129,9 +129,8 @@ onMounted(() => {
         })
   }
   else {
-      textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :('
+      textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :(';
   }
-    
 })
 
 

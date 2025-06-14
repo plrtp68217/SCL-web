@@ -80,7 +80,7 @@ import { getShapesWithStartPosition } from './utils/position';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
-}>()
+}>();
 
 const props = defineProps(
   { 
@@ -89,7 +89,7 @@ const props = defineProps(
       required: true,
     }
   }
-)
+);
 
 
 let board: Board;

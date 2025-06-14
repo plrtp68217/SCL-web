@@ -21,7 +21,7 @@
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 let user = storeToRefs(userStore);
 

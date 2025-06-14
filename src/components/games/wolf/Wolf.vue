@@ -83,7 +83,7 @@ import type { IEggStartPositions } from './interfaces/egg';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
-}>()
+}>();
 
 const props = defineProps(
   { 
@@ -92,7 +92,7 @@ const props = defineProps(
       required: true,
     }
   }
-)
+);
 
 let board: Board;
 let wolf: Wolf;
@@ -249,7 +249,7 @@ function moveWolf({side, basket}: IMove) {
 
 onUnmounted(() => {
   clearInterval(gameLoopID);
-})
+});
 
 </script>
 
