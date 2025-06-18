@@ -8,7 +8,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем зависимости
-RUN npm install
+RUN npm install -g vue-tsc && \
+    npm run build
 
 # Копируем исходный код
 COPY . .
