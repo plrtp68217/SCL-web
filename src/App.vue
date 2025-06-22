@@ -52,7 +52,7 @@ import type { User } from './api/types/users';
 import type { GameId } from './components/games/common/types/records';
 import type { Record } from './api/types/records';
 
-import { getTgUserData } from './telegram/useTelegram';
+import { getTelegramData } from './telegram/useTelegram';
 
 import { useUserStore } from '@/stores/user';
 
@@ -104,7 +104,7 @@ async function getRecords(userId: number, allGameIds: GameId[]) {
 }
 
 onMounted(() => {
-  const {userId, name} = getTgUserData();
+  const {userId, name} = getTelegramData();
 
   if (userId && name) {
       loginUser({userId, name})
@@ -129,7 +129,8 @@ onMounted(() => {
         })
   }
   else {
-      textLoading.value = 'Ошибка загрузки. Перезагрузите страницу :(';
+      textLoading.value = 'Ошибка загрузки. Используйте приложение Telegram.';
+      isError.value = true;
   }
 })
 

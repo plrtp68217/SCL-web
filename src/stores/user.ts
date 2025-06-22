@@ -12,6 +12,8 @@ export const useUserStore = defineStore('user', {
   getters: {
     getName: (state) => state.user?.name,
 
+    getUserId: (state) => state.user?.userId,
+
     getBalance: (state) => state.user?.balance,
 
     getRecords: (state) => state.records,

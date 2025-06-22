@@ -35,21 +35,24 @@ import type { GameId } from '../games/common/types/records';
 import { useUserStore } from '@/stores/user';
 
 import { api } from '@/api';
-import { getTgUserData } from '@/telegram/useTelegram';
 
 const gameId: GameId = 'wolf';
 
 const userStore = useUserStore();
+const userId = userStore.getUserId;
 
 const wolfRecord = userStore.findRecordByGameId(gameId);
 
-
 async function updateScore(score: number) {
-    const { userId } = getTgUserData();
 
-    wolfRecord.score = score;
-
-    await api.records.updateRecord({userId, gameId, score});
+    if (userId) {
+        wolfRecord.score = score;
+    
+        await api.records.updateRecord({userId, gameId, score});
+    }
+    else {
+        // читать tetrisView
+    }
 }
 
 </script>

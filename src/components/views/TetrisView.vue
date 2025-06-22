@@ -32,24 +32,27 @@ import GameFooter from '../game-layout/GameFooter.vue';
 
 import type { GameId } from '../games/common/types/records';
 
-import { getTgUserData } from '@/telegram/useTelegram';
-
 import { useUserStore } from '@/stores/user';
 import { api } from '@/api';
 
 const gameId: GameId = 'tetris';
 
 const userStore = useUserStore();
+const userId = userStore.getUserId;
 
 const tetrisRecord = userStore.findRecordByGameId(gameId);
 
-
 async function updateScore(score: number) {
-    const { userId } = getTgUserData();
-
-    tetrisRecord.score = score;
-
-    await api.records.updateRecord({userId, gameId, score});
+    if (userId) {
+        tetrisRecord.score = score;
+    
+        await api.records.updateRecord({userId, gameId, score});
+    }
+    else {
+        // поднять ошибку, обработать ее, 
+        // принять на стороне вызова
+        // вывести уведомление (отдельный компонент - Уведомление.vue)
+    }
 }
 
 

@@ -30,8 +30,6 @@ import Snake from '../games/snake/Snake.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
 import GameFooter from '../game-layout/GameFooter.vue';
 
-import { getTgUserData } from '@/telegram/useTelegram';
-
 import type { GameId } from '../games/common/types/records';
 
 import { useUserStore } from '@/stores/user';
@@ -40,16 +38,19 @@ import { api } from '@/api';
 const gameId: GameId = 'snake';
 
 const userStore = useUserStore();
+const userId = userStore.getUserId;
 
 const snakeRecord = userStore.findRecordByGameId(gameId);
 
-
 async function updateScore(score: number) {
-    const { userId } = getTgUserData();
-
-    snakeRecord.score = score;
-
-    await api.records.updateRecord({userId, gameId, score});
+    if (userId) {
+        snakeRecord.score = score;
+    
+        await api.records.updateRecord({userId, gameId, score});
+    }
+    else {
+        // читать tetrisView
+    }
 }
 
 </script>
