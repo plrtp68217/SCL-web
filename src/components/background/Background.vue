@@ -22,7 +22,7 @@ let background: Board;
 
 let squaresOnBoard: Square[] = [];
 let lastTime: number = 0;
-const frameInterval = 50;
+const frameInterval = 60;
 
 function animateSquares(timestamp: number) {
     if (!lastTime) {
