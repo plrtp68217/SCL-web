@@ -193,14 +193,19 @@ const games: Game[] = [
 
 /* Средняя часть: Логотип - баллерина, звезда, кольцо */
 .logo-container {
+    width: 90vw;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.circle {
+    width: 100%;
+}
+
 .circle_img {
-    width: 400px;
-    height: 400px;
+    width: 100%;
     animation: 
         glow 1.5s infinite alternate,
         rotate 60s infinite linear;
@@ -213,7 +218,8 @@ const games: Game[] = [
 }
 
 .ballerina_img {
-    height: 300px;
+    width: 100%;
+    height: 70vw;
     animation: glow 1.5s infinite alternate;
 }
 
