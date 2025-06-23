@@ -72,22 +72,17 @@ const allGameIds: GameId[] = ['snake', 'tetris', 'wolf'];
 const userStore = useUserStore()
 
 watch(
-  () => route.path, // Отслеживаем изменение пути
+  () => route.path,
   () => {
-    showImage.value = true; // Показываем картинку при изменении маршрута
+    showImage.value = true;
     setTimeout(() => {
-      showImage.value = false; // Скрываем картинку через 500 мс
+      showImage.value = false;
     }, 500);
   }
 );
 
 async function loginUser(dto: LoginUserDto): Promise<User> {
-    try {
-        return await api.auth.login(dto);
-    }
-    catch (error) {
-        throw new Error(`${error}`);
-    }
+  return await api.auth.login(dto);
 }
 
 async function getRecords(userId: number, allGameIds: GameId[]) {
@@ -130,7 +125,7 @@ onMounted(() => {
         })
   }
   else {
-      textLoading.value = 'Ошибка загрузки. Используйте приложение Telegram.';
+      textLoading.value = 'Ошибка авторизации. Используйте приложение Telegram.';
       isError.value = true;
   }
 })
