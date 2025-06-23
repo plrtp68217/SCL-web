@@ -17,11 +17,11 @@
 <style scoped>
 
 .my-button {
+  width: 100%;
   padding: 4px 6px;
   background: transparent;
   background-color: rgba(137, 43, 226, 0.541);
   border: none;
-  border-radius: 5px;
   font-size: 20px;
   color: white;
   transition: transform 0.1s ease;

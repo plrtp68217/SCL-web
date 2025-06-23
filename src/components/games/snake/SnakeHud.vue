@@ -2,7 +2,7 @@
 
     <div class="snake-hud">
         <div class="snake-hud-score">Score: {{ props.score }}</div>
-        <div class="snake-hud-bonuses">BONUSES</div>
+        <!-- <div class="snake-hud-bonuses">BONUSES</div> -->
     </div>
 
 </template>
@@ -25,6 +25,11 @@ let props = defineProps({
     flex-direction: column;
     justify-content: space-between;
     font-size: 20px;
+}
+
+.snake-hud-score {
+    text-align: end;
+    margin-bottom: 4px;
 }
 
 </style>

@@ -16,7 +16,7 @@
         </div>
 
         <div class="tetris-footer">
-            <div class="tetris-footer-sound">SOUND</div>
+            <!-- <div class="tetris-footer-sound">SOUND</div> -->
             <TetrisControl @move="moveShape" @rotate="rotateShape" />
         </div>
 
@@ -279,8 +279,6 @@ onUnmounted(() => {
     padding: 10px;
     background-color: #cc74ff;
     display: flex;
-    /* height: 80px; */
-
     border-right: 5px solid #3d3c3c;
     border-bottom: 5px solid #3d3c3c;
     border-left: 5px solid #3d3c3c;

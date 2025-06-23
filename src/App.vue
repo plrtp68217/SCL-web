@@ -2,11 +2,12 @@
 
   <div>
 
-    <div v-if="loading" class="loading-error">
+    <div v-if="loading" class="error-spinner">
 
-      <Spinner v-if="!isError"/>
-      <Error v-else/>
-      <p class="text-loading">{{ textLoading }}</p>
+      <Error v-if="isError"/>
+      <Spinner v-else/>
+
+      <p class="error-spinner-text">{{ textLoading }}</p>
             
     </div>
 
@@ -143,7 +144,7 @@ onMounted(() => {
 @import url(./animations/glow.css);
 
 /* Экран загрузки */
-.loading-error {
+.error-spinner {
     position: fixed;
     background-color: #09122C;
     width: 100%;
@@ -157,7 +158,7 @@ onMounted(() => {
     color: white;
 }
 
-.text-loading {
+.error-spinner-text {
   text-align: center;
   padding: 0 20px;
 }

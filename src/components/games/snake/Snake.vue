@@ -7,14 +7,13 @@
 
         <div class="snake-footer">
 
-            <div class="snake-footer-sound">SOUND</div>
+            <!-- <div class="snake-footer-sound">SOUND</div> -->
+            <div class="snake-footer-hud">
+                <SnakeHud :score="score"/>
+            </div>
 
             <div class="snake-footer-control">
                 <SnakeControl @move="changeDirection"/>
-            </div>
-
-            <div class="snake-footer-hud">
-                <SnakeHud :score="score"/>
             </div>
 
         </div>
@@ -204,7 +203,8 @@ onUnmounted(() => {
 
 .snake-footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    /* justify-content: space-between; */
     padding: 10px;
     font-size: 17px;
     color: white;

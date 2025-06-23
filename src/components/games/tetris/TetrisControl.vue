@@ -5,18 +5,18 @@
         <div class="tetris-control-linear">
 
             <div class="tetris-control-linear-h">
-                <MyButton @click="emit('move', {axis: 'x', direction: -1})" class="control-button">LEFT</MyButton>
-                <MyButton @click="emit('move', {axis: 'x', direction: 1})" class="control-button">RIGHT</MyButton>
+                <MyButton @click="emit('move', {axis: 'x', direction: -1})" class="control-button">⇦</MyButton>
+                <MyButton @click="emit('move', {axis: 'x', direction: 1})" class="control-button">⇨</MyButton>
             </div>
 
             <div class="tetris-control-linear-v">
-                <MyButton @click="emit('move', {axis: 'y', direction: 1})" class="control-button">DOWN</MyButton>
+                <MyButton @click="emit('move', {axis: 'y', direction: 1})" class="control-button">⇩</MyButton>
             </div>
 
         </div>
 
         <div class="tetris-control-rotate">
-            <MyButton @click="emit('rotate')" class="control-button">ROTATE</MyButton>
+            <MyButton @click="emit('rotate')" class="control-button">⏎</MyButton>
         </div>
 
     </div>
@@ -38,28 +38,27 @@ const emit = defineEmits<ControlEmit>();
 <style scoped>
 
 .tetris-control {
-    width: 70%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 2px;
 }
 
 .tetris-control-linear {
+    width: 70%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .tetris-control-linear-h {
     display: flex;
-    gap: 5px;
+    gap: 2px;
 }
 
 .tetris-control-rotate {
+    width: 30%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 </style>

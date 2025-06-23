@@ -3,7 +3,7 @@
 
         <div class="tetris-hud-score">Score: {{ props.score }}</div>
 
-        <div class="tetris-hud-bonuses">
+        <!-- <div class="tetris-hud-bonuses">
 
             <div class="tetris-hud-bonuses-title">Bonuses:</div>
 
@@ -13,7 +13,7 @@
                 <div class="tetris-hud-bonuses-variant">1 |_|=*</div>
             </div>
 
-        </div>
+        </div> -->
 
     </div>
 </template>

@@ -1,14 +1,14 @@
 <template>
     <div class="snake-control">
         <div class="snake-control-up">
-            <MyButton @click="emit('move', {axis: 'y', direction: -1})">UP</MyButton>
+            <MyButton @click="emit('move', {axis: 'y', direction: -1})">⇧</MyButton>
         </div>
         <div class="snake-control-left-right">
-            <MyButton @click="emit('move', {axis: 'x', direction: -1})">LEFT</MyButton>
-            <MyButton @click="emit('move', {axis: 'x', direction: 1})">RIGHT</MyButton>
+            <MyButton @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
+            <MyButton @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
         </div>
         <div class="snake-control-down">
-            <MyButton @click="emit('move', {axis: 'y', direction: 1})">DOWN</MyButton>
+            <MyButton @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
         </div>
     </div>
 </template>
@@ -32,13 +32,12 @@ const emit = defineEmits<ControlEmit>();
 .snake-control {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .snake-control-left-right {
     display: flex;
-    gap: 5px;
+    gap: 2px;
 }
 
 </style>
