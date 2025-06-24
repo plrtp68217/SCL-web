@@ -54,6 +54,7 @@ import type { GameId } from './components/games/common/types/records';
 import type { Record } from './api/types/records';
 
 import { getTelegramData } from './telegram/useTelegram';
+import { gameIds } from './common/games';
 
 import { useUserStore } from '@/stores/user';
 import { logUserAction } from './logging/logUserAction';
@@ -67,8 +68,6 @@ const route = useRoute();
 let loading = ref<boolean>(true);
 let isError = ref<boolean>(false);
 let textLoading: Ref<string> = ref('Получение данных с сервера...');
-
-const allGameIds: GameId[] = ['snake', 'tetris', 'wolf'];
 
 const userStore = useUserStore()
 
@@ -86,8 +85,8 @@ async function loginUser(dto: LoginUserDto): Promise<User> {
   return await api.auth.login(dto);
 }
 
-async function getRecords(userId: number, allGameIds: GameId[]) {
-  for (const gameId of allGameIds) {
+async function getRecords(userId: number, gameIds: GameId[]) {
+  for (const gameId of gameIds) {
     let record: Record | null;
     record = await api.records.getRecord(userId, gameId);
 
@@ -114,7 +113,7 @@ onMounted(() => {
             textLoading.value += `\n[Auth: ${error}].`;
         });
       
-      getRecords(userId, allGameIds)
+      getRecords(userId, gameIds)
         .then(() => {
           loading.value = false;
         })

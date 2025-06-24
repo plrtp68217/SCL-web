@@ -4,6 +4,7 @@ import MenuView from '@/components/views/MenuView.vue'
 import TetrisView from '@/components/views/TetrisView.vue'
 import SnakeView from '@/components/views/SnakeView.vue';
 import WolfView from '@/components/views/WolfView.vue';
+import AdminView from '@/components/views/AdminView.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/wolf',
     name: 'Wolf',
     component: WolfView,
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: AdminView,
   },
 ];
 
