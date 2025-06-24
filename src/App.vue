@@ -87,14 +87,13 @@ async function loginUser(dto: LoginUserDto): Promise<User> {
 
 async function getRecords(userId: number, allGameIds: GameId[]) {
   for (const gameId of allGameIds) {
-
     let record: Record | null;
-    
     record = await api.records.getRecord(userId, gameId);
 
     if (!record) {
         record = await api.records.createRecord({userId, gameId});
     }
+    
     userStore.addRecord(record);
   }
 }
