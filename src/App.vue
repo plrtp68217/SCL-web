@@ -56,6 +56,7 @@ import type { Record } from './api/types/records';
 import { getTelegramData } from './telegram/useTelegram';
 
 import { useUserStore } from '@/stores/user';
+import { logUserAction } from './logging/logUserAction';
 
 
 
@@ -93,7 +94,7 @@ async function getRecords(userId: number, allGameIds: GameId[]) {
     if (!record) {
         record = await api.records.createRecord({userId, gameId});
     }
-    
+
     userStore.addRecord(record);
   }
 }
@@ -111,7 +112,7 @@ onMounted(() => {
             loading.value = true;
             isError.value = true;
             textLoading.value += `\n[Auth: ${error}].`;
-        })
+        });
       
       getRecords(userId, allGameIds)
         .then(() => {
@@ -121,7 +122,9 @@ onMounted(() => {
           loading.value = true;
           isError.value = true;
           textLoading.value += `\n[Records: ${error}].`;
-        })
+        });
+
+      logUserAction({name: name, action: 'entry'});
   }
   else {
       textLoading.value = 'Ошибка авторизации. Используйте приложение Telegram.';

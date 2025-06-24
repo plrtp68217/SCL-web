@@ -34,11 +34,14 @@ import type { GameId } from '../games/common/types/records';
 
 import { useUserStore } from '@/stores/user';
 import { api } from '@/api';
+import { onMounted } from "vue";
+import { logUserAction } from "@/logging/logUserAction";
 
 const gameId: GameId = 'tetris';
 
 const userStore = useUserStore();
 const userId = userStore.getUserId;
+const userName = userStore.getName;
 
 const tetrisRecord = userStore.findRecordByGameId(gameId);
 
@@ -54,6 +57,10 @@ async function updateScore(score: number) {
         // вывести уведомление (отдельный компонент - Уведомление.vue)
     }
 }
+
+onMounted(() => {
+    logUserAction({name: userName!, action: gameId});
+})
 
 
 </script>
