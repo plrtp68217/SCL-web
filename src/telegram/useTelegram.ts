@@ -9,6 +9,6 @@ export function getTelegramData(): TelegramData { // переименовать 
 
   return {
     userId: telegram.initDataUnsafe.user?.id,
-    name: telegram.initDataUnsafe.user?.first_name!,
+    name: telegram.initDataUnsafe.user?.first_name,
   }
 }
