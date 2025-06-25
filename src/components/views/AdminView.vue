@@ -248,7 +248,7 @@ onMounted(() => {
 }
 
 .admin-label {
-  color: rgb(176, 224, 236);
+  color: rgb(255, 255, 255);
 }
 
 .admin-actions {

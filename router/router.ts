@@ -10,7 +10,7 @@ import AdminView from '@/components/views/AdminView.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Menu',
     component: MenuView,
   },
   {

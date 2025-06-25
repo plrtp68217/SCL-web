@@ -2,7 +2,7 @@
 
   <div>
 
-    <div v-if="loading" class="error-spinner">
+    <div v-if="isLoading" class="error-spinner">
 
       <Error v-if="isError"/>
       <Spinner v-else/>
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import Spinner from './components/spinner/Spinner.vue';
 import Error from './components/error/Error.vue';
@@ -60,12 +60,12 @@ import { useUserStore } from '@/stores/user';
 import { logUserAction } from './logging/logUserAction';
 
 
-
 const showImage = ref<boolean>(false);
 
 const route = useRoute();
+const router = useRouter();
 
-let loading = ref<boolean>(true);
+let isLoading = ref<boolean>(true);
 let isError = ref<boolean>(false);
 let textLoading: Ref<string> = ref('Получение данных с сервера...');
 
@@ -98,37 +98,38 @@ async function getRecords(userId: number, gameIds: GameId[]) {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  router.isReady()
+    .then(() => {
+      if (route.path === '/admin') {
+        isLoading.value = false;
+        return;
+      }
+    })
+
   const {userId, name} = getTelegramData();
 
-  if (userId && name) {
-      loginUser({userId, name})
-        .then((userData: User) => {
-            loading.value = false;
-            userStore.setUser(userData);
-        })
-        .catch((error) => {
-            loading.value = true;
-            isError.value = true;
-            textLoading.value += `\n[Auth: ${error}].`;
-        });
-      
-      getRecords(userId, gameIds)
-        .then(() => {
-          loading.value = false;
-        })
-        .catch((error) => {
-          loading.value = true;
-          isError.value = true;
-          textLoading.value += `\n[Records: ${error}].`;
-        });
+  if (!userId || !name) {
+    textLoading.value = '[Ошибка авторизации]: Используйте приложение Telegram.';
+    isError.value = true;
+    return;
+  }
 
+  loginUser({userId, name})
+    .then((userData: User) => {
+      userStore.setUser(userData);
+      getRecords(userId, gameIds);
+    })
+    .then(() => {
       logUserAction({name: name, action: 'entry'});
-  }
-  else {
-      textLoading.value = 'Ошибка авторизации. Используйте приложение Telegram.';
+    })
+    .then(() => {
+      isLoading.value = false;
+    })
+    .catch((error) => {
       isError.value = true;
-  }
+      textLoading.value = `\n[Ошибка авторизации]: ${error}].`;
+    })
 })
 
 
