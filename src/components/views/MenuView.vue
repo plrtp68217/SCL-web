@@ -96,6 +96,9 @@ const games: Game[] = [
 @import url('/src/animations/sway.css');
 
 .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100vh;
     font-family: "Jersey 15", serif;
 }
@@ -107,7 +110,6 @@ const games: Game[] = [
 
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
-    position: fixed;
     width: 100%;
     top: 0;
     padding: 10px;
@@ -156,12 +158,10 @@ const games: Game[] = [
 
 /* Средняя часть: Баланс игрока */
 .balance-logo {
-    height: 100%;
-    position: fixed;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }
 
@@ -240,14 +240,6 @@ const games: Game[] = [
 
 /* Нижняя часть: Карточки игр */
 .games {
-    width: 100%;
-    position: fixed;
-    margin: 0 auto;
-    bottom: 0;
-    right: 0;
-    padding: 5px 10px;
-    backdrop-filter: blur(1px);
-    border-top: 1px solid rgba(250, 9, 198, 0.3);
-    box-shadow: 12px -11px 16px 2px rgba(250, 9, 198, 0.27);
+    margin-bottom: 5%;
 }
 </style>
