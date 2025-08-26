@@ -41,7 +41,7 @@ function animateSquares(timestamp: number) {
             else {
                 square.isAnimate = Math.random() <= 0.1 ? true : false;
             }
-            background.drawFillSquare(square);
+            background.drawStrokeSquare(square);
         }
         lastTime = timestamp;
     }
@@ -77,7 +77,7 @@ const resizeBackground = () => {
 <style scoped>
 
 #background {
-    background-color: rgb(39, 39, 39);
+    background-color: rgba(0, 0, 0, 0.274);
     display: block;
     position: fixed;
     z-index: -1;

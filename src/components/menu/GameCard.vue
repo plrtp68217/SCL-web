@@ -25,7 +25,6 @@ const { game } = defineProps<{game: Game}>();
     width: 110px;
     text-align: center;
     border-radius: 10%;
-    box-shadow: 0px 0px 42px 0px rgba(238, 16, 222, 0.27);
     padding: 4px 4px;
     flex: 1 1 auto;
 }

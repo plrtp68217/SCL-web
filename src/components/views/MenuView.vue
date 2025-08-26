@@ -71,17 +71,17 @@ let user = storeToRefs(userStore);
 
 const games: Game[] = [
     {
-        label: 'Snake',
+        label: 'SNAKE',
         image: '/images/menu/snake.png',
         path: '/snake',
     },
     {
-        label: 'Tetris',
+        label: 'TETRIS',
         image: '/images/menu/tetris.png',
         path: '/tetris',
     },
     {
-        label: 'Wolf Cathes Eggs',
+        label: 'WOLF',
         image: '/images/menu/wolf.png',
         path: '/wolf',
     },
@@ -161,7 +161,6 @@ const games: Game[] = [
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 }
 
@@ -178,7 +177,7 @@ const games: Game[] = [
 }
 
 .balance-label {
-    color: rgb(255, 100, 255);
+    color: rgb(255, 255, 255);
 }
 
 .balance-count {
@@ -189,7 +188,6 @@ const games: Game[] = [
     width: 30px;
     height: 30px;
 }
-
 
 /* Средняя часть: Логотип - баллерина, звезда, кольцо */
 .logo-container {
