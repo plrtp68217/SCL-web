@@ -33,14 +33,14 @@ let user = storeToRefs(userStore);
 .header {
     position: fixed;
     width: 100%;
-    height: 80px;
-    padding: 0 5px;
+    padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 24px;
     color: white;
     backdrop-filter: blur(2px);
+    z-index: 1;
 }
 
 .header-balance {
