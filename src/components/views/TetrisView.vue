@@ -4,19 +4,13 @@
         
         <Background/>
     
-        <div class="header">
-            <GameHeader/>
-        </div>
+        <GameHeader/>
     
         <div class="main">
             <Tetris
                 :bestScore="tetrisRecord.score"
                 @newScore="updateScore"
             />
-        </div>
-    
-        <div class="footer">
-            <GameFooter/>
         </div>
 
     </div>
@@ -28,7 +22,6 @@
 import Tetris from "@/components/games/tetris/Tetris.vue";
 import Background from '../background/Background.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
-import GameFooter from '../game-layout/GameFooter.vue';
 
 import type { GameId } from '../games/common/types/records';
 
@@ -52,7 +45,7 @@ async function updateScore(score: number) {
         await api.records.updateRecord({userId, gameId, score});
     }
     else {
-        // поднять ошибку, обработать ее, 
+        // поднять ошибку, обработать ее,
         // принять на стороне вызова
         // вывести уведомление (отдельный компонент - Уведомление.vue)
     }
@@ -69,10 +62,14 @@ onMounted(() => {
 
 .main {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    align-content: center;
+}
+
+@media (max-height: 700px) {
+    .main {
+        align-content: flex-end;
+    }
 }
 
 </style>

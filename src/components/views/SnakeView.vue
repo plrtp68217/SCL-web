@@ -15,10 +15,6 @@
             />
         </div>
     
-        <div class="footer">
-            <GameFooter/>
-        </div>
-
     </div>
 
 </template>
@@ -28,7 +24,6 @@
 import Background from '../background/Background.vue';
 import Snake from '../games/snake/Snake.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
-import GameFooter from '../game-layout/GameFooter.vue';
 
 import type { GameId } from '../games/common/types/records';
 
@@ -67,10 +62,14 @@ onMounted(() => {
 
 .main {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    align-content: center;
+}
+
+@media (max-height: 700px) {
+    .main {
+        align-content: flex-end;
+    }
 }
 
 </style>

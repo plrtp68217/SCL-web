@@ -14,10 +14,6 @@
                 @newScore="updateScore"
             />
         </div>
-    
-        <div class="footer">
-            <GameFooter/>
-        </div>
 
     </div>
 
@@ -27,7 +23,6 @@
 <script setup lang="ts">
 import Background from '../background/Background.vue';
 import GameHeader from '../game-layout/GameHeader.vue';
-import GameFooter from '../game-layout/GameFooter.vue';
 import Wolf from '../games/wolf/Wolf.vue';
 
 import type { GameId } from '../games/common/types/records';
@@ -69,10 +64,14 @@ onMounted(() => {
 
 .main {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    align-content: center;
+}
+
+@media (max-height: 500px) {
+    .main {
+        align-content: flex-end;
+    }
 }
 
 </style>
