@@ -45,7 +45,7 @@ const coverflowEffect =  ref({
 
 const autoplayOptions = {
   delay: 3000, // Задержка между слайдами (3 секунды)
-  disableOnInteraction: true, // Останавливать автопрокрутку при взаимодействии
+  disableOnInteraction: false, // Останавливать автопрокрутку при взаимодействии
 }
 
 </script>
