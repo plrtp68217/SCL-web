@@ -261,6 +261,8 @@ onUnmounted(() => {
 }
 
 .wolf-header {
+  display: flex;
+  justify-content: center;
   padding: 10px;
   border: 5px solid #3d3c3c;
   background-color: #b342f5;

@@ -34,8 +34,6 @@ onMounted(() => {
     height: 80px;
     border: 1px solid black;
     background-color: #3d3c3c;
-    margin-left: 5px;
-
 }
 
 </style>
