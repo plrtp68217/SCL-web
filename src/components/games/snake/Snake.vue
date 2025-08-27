@@ -52,6 +52,8 @@
 
     </div>
 
+    <img id="snake" src="/images/snake/snake.png" style="display: none;">
+
 </template>
 
 
@@ -130,9 +132,9 @@ function startGame() {
     board.createSnake();
     board.createApple();
 
-    if(isChance(0.5)) {
-        board.createBonuse();
-    }
+    // if(isChance(0.5)) {
+    //     board.createBonuse();
+    // }
 }
 
 function gameOver() {
@@ -178,7 +180,7 @@ function gameLoop(): void {
     }
 
     board.drawBlock(board.apple);
-    board.drawEntitie(board.snake.blocks);
+    board.drawImageEntitie(board.snake.blocks);
 
 }
 

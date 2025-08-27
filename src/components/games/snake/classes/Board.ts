@@ -16,7 +16,11 @@ export class Board {
     apple: Apple;
     bonuse: Bonuse;
 
-    constructor(context: CanvasRenderingContext2D, width: number, height: number) {
+    // демо вариант для рисования спрайта змейки
+
+    sprite: HTMLImageElement
+
+    constructor(context: CanvasRenderingContext2D, width: number, height: number, sprite: HTMLImageElement) {
         this.context = context;
         this.width = width;
         this.height = height;
@@ -24,6 +28,8 @@ export class Board {
         this.snake = {} as Snake;
         this.apple = {} as Apple;
         this.bonuse = {} as Bonuse;
+
+        this.sprite = sprite;
     }
 
     
@@ -33,9 +39,22 @@ export class Board {
         
     }
 
+    drawImage(block: Block) {
+        this.context.drawImage(this.sprite,
+                      block.x, block.y,
+                      this.step, this.step,
+                    );
+    }
+
     drawEntitie(entitie: Block[]) {
         for (let block of entitie) {
             this.drawBlock(block);
+        }
+    }
+
+    drawImageEntitie(entitie: Block[]) {
+        for (let block of entitie) {
+            this.drawImage(block);
         }
     }
     

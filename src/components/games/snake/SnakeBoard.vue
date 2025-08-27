@@ -19,7 +19,9 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    board = new Board(context, width, height);
+    const sprite = document.getElementById('snake') as HTMLImageElement;
+
+    board = new Board(context, width, height, sprite);
 
     emit('board', board);
 })
