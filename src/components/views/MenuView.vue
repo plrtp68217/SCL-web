@@ -103,11 +103,6 @@ const games: Game[] = [
     font-family: "Jersey 15", serif;
 }
 
-.text-loading {
-    color: white;
-    margin-top: 20px;
-}
-
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
     width: 100%;
