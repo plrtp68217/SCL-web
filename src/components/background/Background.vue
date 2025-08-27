@@ -13,48 +13,16 @@ onMounted(() => {
     background = new Board(canvas);
     window.addEventListener('resize', resizeBackground);
     resizeBackground();
-    animateSquares(0);
-
 })
 
 let canvas: HTMLCanvasElement;
 let background: Board;
-
-let squaresOnBoard: Square[] = [];
-let lastTime: number = 0;
-const frameInterval = 60;
-
-function animateSquares(timestamp: number) {
-    if (!lastTime) {
-        lastTime = timestamp;
-    }
-    
-    const elapsed = timestamp - lastTime;
-    
-    if (elapsed > frameInterval) {
-        background.clearBoard()
-        
-        for (let square of squaresOnBoard) {
-            if (square.isAnimate) {
-                square.changeHsl();
-            }
-            else {
-                square.isAnimate = Math.random() <= 0.1 ? true : false;
-            }
-            background.drawStrokeSquare(square);
-        }
-        lastTime = timestamp;
-    }
-    requestAnimationFrame(animateSquares);
-}
 
 const resizeBackground = () => {
     background.canvas.width = window.innerWidth;
     background.canvas.height = window.innerHeight;
 
     background.updateBoardSize();
-
-    squaresOnBoard = [];
 
     const squareSize = 30;
 
@@ -66,7 +34,7 @@ const resizeBackground = () => {
             const x = col * (squareSize + 5);
             const y = row * (squareSize + 5);
             const square = new Square(x, y, squareSize);
-            squaresOnBoard.push(square);
+            background.drawStrokeSquare(square);
         }
     }
 }
