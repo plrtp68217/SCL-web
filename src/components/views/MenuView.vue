@@ -233,6 +233,6 @@ const games: Game[] = [
 
 /* Нижняя часть: Карточки игр */
 .games {
-    margin-bottom: 5%;
+    margin-bottom: 30px;
 }
 </style>
