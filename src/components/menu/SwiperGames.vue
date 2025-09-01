@@ -11,7 +11,7 @@
       class="swiper-container"
     >
     
-    <SwiperSlide class="swiper-slide" v-for="game in props.games" :key="game.label">
+    <SwiperSlide class="swiper-slide" v-for="game in props.games" :key="game.path">
       <GameCard :game="game" />
     </SwiperSlide>
 

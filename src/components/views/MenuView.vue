@@ -71,18 +71,15 @@ let user = storeToRefs(userStore);
 
 const games: Game[] = [
     {
-        label: 'SNAKE',
-        image: '/images/menu/snake.png',
+        image: '/images/menu/snake.jpg',
         path: '/snake',
     },
     {
-        label: 'TETRIS',
-        image: '/images/menu/tetris.png',
+        image: '/images/menu/tetris.jpg',
         path: '/tetris',
     },
     {
-        label: 'WOLF',
-        image: '/images/menu/wolf.png',
+        image: '/images/menu/wolf.jpg',
         path: '/wolf',
     },
 ]

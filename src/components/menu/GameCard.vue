@@ -1,8 +1,5 @@
 <template>
     <div class="game-card" @click="$router.push(game.path)">
-        <div class="game-card-label">
-            <p>{{game.label}}</p>
-        </div>
         <img class="game-card-image" :src="game.image" />
     </div>
 </template>
