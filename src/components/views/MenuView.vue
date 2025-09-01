@@ -111,8 +111,8 @@ const games: Game[] = [
     backdrop-filter: blur(1px);
     border-bottom: 1px solid rgba(250, 9, 198, 0.3);
     box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.27);
-    font-size: 15px;
-    font-family: "Roboto", serif;
+    font-size: 20px;
+    letter-spacing: 2px;
     color: white;
 }
 
