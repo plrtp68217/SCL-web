@@ -21,7 +21,6 @@ const { game } = defineProps<{game: Game}>();
     height: 150px;
     width: 110px;
     text-align: center;
-    border-radius: 10%;
     padding: 4px 4px;
     flex: 1 1 auto;
 }
@@ -43,5 +42,6 @@ const { game } = defineProps<{game: Game}>();
 .game-card-image {
     width: 100%;
     object-fit: cover;
+    border-radius: 10%;
 }
 </style>
