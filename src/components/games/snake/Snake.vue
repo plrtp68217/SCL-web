@@ -52,7 +52,13 @@
 
     </div>
 
-    <img id="snake" src="/images/snake/snake.png" style="display: none;">
+    <img id="apple_spritesheet" src="/images/snake/apple_spritesheet.png" style="display: none;">
+    <img id="snakebody_spritesheet" src="/images/snake/snakebody_spritesheet.png" style="display: none;">
+
+    <img id="snakeheadtop_spritesheet" src="/images/snake/snakeheadtop_spritesheet.png" style="display: none;">
+    <img id="snakeheadbottom_spritesheet" src="/images/snake/snakeheadbottom_spritesheet.png" style="display: none;">
+    <img id="snakeheadleft_spritesheet" src="/images/snake/snakeheadleft_spritesheet.png" style="display: none;">
+    <img id="snakeheadright_spritesheet" src="/images/snake/snakeheadright_spritesheet.png" style="display: none;">
 
 </template>
 
@@ -150,6 +156,24 @@ watch(gameIsOver, (gameOver) => {
   }
 });
 
+function animateSnakeHead() {
+  const totalFrames = 20;
+  let currentFrame = 0;
+
+  let snakeHeadAnimationId =  setInterval(() => {
+    if (currentFrame > totalFrames) {
+      clearInterval(snakeHeadAnimationId);
+    }
+    
+    board.drawSnakeHead(
+        board.snake.blocks[0], 
+        currentFrame,
+        {axis: board.snake.axis, direction: board.snake.direction}
+  );
+    currentFrame++;
+  }, speed / 20)
+}
+
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
@@ -171,17 +195,28 @@ function gameLoop(): void {
         board.bonuse = {} as Bonuse;
     }
 
-    if(!(board.bonuse instanceof Bonuse) && isChance(0.95)) {
-        board.createBonuse();   
-    }
+    // if(!(board.bonuse instanceof Bonuse) && isChance(0.95)) {
+    //     board.createBonuse();   
+    // }
     
     if (board.bonuse instanceof Bonuse) {
         board.drawBlock(board.bonuse);
     }
 
-    board.drawBlock(board.apple);
-    board.drawImageEntitie(board.snake.blocks);
+    // board.drawBlock(board.apple);
+    // board.drawEntitie(board.snake.blocks);
 
+    board.drawApple(board.apple);
+
+    board.snake.direction
+
+    if (board.snake.blocks.length == 1) {
+      animateSnakeHead();
+    }
+    else {
+      animateSnakeHead();
+      board.drawSnakeBody(board.snake.blocks.slice(1));
+    }
 }
 
 onUnmounted(() => {

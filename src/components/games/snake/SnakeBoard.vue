@@ -19,9 +19,27 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    const sprite = document.getElementById('snake') as HTMLImageElement;
+    const apple_spritesheet = document.getElementById('apple_spritesheet') as HTMLImageElement;
+    const snakebody_spritesheet = document.getElementById('snakebody_spritesheet') as HTMLImageElement;
 
-    board = new Board(context, width, height, sprite);
+    const snakeheadtop_spritesheet = document.getElementById('snakeheadtop_spritesheet') as HTMLImageElement;
+    const snakeheadbottom_spritesheet = document.getElementById('snakeheadbottom_spritesheet') as HTMLImageElement;
+    const snakeheadleft_spritesheet = document.getElementById('snakeheadleft_spritesheet') as HTMLImageElement;
+    const snakeheadright_spritesheet = document.getElementById('snakeheadright_spritesheet') as HTMLImageElement;
+
+    board = new Board(
+        context, 
+        width, 
+        height,
+        
+        apple_spritesheet,
+        snakebody_spritesheet,
+
+        snakeheadtop_spritesheet,
+        snakeheadbottom_spritesheet,
+        snakeheadleft_spritesheet,
+        snakeheadright_spritesheet,
+    );
 
     emit('board', board);
 })

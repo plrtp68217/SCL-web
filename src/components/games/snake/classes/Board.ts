@@ -6,6 +6,7 @@ import { Block } from "./Block";
 import { getStartPosition } from "../utils/position";
 import { getRandomItem } from "../../common/utils/random";
 import type { BonuseType } from "../interfaces/bonuse";
+import type { IMove } from "../../common/interfaces/emits";
 
 export class Board {
     context: CanvasRenderingContext2D;
@@ -17,10 +18,27 @@ export class Board {
     bonuse: Bonuse;
 
     // демо вариант для рисования спрайта змейки
+    apple_spritesheet: HTMLImageElement;
+    snakebody_spritesheet: HTMLImageElement;
 
-    sprite: HTMLImageElement
+    snakeheadtop_spritesheet: HTMLImageElement;
+    snakeheadbottom_spritesheet: HTMLImageElement;
+    snakeheadleft_spritesheet: HTMLImageElement;
+    snakeheadright_spritesheet: HTMLImageElement;
+    
 
-    constructor(context: CanvasRenderingContext2D, width: number, height: number, sprite: HTMLImageElement) {
+    constructor(
+        context: CanvasRenderingContext2D, 
+        width: number, 
+        height: number, 
+        apple_spritesheet: HTMLImageElement,
+        snakebody_spritesheet: HTMLImageElement,
+
+        snakeheadtop_spritesheet: HTMLImageElement,
+        snakeheadbottom_spritesheet: HTMLImageElement,
+        snakeheadleft_spritesheet: HTMLImageElement,
+        snakeheadright_spritesheet: HTMLImageElement,
+    ) {
         this.context = context;
         this.width = width;
         this.height = height;
@@ -28,8 +46,13 @@ export class Board {
         this.snake = {} as Snake;
         this.apple = {} as Apple;
         this.bonuse = {} as Bonuse;
+        this.apple_spritesheet = apple_spritesheet;
+        this.snakebody_spritesheet = snakebody_spritesheet;
 
-        this.sprite = sprite;
+        this.snakeheadtop_spritesheet = snakeheadtop_spritesheet;
+        this.snakeheadbottom_spritesheet = snakeheadbottom_spritesheet;
+        this.snakeheadleft_spritesheet = snakeheadleft_spritesheet;
+        this.snakeheadright_spritesheet = snakeheadright_spritesheet;
     }
 
     
@@ -39,22 +62,60 @@ export class Board {
         
     }
 
-    drawImage(block: Block) {
-        this.context.drawImage(this.sprite,
-                      block.x, block.y,
-                      this.step, this.step,
-                    );
-    }
-
     drawEntitie(entitie: Block[]) {
         for (let block of entitie) {
             this.drawBlock(block);
         }
     }
 
-    drawImageEntitie(entitie: Block[]) {
-        for (let block of entitie) {
-            this.drawImage(block);
+    drawApple(apple: Block) {
+        this.context.drawImage(this.apple_spritesheet,
+              apple.x, apple.y,
+              this.step, this.step,
+            );
+    }
+
+    drawSnakeHead(snake_head: Block, frameNumber: number, {direction, axis}: IMove) {
+        let spriteSheet: HTMLImageElement;
+
+        if (direction == -1 && axis == 'y') {
+            spriteSheet = this.snakeheadtop_spritesheet;
+        }
+        else if (direction == 1 && axis == 'y') {
+            spriteSheet = this.snakeheadbottom_spritesheet;
+        }
+        else if (direction == -1 && axis == 'x') {
+            spriteSheet = this.snakeheadleft_spritesheet;
+        }
+        else if (direction == 1 && axis == 'x') {
+            spriteSheet = this.snakeheadright_spritesheet;
+        }
+        else {
+            spriteSheet = this.snakeheadright_spritesheet;
+        }
+
+        const spriteNumber = frameNumber - 1
+        const spriteX = Math.floor(spriteNumber / 5);
+        const spriteY = frameNumber % 5;
+        const spriteSize = 100;
+
+        this.context.drawImage(
+              spriteSheet,                      // image,
+              spriteX * spriteSize,             // sx,
+              spriteY *  spriteSize,            // sy,
+              spriteSize, spriteSize,           // sWidth, sHeight, 
+              snake_head.x, snake_head.y,       // dx, dy, d - destination
+              this.step, this.step,             // dWidth, dHeight,
+            );
+    }
+
+    drawSnakeBody(snake_body: Block[]) {
+        for (let block of snake_body) {
+            this.context.drawImage(
+                this.snakebody_spritesheet,
+                block.x, block.y,
+                this.step, this.step,
+            );
         }
     }
     
