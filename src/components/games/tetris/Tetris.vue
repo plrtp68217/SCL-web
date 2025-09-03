@@ -55,6 +55,14 @@
 
     </div>
 
+    <img id="blueblock_sprite" src="/images/tetris/blueblock_sprite.png" style="display: none;">
+    <img id="greenblock_sprite" src="/images/tetris/greenblock_sprite.png" style="display: none;">
+    <img id="orangeblock_sprite" src="/images/tetris/orangeblock_sprite.png" style="display: none;">
+    <img id="purpleblock_sprite" src="/images/tetris/purpleblock_sprite.png" style="display: none;">
+    <img id="redblock_sprite" src="/images/tetris/redblock_sprite.png" style="display: none;">
+    <img id="whiteblock_sprite" src="/images/tetris/whiteblock_sprite.png" style="display: none;">
+    <img id="yellowblock_sprite" src="/images/tetris/yellowblock_sprite.png" style="display: none;">
+
 </template>
 
 
@@ -142,7 +150,7 @@ function startGame() {
 
     nextShapes = getRandomShapes(shapeList);
 
-    secondBoard.draw(nextShapes[0]);
+    secondBoard.drawShape(nextShapes[0]);
 
     gameLoopID = setInterval(gameLoop, speed);
 
@@ -163,7 +171,6 @@ watch(gameIsOver, (gameOver) => {
 
 
 function gameLoop(): void {
-
     if (!shapes[state.value].isFalling) {
         board.shapesOnBoard.push(shapes[state.value]);
         state.reset();
@@ -177,15 +184,15 @@ function gameLoop(): void {
         shapes = [...nextShapes];
         shapes = getShapesWithStartPosition(shapes, board);
 
-        board.draw(shapes[state.value]);
+        board.drawShape(shapes[state.value]);
 
         if (board.isCollision(shapes[state.value], 'y', 1)) {
             gameOver();
         }
         
-        secondBoard.clear(nextShapes[0]);
+        secondBoard.clearShape(nextShapes[0]);
         nextShapes = getRandomShapes(shapeList);
-        secondBoard.draw(nextShapes[0]);
+        secondBoard.drawShape(nextShapes[0]);
     }
     else {
         moveShape({ axis: 'y', direction: 1 });
@@ -199,9 +206,9 @@ function moveShapesOnBoard(): void {
 
     for (let shape of board.shapesOnBoard) {
         if (!board.isCollision(shape, axis, direction)) {
-            board.clear(shape);
+            board.clearShape(shape);
             shape.move(axis, direction * board.step);
-            board.draw(shape);
+            board.drawShape(shape);
         }
     }
 }
@@ -209,7 +216,7 @@ function moveShapesOnBoard(): void {
 function moveShape({axis, direction}: IMove): void {
     if (shapes[state.value].isFalling) {
         
-        board.clear(shapes[state.value]);
+        board.clearShape(shapes[state.value]);
     
         switch (axis) {
             case 'x':
@@ -231,7 +238,7 @@ function moveShape({axis, direction}: IMove): void {
                 }
                 break;
         }
-        board.draw(shapes[state.value]);
+        board.drawShape(shapes[state.value]);
     }
 }
 
@@ -240,9 +247,9 @@ function rotateShape(): void {
     const nextState = shapes[nextStateValue];
 
     if (!board.isRotationCollision(nextState)) {
-        board.clear(shapes[state.value]);
+        board.clearShape(shapes[state.value]);
         state.increment(shapes);
-        board.draw(shapes[state.value]);
+        board.drawShape(shapes[state.value]);
     }
 }
 

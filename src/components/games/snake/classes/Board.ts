@@ -212,7 +212,7 @@ export class Board {
         const freeBlocks = this.getFreeBlocks(busyBlocks);
 
         const block = getRandomItem<Block>(freeBlocks);
-        const type = getRandomItem<BonuseType>(['small', 'medium', 'large']);
+        const type = getRandomItem<BonuseType>(['small', 'medium', 'large']); // добавить монету SCl
 
         this.bonuse = new Bonuse(block.x, block.y, type);
     }

@@ -75,7 +75,7 @@ import SnakeControl from './SnakeControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
 import MyButton from '@/components/UI/MyButton.vue';
 
-import { isChance } from '../common/utils/random';
+// import { isChance } from '../common/utils/random';
 import type { IMove } from '../common/interfaces/emits';
 
 const emit = defineEmits<{

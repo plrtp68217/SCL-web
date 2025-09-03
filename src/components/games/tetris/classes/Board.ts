@@ -1,5 +1,5 @@
 import { Shape } from "./Shape";
-import { Block } from "./Block";
+import { Block, type blockColor } from "./Block";
 import euclidAlg from "../../common/utils/euclid";
 
 export class Board {
@@ -9,12 +9,40 @@ export class Board {
     shapesOnBoard: Shape[];
     step: number;
 
-    constructor(context: CanvasRenderingContext2D, width: number, height: number) {
+    blueBlockSprite: HTMLImageElement;
+    greenBlockSprite: HTMLImageElement;
+    orangeBlockSprite: HTMLImageElement;
+    purpleBlockSprite: HTMLImageElement;
+    redBlockSprite: HTMLImageElement;
+    whiteBlockSprite: HTMLImageElement;
+    yellowBlockSprite: HTMLImageElement;
+
+
+    constructor(
+        context: CanvasRenderingContext2D, 
+        width: number, 
+        height: number,
+        blueBlockSprite: HTMLImageElement,
+        greenBlockSprite: HTMLImageElement,
+        orangeBlockSprite: HTMLImageElement,
+        purpleBlockSprite: HTMLImageElement,
+        redBlockSprite: HTMLImageElement,
+        whiteBlockSprite: HTMLImageElement,
+        yellowBlockSprite: HTMLImageElement,
+    ) {
         this.context = context;
         this.width = width;
         this.height = height;
         this.shapesOnBoard = [] as Shape[];
         this.step = euclidAlg(this.width, this.height);
+
+        this.blueBlockSprite = blueBlockSprite;
+        this.greenBlockSprite = greenBlockSprite;
+        this.orangeBlockSprite = orangeBlockSprite;
+        this.purpleBlockSprite = purpleBlockSprite;
+        this.redBlockSprite = redBlockSprite;
+        this.whiteBlockSprite = whiteBlockSprite;
+        this.yellowBlockSprite = yellowBlockSprite;
     }
 
     isEqualsShapes(shape: Shape, shapeOnBoard: Shape): boolean {
@@ -113,14 +141,14 @@ export class Board {
     clearFilledLines(filledLinesY: number[]): void {
         for (let lineY of filledLinesY) {
             for (let shape of this.shapesOnBoard) {
-                this.clear(shape);
+                this.clearShape(shape);
                 shape.blocks = shape.blocks.filter(block => block.y !== lineY);
-                this.draw(shape);
+                this.drawShape(shape);
             }
         }
     }
 
-    drawOnCenter(shape: Shape): void {
+    drawShapeOnCenter(shape: Shape): void {
         const centerX = this.width / 2;
         const centerY = this.height / 2;
 
@@ -130,14 +158,38 @@ export class Board {
         }
     }
 
-    draw(shape: Shape): void {
+    drawShape(shape: Shape): void {
+        // TODO Проверить на баги
+        if (shape.blocks.length == 0) {
+            return;
+        }
+
+        const shapeSprite = this.getSpriteByColor(shape.blocks[0].color)
+
         for (let block of shape.blocks) {
-            this.context.fillStyle = block.color;
-            this.context.fillRect(block.x, block.y, this.step, this.step);
+            this.context.drawImage(
+                shapeSprite, 
+                block.x, block.y,
+                this.step, this.step,
+            )
         }
     }
 
-    clear(shape: Shape): void {
+    getSpriteByColor(color: blockColor): HTMLImageElement {
+        const spritesByColor = {
+            'blue' : this.blueBlockSprite,
+            'white' : this.whiteBlockSprite,
+            'orange' : this.orangeBlockSprite,
+            'yellow' : this.yellowBlockSprite,
+            'red' : this.redBlockSprite,
+            'green' : this.greenBlockSprite,
+            'purple' : this.purpleBlockSprite,
+        };
+
+        return spritesByColor[color];
+    }
+
+    clearShape(shape: Shape): void {
         for (let block of shape.blocks) {
             this.context.clearRect(block.x, block.y, this.step, this.step);
         }

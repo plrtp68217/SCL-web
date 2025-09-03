@@ -19,8 +19,27 @@ onMounted(() => {
     const width: number = canvas.width;
     const height: number = canvas.height;
 
-    board = new Board(context, width, height);
+    const blueBlockSprite = document.getElementById('blueblock_sprite') as HTMLImageElement;
+    const greenBlockSprite = document.getElementById('greenblock_sprite') as HTMLImageElement;
+    const orangeBlockSprite = document.getElementById('orangeblock_sprite') as HTMLImageElement;
+    const purpleBlockSprite = document.getElementById('purpleblock_sprite') as HTMLImageElement;
+    const redBlockSprite = document.getElementById('redblock_sprite') as HTMLImageElement;
+    const whiteBlockSprite = document.getElementById('whiteblock_sprite') as HTMLImageElement;
+    const yellowBlockSprite = document.getElementById('yellowblock_sprite') as HTMLImageElement;
 
+    board = new Board(
+        context, 
+        width, 
+        height,
+        blueBlockSprite,
+        greenBlockSprite,
+        orangeBlockSprite,
+        purpleBlockSprite,
+        redBlockSprite,
+        whiteBlockSprite,
+        yellowBlockSprite,
+    );
+    
     emit('second_board', board);
 })
 

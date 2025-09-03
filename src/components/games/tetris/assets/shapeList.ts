@@ -18,10 +18,10 @@ export const shapeList: IShapeList = {
         2: [{color: 'blue', x: 0, y: 0}, {color: 'blue', x: 20, y: 0}, {color: 'blue', x: 40, y: 0}, {color: 'blue', x: 60, y: 0}],
     },
     'J': {
-        1: [{color: 'pink', x: 0, y: 40}, {color: 'pink', x: 20, y: 0}, {color: 'pink', x: 20, y: 20}, {color: 'pink', x: 20, y: 40}],
-        2: [{color: 'pink', x: 0, y: 0}, {color: 'pink', x: 0, y: 20}, {color: 'pink', x: 20, y: 20}, {color: 'pink', x: 40, y: 20}],
-        3: [{color: 'pink', x: 0, y: 0}, {color: 'pink', x: 0, y: 20}, {color: 'pink', x: 0, y: 40}, {color: 'pink', x: 20, y: 0}],
-        4: [{color: 'pink', x: 0, y: 20}, {color: 'pink', x: 20, y: 20}, {color: 'pink', x: 40, y: 0}, {color: 'pink', x: 40, y: 20}],
+        1: [{color: 'white', x: 0, y: 40}, {color: 'white', x: 20, y: 0}, {color: 'white', x: 20, y: 20}, {color: 'white', x: 20, y: 40}],
+        2: [{color: 'white', x: 0, y: 0}, {color: 'white', x: 0, y: 20}, {color: 'white', x: 20, y: 20}, {color: 'white', x: 40, y: 20}],
+        3: [{color: 'white', x: 0, y: 0}, {color: 'white', x: 0, y: 20}, {color: 'white', x: 0, y: 40}, {color: 'white', x: 20, y: 0}],
+        4: [{color: 'white', x: 0, y: 20}, {color: 'white', x: 20, y: 20}, {color: 'white', x: 40, y: 0}, {color: 'white', x: 40, y: 20}],
     },
     'L': {
         1: [{color: 'orange', x: 0, y: 0}, {color: 'orange', x: 0, y: 20}, {color: 'orange', x: 0, y: 40}, {color: 'orange', x: 20, y: 40}],
