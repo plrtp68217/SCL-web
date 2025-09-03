@@ -244,8 +244,8 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   padding: 10px;
-  border: 5px solid #3d3c3c;
-  background-color: #b342f5;
+  border: 5px solid #cd06ff44;
+  background-color: #3e065fe8;
 }
 
 .snake-footer {
@@ -255,10 +255,10 @@ onUnmounted(() => {
     padding: 10px;
     font-size: 17px;
     color: white;
-    background-color: rgb(204, 94, 248);
-    border-right: 5px solid #3d3c3c;
-    border-bottom: 5px solid #3d3c3c;
-    border-left: 5px solid #3d3c3c;
+    background-color: #3e065fe8;
+    border-right: 5px solid #cd06ff44;;
+    border-bottom: 5px solid #cd06ff44;;
+    border-left: 5px solid #cd06ff44;;
 }
 
 .snake-footer-sound {

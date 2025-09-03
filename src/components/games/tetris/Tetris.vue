@@ -270,9 +270,9 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     gap: 5px;
-    background-color: rgb(194, 132, 252);
+    background-color: #3e065fe8;
     padding: 10px;
-    border: 5px solid #3d3c3c;
+    border: 5px solid #cd06ff44;
 }
 
 .tetris-header-right {
@@ -285,11 +285,11 @@ onUnmounted(() => {
 .tetris-footer {
     width: 100%;
     padding: 10px;
-    background-color: #cc74ff;
+    background-color: #3e065fe8;
     display: flex;
-    border-right: 5px solid #3d3c3c;
-    border-bottom: 5px solid #3d3c3c;
-    border-left: 5px solid #3d3c3c;
+    border-right: 5px solid #cd06ff44;
+    border-bottom: 5px solid #cd06ff44;
+    border-left: 5px solid #cd06ff44;
 }
 
 .tetris-footer-sound {

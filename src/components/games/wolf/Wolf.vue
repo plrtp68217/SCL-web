@@ -264,8 +264,8 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   padding: 10px;
-  border: 5px solid #3d3c3c;
-  background-color: #b342f5;
+  border: 5px solid #cd06ff44;
+  background-color: #3e065fe8;
 
 }
 
@@ -275,18 +275,17 @@ onUnmounted(() => {
   justify-content: space-around;
   align-items: center;
   font-size: 20px;
-  background-color: rgb(204, 94, 248);
-  border-left: 5px solid #3d3c3c;
-  border-right: 5px solid #3d3c3c;
+  background-color: #3e065fe8;
+  border-left: 5px solid #cd06ff44;
+  border-right: 5px solid #cd06ff44;
   color: white;
 }
 
 .wolf-footer {
-  border: 5px solid #3d3c3c;
+  border: 5px solid #cd06ff44;
   border-top: none;
   padding: 10px;
-  background-color: rgb(204, 94, 248);
-
+  background-color: #3e065fe8;
 }
 
 .modal-container {
