@@ -75,7 +75,41 @@ export class Board {
             );
     }
 
-    drawSnakeHead(snake_head: Block, frameNumber: number, {direction, axis}: IMove) {
+    // drawSnakeHead(snake_head: Block, frameNumber: number, {direction, axis}: IMove) {
+    //     let spriteSheet: HTMLImageElement;
+
+    //     if (direction == -1 && axis == 'y') {
+    //         spriteSheet = this.snakeheadtop_spritesheet;
+    //     }
+    //     else if (direction == 1 && axis == 'y') {
+    //         spriteSheet = this.snakeheadbottom_spritesheet;
+    //     }
+    //     else if (direction == -1 && axis == 'x') {
+    //         spriteSheet = this.snakeheadleft_spritesheet;
+    //     }
+    //     else if (direction == 1 && axis == 'x') {
+    //         spriteSheet = this.snakeheadright_spritesheet;
+    //     }
+    //     else {
+    //         spriteSheet = this.snakeheadright_spritesheet;
+    //     }
+
+    //     const spriteNumber = frameNumber - 1
+    //     const spriteX = Math.floor(spriteNumber / 5);
+    //     const spriteY = frameNumber % 5;
+    //     const spriteSize = 100;
+
+    //     this.context.drawImage(
+    //           spriteSheet,                      // image,
+    //           spriteX * spriteSize,             // sx,
+    //           spriteY *  spriteSize,            // sy,
+    //           spriteSize, spriteSize,           // sWidth, sHeight, 
+    //           snake_head.x, snake_head.y,       // dx, dy, d - destination
+    //           this.step, this.step,             // dWidth, dHeight,
+    //         );
+    // }
+
+    drawSnakeHead(snake_head: Block, {direction, axis}: IMove) {
         let spriteSheet: HTMLImageElement;
 
         if (direction == -1 && axis == 'y') {
@@ -94,18 +128,10 @@ export class Board {
             spriteSheet = this.snakeheadright_spritesheet;
         }
 
-        const spriteNumber = frameNumber - 1
-        const spriteX = Math.floor(spriteNumber / 5);
-        const spriteY = frameNumber % 5;
-        const spriteSize = 100;
-
         this.context.drawImage(
-              spriteSheet,                      // image,
-              spriteX * spriteSize,             // sx,
-              spriteY *  spriteSize,            // sy,
-              spriteSize, spriteSize,           // sWidth, sHeight, 
-              snake_head.x, snake_head.y,       // dx, dy, d - destination
-              this.step, this.step,             // dWidth, dHeight,
+                spriteSheet,
+                snake_head.x, snake_head.y,
+                this.step, this.step,
             );
     }
 

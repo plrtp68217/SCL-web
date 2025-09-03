@@ -156,23 +156,23 @@ watch(gameIsOver, (gameOver) => {
   }
 });
 
-function animateSnakeHead() {
-  const totalFrames = 20;
-  let currentFrame = 0;
+// function animateSnakeHead() {
+//   const totalFrames = 20;
+//   let currentFrame = 0;
 
-  let snakeHeadAnimationId =  setInterval(() => {
-    if (currentFrame > totalFrames) {
-      clearInterval(snakeHeadAnimationId);
-    }
+//   let snakeHeadAnimationId =  setInterval(() => {
+//     if (currentFrame > totalFrames) {
+//       clearInterval(snakeHeadAnimationId);
+//     }
     
-    board.drawSnakeHead(
-        board.snake.blocks[0], 
-        currentFrame,
-        {axis: board.snake.axis, direction: board.snake.direction}
-  );
-    currentFrame++;
-  }, speed / 20)
-}
+//     board.drawSnakeHead(
+//         board.snake.blocks[0], 
+//         currentFrame,
+//         {axis: board.snake.axis, direction: board.snake.direction}
+//     );
+//     currentFrame++;
+//   }, speed / 20)
+// }
 
 
 function gameLoop(): void {
@@ -211,10 +211,18 @@ function gameLoop(): void {
     board.snake.direction
 
     if (board.snake.blocks.length == 1) {
-      animateSnakeHead();
+      // animateSnakeHead();
+      board.drawSnakeHead(
+        board.snake.blocks[0], 
+        {axis: board.snake.axis, direction: board.snake.direction}
+      );
     }
     else {
-      animateSnakeHead();
+      // animateSnakeHead();
+      board.drawSnakeHead(
+        board.snake.blocks[0], 
+        {axis: board.snake.axis, direction: board.snake.direction}
+      );
       board.drawSnakeBody(board.snake.blocks.slice(1));
     }
 }
