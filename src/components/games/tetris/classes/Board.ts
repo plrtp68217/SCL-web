@@ -17,7 +17,6 @@ export class Board {
     whiteBlockSprite: HTMLImageElement;
     yellowBlockSprite: HTMLImageElement;
 
-    tetris_background: HTMLImageElement;
 
     constructor(
         context: CanvasRenderingContext2D, 
@@ -31,8 +30,6 @@ export class Board {
         redBlockSprite: HTMLImageElement,
         whiteBlockSprite: HTMLImageElement,
         yellowBlockSprite: HTMLImageElement,
-
-        tetris_background: HTMLImageElement,
     ) {
         this.context = context;
         this.width = width;
@@ -47,8 +44,6 @@ export class Board {
         this.redBlockSprite = redBlockSprite;
         this.whiteBlockSprite = whiteBlockSprite;
         this.yellowBlockSprite = yellowBlockSprite;
-
-        this.tetris_background = tetris_background;
     }
 
     isEqualsShapes(shape: Shape, shapeOnBoard: Shape): boolean {
