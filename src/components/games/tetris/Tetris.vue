@@ -238,6 +238,7 @@ function moveShape({axis, direction}: IMove): void {
                 }
                 break;
         }
+
         board.drawShape(shapes[state.value]);
     }
 }

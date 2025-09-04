@@ -26,8 +26,6 @@ export class Board {
     snakeheadleft_spritesheet: HTMLImageElement;
     snakeheadright_spritesheet: HTMLImageElement;
 
-    snake_background: HTMLImageElement;
-
     constructor(
         context: CanvasRenderingContext2D, 
         width: number, 
@@ -40,7 +38,6 @@ export class Board {
         snakeheadleft_spritesheet: HTMLImageElement,
         snakeheadright_spritesheet: HTMLImageElement,
 
-        snake_background: HTMLImageElement,
     ) {
         this.context = context;
         this.width = width;
@@ -56,8 +53,6 @@ export class Board {
         this.snakeheadbottom_spritesheet = snakeheadbottom_spritesheet;
         this.snakeheadleft_spritesheet = snakeheadleft_spritesheet;
         this.snakeheadright_spritesheet = snakeheadright_spritesheet;
-
-        this.snake_background = snake_background;
     }
 
     
@@ -77,14 +72,6 @@ export class Board {
         this.context.drawImage(this.apple_spritesheet,
               apple.x, apple.y,
               this.step, this.step,
-        );
-    }
-
-    drawBackground() {
-        this.context.drawImage(
-            this.snake_background,
-            0, 0,
-            this.width, this.height,
         );
     }
 

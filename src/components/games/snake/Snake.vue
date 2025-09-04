@@ -60,9 +60,6 @@
     <img id="snakeheadleft_spritesheet" src="/images/snake/snakeheadleft_spritesheet.png" style="display: none;">
     <img id="snakeheadright_spritesheet" src="/images/snake/snakeheadright_spritesheet.png" style="display: none;">
 
-    <img id="snake_background" src="/images/snake/snake_background.png" style="display: none;">
-
-
 </template>
 
 
@@ -179,10 +176,8 @@ watch(gameIsOver, (gameOver) => {
 
 
 function gameLoop(): void {
-  board.clearEntitie(board.snake.blocks);
+    board.clearEntitie(board.snake.blocks);
   
-  board.drawBackground();
-
     board.snake.move();
 
     if (board.isCollision()) {
@@ -207,9 +202,6 @@ function gameLoop(): void {
     if (board.bonuse instanceof Bonuse) {
         board.drawBlock(board.bonuse);
     }
-
-    // board.drawBlock(board.apple);
-    // board.drawEntitie(board.snake.blocks);
 
     board.drawApple(board.apple);
 

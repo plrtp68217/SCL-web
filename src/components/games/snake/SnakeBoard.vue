@@ -27,8 +27,6 @@ onMounted(() => {
     const snakeheadleft_spritesheet = document.getElementById('snakeheadleft_spritesheet') as HTMLImageElement;
     const snakeheadright_spritesheet = document.getElementById('snakeheadright_spritesheet') as HTMLImageElement;
 
-    const snake_background = document.getElementById('snake_background') as HTMLImageElement;
-
     board = new Board(
         context, 
         width, 
@@ -41,8 +39,6 @@ onMounted(() => {
         snakeheadbottom_spritesheet,
         snakeheadleft_spritesheet,
         snakeheadright_spritesheet,
-
-        snake_background,
     );
 
     emit('board', board);
@@ -54,8 +50,10 @@ onMounted(() => {
 <style scoped>
 
 #board {
-    border: 1px solid black;
-    background-color: #3d3c3c;
+    border: 1px solid rgb(133, 2, 89);
+    background-color: #720972;
+    background-image: url('/public/images/snake/snake_background.png');
+    
 }
 
 </style>

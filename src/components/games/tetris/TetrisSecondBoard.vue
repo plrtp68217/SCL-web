@@ -31,6 +31,7 @@ onMounted(() => {
         context, 
         width, 
         height,
+
         blueBlockSprite,
         greenBlockSprite,
         orangeBlockSprite,
@@ -38,6 +39,7 @@ onMounted(() => {
         redBlockSprite,
         whiteBlockSprite,
         yellowBlockSprite,
+
     );
     
     emit('second_board', board);
@@ -51,8 +53,9 @@ onMounted(() => {
 #second-board {
     width: 80px;
     height: 80px;
-    border: 1px solid black;
+    border: 1px solid rgba(128, 2, 86, 0.507);
     background-color: #3d3c3c;
+    background-image: url('/public/images/tetris/tetris_secondbackground.png');
 }
 
 </style>
