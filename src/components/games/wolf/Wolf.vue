@@ -175,7 +175,7 @@ watch(gameIsOver, (gameOver) => {
 function gameLoop() {
   board.clear();
   
-  board.drawLines(lines);
+  // board.drawLines(lines);
 
   if (lives.value === 0) {
     gameOver();

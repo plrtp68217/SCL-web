@@ -9,8 +9,8 @@ button {
 }
 
 body {
-  
   height: 100vh;
+  font-family: "Jersey 15", serif;
   overflow: hidden;
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,100,1) 43%, rgba(50,9,121,1) 91%);
 }

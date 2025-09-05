@@ -97,7 +97,6 @@ const games: Game[] = [
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
-    font-family: "Jersey 15", serif;
 }
 
 /* Верхняя часть: Earn и Лучшие игроки */
