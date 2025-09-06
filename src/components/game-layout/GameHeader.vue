@@ -10,13 +10,21 @@
 
         </div>
 
-        <div class="header-nickname">{{ user.getName }}</div>
+        <!-- <div class="header-nickname">{{ user.getName }}</div> -->
+        <MyButton 
+            @click="$router.push('/')"
+            class="header-button"
+        >
+        menu
+        </MyButton>
 
     </div>
 </template>
 
 
 <script setup lang="ts">
+
+import MyButton from '../UI/MyButton.vue';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
@@ -54,6 +62,11 @@ let user = storeToRefs(userStore);
 .header-balance-image {
     width: 30px;
     height: 30px;
+}
+
+.header-button {
+    width: auto;
+    border-radius: 10%;
 }
 
 </style>
