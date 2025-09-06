@@ -33,7 +33,7 @@ onMounted(() => {
 <style scoped>
 
 #board {
-    border: 1px solid black;
+    border: 1px solid rgba(128, 2, 86, 0.507);
     background-color: #3d3c3c;
     background-image: url('/public/images/wolf/wolf_background.png');
 }

@@ -78,7 +78,6 @@ import WolfHud from './WolfHud.vue';
 import MyButton from '@/components/UI/MyButton.vue';
 
 import type { IMove } from './interfaces/emits';
-// import type { ILine } from './interfaces/line';
 import type { IEggStartPositions } from './interfaces/egg';
 
 const emit = defineEmits<{
@@ -104,7 +103,6 @@ const eggRadius: number = 6;
 let eggStartPositions: IEggStartPositions;
 let addEgg: Function;
 
-// let lines: ILine[];
 let lineDeviationTopY: number;
 let lineDeviationBottomY: number;
 const lineAngle: number = 30;
@@ -120,13 +118,6 @@ function defineBoard(newBoard: Board) {
 
   lineDeviationBottomY = board.height * 0.45
   
-  // lines = [
-  //   {startX: 0 , startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: 1},
-  //   {startX: 0, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: 1},
-  //   {startX: board.width, startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: -1},
-  //   {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
-  // ]
-
   eggStartPositions = {
     'topleft': {x: 0, y: lineDeviationTopY},
     'bottomleft': {x: 0, y: board.height - lineDeviationBottomY},
@@ -175,8 +166,6 @@ watch(gameIsOver, (gameOver) => {
 function gameLoop() {
   board.clear();
   
-  // board.drawLines(lines);
-
   if (lives.value === 0) {
     gameOver();
   }
@@ -189,14 +178,13 @@ function gameLoop() {
   moveAndCheckEggs(eggs, 10);
 
   wolf.draw(context);
-  // board.drawCollision();
 }
 
 function moveAndCheckEggs(eggs: Egg[], step: number) {
   eggs.forEach((egg) => {
 
-    egg.draw(context);
     egg.move(lineAngle, step);
+    egg.draw(context);
 
     if (egg.distanceMove > lineLength) {
       egg.isFalling = true;
@@ -220,6 +208,12 @@ function deleteFallenEggs(eggs: Egg[]) {
   return eggs;
 }
 
+function drawEggs(eggs: Egg[]) {
+  eggs.forEach(egg => {
+    egg.draw(context);
+  });
+}
+
 function createEggAdder() {
   let callCount: number = 0;
 
@@ -239,11 +233,13 @@ function createEggAdder() {
 }
 
 function moveWolf({side, basket}: IMove) {
-  wolf.clear(context);
+  board.clear()
+  // wolf.clear(context);
 
   wolf.state.side = side;
   wolf.state.basket = basket;
-
+  
+  drawEggs(eggs);
   wolf.draw(context);
 }
 
