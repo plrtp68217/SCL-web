@@ -1,5 +1,7 @@
+import type { blockColor } from "../classes/Block";
+
 export interface IBlock {
-    color: string;
+    color: blockColor;
     x: number;
     y: number;
 }
