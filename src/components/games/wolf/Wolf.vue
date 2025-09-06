@@ -78,7 +78,7 @@ import WolfHud from './WolfHud.vue';
 import MyButton from '@/components/UI/MyButton.vue';
 
 import type { IMove } from './interfaces/emits';
-import type { ILine } from './interfaces/line';
+// import type { ILine } from './interfaces/line';
 import type { IEggStartPositions } from './interfaces/egg';
 
 const emit = defineEmits<{
@@ -104,7 +104,7 @@ const eggRadius: number = 6;
 let eggStartPositions: IEggStartPositions;
 let addEgg: Function;
 
-let lines: ILine[];
+// let lines: ILine[];
 let lineDeviationTopY: number;
 let lineDeviationBottomY: number;
 const lineAngle: number = 30;
@@ -120,12 +120,12 @@ function defineBoard(newBoard: Board) {
 
   lineDeviationBottomY = board.height * 0.45
   
-  lines = [
-    {startX: 0 , startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: 1},
-    {startX: 0, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: 1},
-    {startX: board.width, startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: -1},
-    {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
-  ]
+  // lines = [
+  //   {startX: 0 , startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: 1},
+  //   {startX: 0, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: 1},
+  //   {startX: board.width, startY: lineDeviationTopY, length: lineLength, angle: lineAngle, direction: -1},
+  //   {startX: board.width, startY: board.height - lineDeviationBottomY, length: lineLength, angle: lineAngle, direction: -1},
+  // ]
 
   eggStartPositions = {
     'topleft': {x: 0, y: lineDeviationTopY},
