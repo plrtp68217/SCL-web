@@ -177,8 +177,8 @@ watch(gameIsOver, (gameOver) => {
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
-  
-    board.snake.move();
+
+    board.snake.moveHead();
 
     if (board.isCollision()) {
         gameOver()
@@ -186,8 +186,10 @@ function gameLoop(): void {
 
     if (board.isFeed(board.apple)) {
         score.value += board.apple.reward;
-        board.snake.enlarge();
         board.createApple();
+    }
+    else {
+      board.snake.dropTail();
     }
 
     if (board.isFeed(board.bonuse)) {
@@ -205,17 +207,13 @@ function gameLoop(): void {
 
     board.drawApple(board.apple);
 
-    board.snake.direction
-
     if (board.snake.blocks.length == 1) {
-      // animateSnakeHead();
       board.drawSnakeHead(
         board.snake.blocks[0], 
         {axis: board.snake.axis, direction: board.snake.direction}
       );
     }
     else {
-      // animateSnakeHead();
       board.drawSnakeHead(
         board.snake.blocks[0], 
         {axis: board.snake.axis, direction: board.snake.direction}

@@ -25,17 +25,12 @@ export class Snake {
         return newHead;
     }
 
-    move(): void {
+    moveHead(): void {
         const newHead = this.createNewHead();
+        this.blocks.unshift(newHead);
+    }
 
+    dropTail(): void {
         this.blocks.pop();
-        this.blocks.unshift(newHead);
     }
-
-    enlarge(): void {
-        const newHead = this.createNewHead();
-        
-        this.blocks.unshift(newHead);
-    }
-
 }
