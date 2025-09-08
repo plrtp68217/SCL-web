@@ -79,6 +79,7 @@ import MyButton from '@/components/UI/MyButton.vue';
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
 import { State } from './classes/State';
+import { Block } from './classes/Block';
 
 import type { IMove } from '../common/interfaces/emits';
 
@@ -175,10 +176,13 @@ function gameLoop(): void {
         board.shapesOnBoard.push(shapes[state.value]);
         state.reset();
         
-        const filledLinesCount = board.checkAndClearFilledLines();
+        const filledLinesY = board.checkAndClearFilledLines();
 
-        if (filledLinesCount) {
-            score.value += reward * filledLinesCount;
+        if (filledLinesY.length !== 0) {
+            score.value += reward * filledLinesY.length;
+            board.clear();
+            moveLines(filledLinesY);
+            board.drawShapesOnBoard();
         }
 
         shapes = [...nextShapes];
@@ -197,6 +201,22 @@ function gameLoop(): void {
     else {
         moveShape({ axis: 'y', direction: 1 });
         moveShapesOnBoard();
+    }
+}
+
+function moveLines(filledLinesY: number[]) {
+    let blocksOnBoard: Block[] = [];
+
+    for (let shape of board.shapesOnBoard) {
+        blocksOnBoard.push(...shape.blocks);
+    }
+
+    for (let lineY of filledLinesY ) {
+        for (let block of blocksOnBoard) {
+            if (block.y < lineY) {
+                block.y += board.step;
+            }
+        }
     }
 }
 

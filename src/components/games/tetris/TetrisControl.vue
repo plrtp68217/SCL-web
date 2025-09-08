@@ -25,12 +25,29 @@
 
 
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue';
 import type { ControlEmit } from './interfaces/emits';
 
 import MyButton from '@/components/UI/MyButton.vue';
 
 
 const emit = defineEmits<ControlEmit>();
+
+function moveShapeWithKey(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') emit('move', {axis: 'x', direction: -1});
+    else if (event.key === 'ArrowRight') emit('move', {axis: 'x', direction: 1});
+    else if (event.key === 'ArrowDown') emit('move', {axis: 'y', direction: 1});
+    else if (event.key === 'ArrowUp') emit('rotate');
+}
+
+onMounted(() => {
+    document.addEventListener('keydown', moveShapeWithKey);
+})
+
+onUnmounted(() => {
+    document.removeEventListener('keydown', moveShapeWithKey);
+})
+
 
 </script>
 

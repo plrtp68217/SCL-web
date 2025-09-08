@@ -69,6 +69,7 @@ export class Board {
             const isBoardCollision =
                 nextX < 0 || nextX >= this.width ||
                 nextY >= this.height;
+
             if (isBoardCollision) {
                 return true;
             }
@@ -78,6 +79,7 @@ export class Board {
                     const isShapeCollision = shapeOnBoard.blocks.some(blockOnBoard =>
                         blockOnBoard.x === nextX && blockOnBoard.y === nextY
                     );
+
                     if (isShapeCollision) {
                         return true;
                     }
@@ -100,6 +102,7 @@ export class Board {
                     const isShapeCollision = shapeOnBoard.blocks.some(blockOnBoard =>
                         blockOnBoard.x === block.x && blockOnBoard.y === block.y
                     );
+
                     if (isShapeCollision) {
                         return true;
                     }
@@ -110,12 +113,14 @@ export class Board {
         return false;
     }
 
-    checkAndClearFilledLines(): number {
-        const filledLines = this.checkFilledLines();
-        if (filledLines) {
-            this.clearFilledLines(filledLines);
+    checkAndClearFilledLines(): number[] {
+        const filledLinesY = this.checkFilledLines();
+
+        if (filledLinesY) {
+            this.clearFilledLines(filledLinesY);
         }
-        return filledLines.length;
+
+        return filledLinesY;
     }
 
     checkFilledLines(): number[] {
@@ -127,6 +132,7 @@ export class Board {
 
             for (let shapeOnBoard of this.shapesOnBoard) {
                 let blocksY =  shapeOnBoard.blocks.filter(block => block.y === lineY);
+
                 if(blocksY) {
                     blocksOfCurrentLine = [... blocksOfCurrentLine, ...blocksY];
                 }
@@ -136,6 +142,7 @@ export class Board {
                 filledLinesY.push(lineY);
             }
         }
+
         return filledLinesY;
     }
 
@@ -176,6 +183,12 @@ export class Board {
         }
     }
 
+    drawShapesOnBoard() {
+        for (let shape of this.shapesOnBoard) {
+            this.drawShape(shape);
+        }
+    }
+
     getSpriteByColor(color: blockColor): HTMLImageElement {
         const spritesByColor = {
             'blue' : this.blueBlockSprite,
@@ -194,6 +207,10 @@ export class Board {
         for (let block of shape.blocks) {
             this.context.clearRect(block.x, block.y, this.step, this.step);
         }
+    }
+
+    clear() {
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 
     reset() {
