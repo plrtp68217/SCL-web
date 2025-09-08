@@ -20,6 +20,8 @@
 
         </header>
 
+        <div style="color: white">v 0.0.1</div>
+
         <!-- Средняя часть: Баланс игрока && Логотип -->
         <section class="balance-logo">
 
