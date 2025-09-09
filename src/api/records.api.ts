@@ -9,6 +9,12 @@ export default {
     const record = response.data;
     return record;
   },
+  
+  async getBestRecords(gameId: string): Promise<Record[] | null> {
+    const response = await apiClient.get(`/records/${gameId}`);
+    const records = response.data;
+    return records;
+  },
 
   async createRecord(dto: CreateRecordDto): Promise<Record> {
     const response = await apiClient.post('/records', dto);
