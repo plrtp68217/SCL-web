@@ -2,19 +2,33 @@
     
     <div class="menu">
         <Background/>
+        
+        <Modal
+            :isVisible="modalPlayersIsVisible"
+            :label="'Best Players'"
+            @close="modalPlayersIsVisible = false"
+        >
+        </Modal>
+
+        <Modal
+            :isVisible="modalEarnIsVisible"
+            :label="'Earn'"
+            @close="modalEarnIsVisible = false"
+        >
+        </Modal>
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
 
             <!-- Задачи для игроков -->
-            <div class="earn-section">
+            <div class="earn-section" @click="modalEarnIsVisible = true">
                 <h2 class="earn-section-label">Earn</h2>
                 <img class="earn-section-image" src="/images/menu/earn.svg">
             </div>
 
             <!-- Список лучших игроков -->
-            <div class="leaderboard-section">
-                <h2 class="leaderboard-section-label">The best of the best</h2>
+            <div class="leaderboard-section" @click="modalPlayersIsVisible = true">
+                <h2 class="leaderboard-section-label">Best Players</h2>
                 <img class="leaderboard-section-image" src="/images/menu/best-players.svg">
             </div>
 
@@ -58,6 +72,8 @@
 
 <script setup lang="ts">
 
+import { ref } from 'vue';
+
 import Background from '../background/Background.vue';
 import SwiperGames from '../menu/SwiperGames.vue';
 
@@ -65,6 +81,8 @@ import type { Game } from '../menu/interfaces/game';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+
+import Modal from '../UI/Modal.vue';
 
 
 const userStore = useUserStore();
@@ -86,6 +104,9 @@ const games: Game[] = [
     },
 ]
 
+let modalPlayersIsVisible = ref<boolean>(false);
+let modalEarnIsVisible = ref<boolean>(false);
+
 </script>
 
 
@@ -99,6 +120,7 @@ const games: Game[] = [
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
+    font-family: "Jersey 15", serif;
 }
 
 /* Верхняя часть: Earn и Лучшие игроки */
