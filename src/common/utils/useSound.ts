@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, toRaw  } from 'vue';
+import { ref, toRaw  } from 'vue';
 
 let soundInstance: ReturnType<typeof createSound> | null = null;
 
