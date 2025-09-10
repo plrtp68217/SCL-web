@@ -8,6 +8,7 @@
             :label="'Best Players'"
             @close="modalPlayersIsVisible = false"
         >
+            <BestPlayersView/>
         </Modal>
 
         <Modal
@@ -84,6 +85,7 @@ import { storeToRefs } from 'pinia';
 
 import Modal from '../UI/Modal.vue';
 
+import BestPlayersView from './BestPlayersView.vue';
 
 const userStore = useUserStore();
 
