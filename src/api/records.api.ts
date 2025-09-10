@@ -1,7 +1,6 @@
 import apiClient from "./apiClient";
 
-import type { Record, CreateRecordDto,  UpdateRecordDto } from "./types/records";
-
+import type { Record, BestRecord, CreateRecordDto,  UpdateRecordDto } from "./types/records";
 
 export default {
   async getRecord(userId: number, gameId: string): Promise<Record | null> {
@@ -10,7 +9,7 @@ export default {
     return record;
   },
   
-  async getBestRecords(gameId: string): Promise<Record[] | null> {
+  async getBestRecords(gameId: string): Promise<BestRecord[] | null> {
     const response = await apiClient.get(`/records/${gameId}`);
     const records = response.data;
     return records;
