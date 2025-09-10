@@ -86,7 +86,6 @@ const props = defineProps({
 }
 
 .me {
-  border: 2px solid rgba(255, 0, 255, 0.925);
   background-color: rgba(238, 0, 186, 0.479);
 }
 </style>
