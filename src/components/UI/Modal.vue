@@ -90,7 +90,10 @@ function closeModal() {
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
   width: 481px;
+  height: 100%;
   background-color: #3e065fc4;
   box-shadow: 0 0 10px rgb(180, 0, 252);
   border-radius: 10px;
@@ -105,8 +108,7 @@ function closeModal() {
 }
 
 .modal-label {
-  margin: 8px;
-  text-decoration: underline;
+  margin: 5px 10px;
 }
 
 .modal-button {
