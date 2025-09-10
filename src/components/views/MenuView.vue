@@ -35,7 +35,7 @@
 
         </header>
 
-        <div style="color: white">v 0.0.1</div>
+        <div style="color: white">v 0.0.2</div>
 
         <!-- Средняя часть: Баланс игрока && Логотип -->
         <section class="balance-logo">
