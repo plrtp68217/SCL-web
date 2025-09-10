@@ -52,7 +52,7 @@ onMounted(() => {
 #main_board {
     border: 1px solid rgba(128, 2, 86, 0.507);
     background-color: #3d3c3c;
-    background-image: url('/public/images/tetris/tetris_mainbackground.png');
+    background-image: url('/images/tetris/tetris_mainbackground.png');
 }
 
 </style>

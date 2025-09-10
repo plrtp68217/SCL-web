@@ -52,7 +52,7 @@ onMounted(() => {
 #board {
     border: 1px solid rgb(133, 2, 89);
     background-color: #720972;
-    background-image: url('/public/images/snake/snake_background.png');
+    background-image: url('/images/snake/snake_background.png');
     
 }
 

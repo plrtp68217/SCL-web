@@ -55,7 +55,7 @@ onMounted(() => {
     height: 80px;
     border: 1px solid rgba(128, 2, 86, 0.507);
     background-color: #3d3c3c;
-    background-image: url('/public/images/tetris/tetris_secondbackground.png');
+    background-image: url('/images/tetris/tetris_secondbackground.png');
 }
 
 </style>

@@ -82,6 +82,7 @@ import type { IEggStartPositions } from './interfaces/egg';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
+  (e: 'playSound', soundName: string, volume?: number): void
 }>();
 
 const props = defineProps(
@@ -167,6 +168,7 @@ function gameLoop() {
   board.clear();
   
   if (lives.value === 0) {
+    emit('playSound', 'game-over', 0.01);
     gameOver();
   }
 
@@ -191,6 +193,7 @@ function moveAndCheckEggs(eggs: Egg[], step: number) {
       egg.distanceMove = 0;
     }
     else if (wolf.isEggInBasket(egg)) {
+      emit('playSound', 'wolf-pickup-egg', 0.1);
       score.value += 10;
       egg.isFallen = true;
     }

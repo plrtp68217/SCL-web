@@ -89,6 +89,7 @@ import { getShapesWithStartPosition } from './utils/position';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
+  (e: 'playSound', soundName: string, volume?: number): void
 }>();
 
 const props = defineProps(
@@ -173,12 +174,14 @@ watch(gameIsOver, (gameOver) => {
 
 function gameLoop(): void {
     if (!shapes[state.value].isFalling) {
+        emit('playSound', 'tetris-shape-falled', 0.1);
         board.shapesOnBoard.push(shapes[state.value]);
         state.reset();
         
         const filledLinesY = board.checkAndClearFilledLines();
 
         if (filledLinesY.length !== 0) {
+            emit('playSound', 'tetris-filled-line', 0.1)
             score.value += reward * filledLinesY.length;
             board.clear();
             moveLines(filledLinesY);
@@ -191,6 +194,7 @@ function gameLoop(): void {
         board.drawShape(shapes[state.value]);
 
         if (board.isCollision(shapes[state.value], 'y', 1)) {
+            emit('playSound', 'game-over', 0.01);
             gameOver();
         }
         

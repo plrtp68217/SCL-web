@@ -10,6 +10,7 @@
             <Tetris
                 :bestScore="tetrisRecord.score"
                 @newScore="updateScore"
+                @playSound="playSound"
             />
         </div>
 
@@ -29,6 +30,15 @@ import { useUserStore } from '@/stores/user';
 import { api } from '@/api';
 import { onMounted } from "vue";
 import { logUserAction } from "@/logging/logUserAction";
+
+import { useSound } from '@/common/utils/useSound';
+
+const { play} = useSound();
+
+const playSound = (soundName: string, volume: number = 0.5) => {
+    console.log(soundName);
+    play(soundName, volume);
+};
 
 const gameId: GameId = 'tetris';
 

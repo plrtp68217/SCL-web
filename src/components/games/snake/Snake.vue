@@ -80,6 +80,7 @@ import type { IMove } from '../common/interfaces/emits';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
+  (e: 'playSound', soundName: string, volume?: number): void
 }>();
 
 const props = defineProps(
@@ -179,17 +180,20 @@ function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
 
     board.snake.moveHead();
+    emit('playSound', 'snake-move', 0.01);
 
     if (board.isCollision()) {
+        emit('playSound', 'game-over', 0.01);
         gameOver()
     }
 
     if (board.isFeed(board.apple)) {
+        emit('playSound', 'snake-pickup-apple', 0.1);
         score.value += board.apple.reward;
         board.createApple();
     }
     else {
-      board.snake.dropTail();
+        board.snake.dropTail();
     }
 
     if (board.isFeed(board.bonuse)) {
