@@ -16,6 +16,7 @@
             :label="'Earn'"
             @close="modalEarnIsVisible = false"
         >
+            <h1 style="text-align: center; color: white;">in the next update..</h1>
         </Modal>
 
         <!-- Верхняя часть: Earn и Лучшие игроки -->
@@ -35,7 +36,7 @@
 
         </header>
 
-        <div style="color: white">v 0.0.2</div>
+        <div style="color: white">v 0.0.3</div>
 
         <!-- Средняя часть: Баланс игрока && Логотип -->
         <section class="balance-logo">
