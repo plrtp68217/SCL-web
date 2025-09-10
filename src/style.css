@@ -14,3 +14,22 @@ body {
   overflow: hidden;
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,100,1) 43%, rgba(50,9,121,1) 91%);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #6d0083;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fcfcfc;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9494;
+}
