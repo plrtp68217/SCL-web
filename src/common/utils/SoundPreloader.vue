@@ -1,9 +1,9 @@
 <template>
-  <div v-if="loading && showLoader" class="sound-preloader">
+  <div v-if="loading && props.showLoader" class="sound-preloader">
     ⏳ Загружаем звуки... ({{ loadedCount }}/{{ totalCount }})
   </div>
   
-  <slot v-if="!loading || !showLoader"></slot>
+  <slot v-if="!loading || !props.showLoader"></slot>
 </template>
 
 <script setup lang="ts">
