@@ -4,13 +4,13 @@ import type { Record, BestRecord, CreateRecordDto,  UpdateRecordDto } from "./ty
 
 export default {
   async getRecord(userId: number, gameId: string): Promise<Record | null> {
-    const response = await apiClient.get(`/records/${userId}/${gameId}`);
+    const response = await apiClient.get(`/records/user/${userId}/${gameId}`);
     const record = response.data;
     return record;
   },
   
   async getBestRecords(gameId: string): Promise<BestRecord[] | null> {
-    const response = await apiClient.get(`/records/${gameId}`);
+    const response = await apiClient.get(`/records/game/${gameId}`);
     const records = response.data;
     return records;
   },
