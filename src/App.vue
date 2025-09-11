@@ -1,39 +1,43 @@
 <template>
+  
+  <SoundPreloader :showLoader="false">
 
-  <div>
+    <div>
 
-    <div v-if="isLoading" class="error-spinner">
+      <div v-if="isLoading" class="error-spinner">
 
-      <Error v-if="isError"/>
-      <Spinner v-else/>
+        <Error v-if="isError"/>
+        <Spinner v-else/>
 
-      <p class="error-spinner-text">{{ textLoading }}</p>
-            
-    </div>
+        <p class="error-spinner-text">{{ textLoading }}</p>
 
-    <transition name="image-fade" mode="out-in">
+      </div>
 
-      <img
-        v-if="showImage"
-        src="/images/menu/ballerina.svg"
-        alt="Transition Image"
-        class="transition__image"
-      />
+      <transition name="image-fade" mode="out-in">
 
-    </transition>
-
-    
-    <router-view v-slot="{ Component }">
-
-      <transition name="page-fade" mode="out-in">
-
-        <component :is="Component" />
+        <img
+          v-if="showImage"
+          src="/images/menu/ballerina.svg"
+          alt="Transition Image"
+          class="transition__image"
+        />
 
       </transition>
 
-    </router-view>
 
-  </div>
+      <router-view v-slot="{ Component }">
+
+        <transition name="page-fade" mode="out-in">
+
+          <component :is="Component" />
+
+        </transition>
+
+      </router-view>
+
+    </div>
+
+  </SoundPreloader>
 
 </template>
 
@@ -58,6 +62,8 @@ import { gameIds } from './common/games';
 
 import { useUserStore } from '@/stores/user';
 import { logUserAction } from './logging/logUserAction';
+
+import SoundPreloader from './common/utils/SoundPreloader.vue';
 
 
 const showImage = ref<boolean>(false);

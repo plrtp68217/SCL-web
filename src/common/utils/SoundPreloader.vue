@@ -1,13 +1,13 @@
 <template>
-  <div v-if="isClient && loading && props.showLoader" class="sound-preloader">
+  <div v-if="loading && props.showLoader" class="sound-preloader">
     ⏳ Загружаем звуки... ({{ loadedCount }}/{{ totalCount }})
   </div>
   
-  <slot v-if="!isClient || !loading || !props.showLoader"></slot>
+  <slot v-if="!loading || !props.showLoader"></slot>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useSound } from './useSound';
 
 const props = withDefaults(defineProps<{
@@ -29,64 +29,64 @@ const { loadSound, getLoadedSounds } = useSound();
 const loading = ref(true);
 const loadedCount = ref(0);
 const totalCount = ref(soundFiles.length);
-const isClient = ref(false);
+const loadErrors = ref<string[]>([]);
 
-// Добавляем таймаут для отладки
-let loadTimeout: number | null = null;
-
-onMounted(() => {
-  console.log('🎵 SoundPreloader mounted');
-  isClient.value = true;
+onMounted(async () => {
+  console.log('🚀 Начало загрузки звуков...');
+  console.log('Base URL:', import.meta.env.BASE_URL);
+  console.log('Current location:', window.location.href);
   
-  // Задержка для отладки
-  loadTimeout = setTimeout(loadSounds, 100);
-});
-
-onUnmounted(() => {
-  if (loadTimeout) {
-    clearTimeout(loadTimeout);
-  }
-});
-
-const loadSounds = async () => {
-  if (typeof window === 'undefined') {
-    console.log('🚫 Server side - skipping sound loading');
-    loading.value = false;
-    return;
-  }
-
-  console.log('🚀 Начало загрузки звуков на клиенте...');
-  console.log('📍 Location:', window.location.href);
-  
-  try {
-    for (const { name, path } of soundFiles) {
-      try {
-        console.log(`📦 Загрузка: ${name} из ${path}`);
-        
-        const response = await fetch(path);
-        console.log(`📊 Status: ${response.status} ${response.statusText}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+  for (const { name, path } of soundFiles) {
+    try {
+      // Пробуем разные варианты путей
+      const pathsToTry = [
+        path, // relative
+        '/' + path, // absolute
+        import.meta.env.BASE_URL + path, // with base url
+        import.meta.env.BASE_URL + path.replace(/^\//, '') // without leading slash
+      ];
+      
+      let success = false;
+      
+      for (const tryPath of pathsToTry) {
+        try {
+          console.log(`🔍 Пробуем путь: ${tryPath}`);
+          const response = await fetch(tryPath);
+          
+          if (!response.ok) {
+            console.log(`❌ HTTP error: ${response.status} для ${tryPath}`);
+            continue;
+          }
+          
+          const arrayBuffer = await response.arrayBuffer();
+          await loadSound(name, arrayBuffer);
+          console.log(`✅ Успешно загружен: ${name} из ${tryPath}`);
+          loadedCount.value++;
+          success = true;
+          break;
+          
+        } catch (fetchError) {
+          console.log(`❌ Ошибка fetch для ${tryPath}:`, fetchError);
         }
-        
-        const arrayBuffer = await response.arrayBuffer();
-        console.log(`📁 Размер: ${arrayBuffer.byteLength} bytes`);
-        
-        await loadSound(name, arrayBuffer);
-        console.log(`✅ Успешно: ${name}`);
-        loadedCount.value++;
-        
-      } catch (error) {
-        console.error(`❌ Ошибка загрузки ${name}:`, error);
       }
+      
+      if (!success) {
+        console.error(`❌ Не удалось загрузить: ${name}`);
+        loadErrors.value.push(name);
+      }
+      
+    } catch (error) {
+      console.error(`❌ Общая ошибка загрузки ${name}:`, error);
+      loadErrors.value.push(name);
     }
-  } catch (error) {
-    console.error('💥 Критическая ошибка загрузки звуков:', error);
-  } finally {
-    console.log('🎯 Загрузка завершена');
-    console.log('📋 Загруженные звуки:', getLoadedSounds());
-    loading.value = false;
   }
-};
+  
+  console.log('📊 Результаты загрузки:');
+  console.log('- Успешно:', getLoadedSounds());
+  console.log('- Ошибки:', loadErrors.value);
+  console.log('- Всего файлов:', totalCount.value);
+  console.log('- Загружено:', loadedCount.value);
+  
+  loading.value = false;
+});
 </script>
