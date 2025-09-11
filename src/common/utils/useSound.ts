@@ -16,9 +16,9 @@ export function createSound() {
       try {
         audioContext.value = new (window.AudioContext || (window as any).webkitAudioContext)();
         isInitialized.value = true;
-        // console.log('✅ AudioContext инициализирован');
+        console.log('✅ AudioContext инициализирован');
       } catch (error) {
-        // console.error('❌ AudioContext ошибка инициализации:', error);
+        console.error('❌ AudioContext ошибка инициализации:', error);
       }
     }
   };
@@ -27,7 +27,7 @@ export function createSound() {
     if (!audioContext.value) init();
 
     if (!audioContext.value) {
-      // console.warn('AudioContext not available');
+      console.warn('AudioContext not available');
       return;
     }
 
@@ -38,28 +38,28 @@ export function createSound() {
       newMap.set(name, audioBuffer);
       sounds.value = newMap;
 
-      // console.log(`✅ Звук добавлен в Map: ${name}`);
+      console.log(`✅ Звук добавлен в Map: ${name}`);
 
     } catch (error) {
-      // console.error(`❌ Ошибка загрузки звука ${name}:`, error);
+      console.error(`❌ Ошибка загрузки звука ${name}:`, error);
     }
   };
 
   const play = (name: string, volume: number = 1.0, loop: boolean = false): void => {
-    // console.log(`🔊 Попытка воспроизвести: ${name}, muted: ${isMuted.value}`);
+    console.log(`🔊 Попытка воспроизвести: ${name}, muted: ${isMuted.value}`);
     
     if (isMuted.value) {
-      // console.log('🔇 Звук отключен');
+      console.log('🔇 Звук отключен');
       return;
     }
 
     if (!sounds.value.has(name)) {
-      // console.warn(`❌ Звук не найден: ${name}`);
+      console.warn(`❌ Звук не найден: ${name}`);
       return;
     }
 
     if (!audioContext.value) {
-      // console.warn('❌ AudioContext не инициализирован');
+      console.warn('❌ AudioContext не инициализирован');
       return;
     }
 
@@ -76,7 +76,7 @@ export function createSound() {
       gainNode.connect(audioContext.value.destination);
       source.start(0);
       
-      // console.log(`🎵 Воспроизводится: ${name}`);
+      console.log(`🎵 Воспроизводится: ${name}`);
     } catch (error) {
       console.error(`❌ Ошибка воспроизведения ${name}:`, error);
     }
