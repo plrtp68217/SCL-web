@@ -22,12 +22,12 @@ const props = withDefaults(defineProps<{
 }>(), {
   showLoader: true,
   sounds: () => [
-    { name: 'snake-pickup-apple', path: '/sounds/snake-pickup-apple.wav' },
-    { name: 'snake-move', path: '/sounds/snake-move.wav' },
-    { name: 'tetris-filled-line', path: '/sounds/tetris-filled-line.wav' },
-    { name: 'tetris-shape-falled', path: '/sounds/tetris-shape-falled.wav' },
-    { name: 'wolf-pickup-egg', path: '/sounds/wolf-pickup-egg.wav' },
-    { name: 'game-over', path: '/sounds/game-over.wav' },
+    { name: 'snake-pickup-apple', path: 'sounds/snake-pickup-apple.wav' },
+    { name: 'snake-move', path: 'sounds/snake-move.wav' },
+    { name: 'tetris-filled-line', path: 'sounds/tetris-filled-line.wav' },
+    { name: 'tetris-shape-falled', path: 'sounds/tetris-shape-falled.wav' },
+    { name: 'wolf-pickup-egg', path: 'sounds/wolf-pickup-egg.wav' },
+    { name: 'game-over', path: 'sounds/game-over.wav' },
   ]
 });
 
