@@ -72,13 +72,12 @@ export class Wolf {
   }
 
   isEggInBasket(egg: Egg) {
-    const isInsideX = egg.x - egg.radius >= this.collisionX &&
-                      egg.x + egg.radius <= this.collisionX  + this.collisionWidth;
+    const isInsideX = egg.x >= this.collisionX && egg.x + egg.size <= this.collisionX  + this.collisionWidth
 
-    const isInsideY = egg.y - egg.radius >= this.collisionY &&
-                      egg.y + egg.radius <= this.collisionY + this.collisionHeight;
+    const isInsideY = egg.y + egg.size >= this.collisionY && egg.y + egg.size <= this.collisionY + this.collisionHeight
 
     return isInsideX && isInsideY;
   }
+
 
 }

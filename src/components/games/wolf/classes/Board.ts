@@ -9,16 +9,22 @@ export class Board {
   context: CanvasRenderingContext2D;
   width: number;
   height: number;
-  spriteSheet: HTMLImageElement;
   wolf: Wolf;
   eggs: Egg[]
 
-  constructor(context: CanvasRenderingContext2D, width: number, height: number, spriteSheet: HTMLImageElement) {
+  wolf_spriteSheet: HTMLImageElement;
+
+  constructor(
+    context: CanvasRenderingContext2D, 
+    width: number, 
+    height: number, 
+    wolf_spriteSheet: HTMLImageElement) 
+    {
     this.context = context;
     this.width = width;
     this.height = height;
-    this.spriteSheet = spriteSheet;
-    this.wolf = new Wolf(this, spriteSheet);
+    this.wolf_spriteSheet = wolf_spriteSheet;
+    this.wolf = new Wolf(this, wolf_spriteSheet);
     this.eggs = [];
   }
 

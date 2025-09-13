@@ -5,42 +5,48 @@ export class Egg {
 
     x: number;
     y: number;
-    radius: number;
+    size: number;
 
     direction: -1 | 1;
     distanceMove: number;
 
-
     isFalling: boolean; // падает
     isFallen: boolean; // упало (разбилось)
 
-    constructor(board: Board, x: number, y: number, radius: number) {
+    egg_spritesheet: HTMLImageElement;
+
+    constructor(
+        board: Board, 
+        x: number, 
+        y: number, 
+        size: number,
+        egg_spritesheet: HTMLImageElement,
+    ) {
         this.board = board;
 
         this.x = x;
         this.y = y;
-        this.radius = radius;
+        this.size = size;
 
         this.direction = this.x <= 0 ? 1 : -1;
         this.distanceMove = 0;
 
         this.isFalling = false;
         this.isFallen = false;
+
+        this.egg_spritesheet = egg_spritesheet;
     }
 
     draw(context: CanvasRenderingContext2D) {
-        context.beginPath()
-        context.fillStyle = 'white';
-        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        context.fill();
+        context.drawImage(this.egg_spritesheet,
+                  this.x, this.y,
+                  this.size, this.size,
+            );
     }
 
     clear(context: CanvasRenderingContext2D) {
-        context.beginPath()
-        context.fillStyle = '#3D3D3C'; // board background-color
-        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        context.fill();
-    }
+    context.clearRect(this.x, this.y, this.size, this.size)
+  }
 
     move(angle: number, step: number) {
         if (!this.isFalling) {

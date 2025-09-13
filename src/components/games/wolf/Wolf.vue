@@ -60,12 +60,13 @@
   </div>
 
   <img id="wolf" src="/images/wolf/wolf-sprite-sheet.png" style="display: none;">
+  <img id="egg-spritesheet" src="/images/wolf/egg-spritesheet.png" style="display: none;">
 
 </template>
 
 
 <script setup lang="ts">
-import { ref, onUnmounted, watch } from 'vue';
+import { ref, onUnmounted, onMounted, watch } from 'vue';
 
 import { Board } from './classes/Board';
 import { Wolf } from './classes/Wolf';
@@ -100,14 +101,15 @@ let context: CanvasRenderingContext2D;
 
 let eggs: Egg[] = [];
 const maxEggsOnBoard: number = 4;
-const eggRadius: number = 6;
+const eggSize: number = 14;
 let eggStartPositions: IEggStartPositions;
 let addEgg: Function;
+let egg_spritesheet: HTMLImageElement;
 
 let lineDeviationTopY: number;
 let lineDeviationBottomY: number;
-const lineAngle: number = 30;
-const lineLength: number = 140;
+const lineAngle: number = 31;
+const lineLength: number = 135;
 
 
 function defineBoard(newBoard: Board) {
@@ -122,8 +124,8 @@ function defineBoard(newBoard: Board) {
   eggStartPositions = {
     'topleft': {x: 0, y: lineDeviationTopY},
     'bottomleft': {x: 0, y: board.height - lineDeviationBottomY},
-    'topright': {x: board.width, y: lineDeviationTopY},
-    'bottomright': {x: board.width, y: board.height - lineDeviationBottomY},
+    'topright': {x: board.width - eggSize, y: lineDeviationTopY},
+    'bottomright': {x: board.width - eggSize, y: board.height - lineDeviationBottomY},
   }
 }
 
@@ -229,7 +231,7 @@ function createEggAdder() {
 
       const eggPosition = eggStartPositions[randomKey];
 
-      const egg = new Egg(board, eggPosition.x, eggPosition.y - eggRadius, eggRadius);
+      const egg = new Egg(board, eggPosition.x, eggPosition.y - eggSize, eggSize, egg_spritesheet);
       eggs.push(egg);
     }
   }
@@ -245,6 +247,10 @@ function moveWolf({side, basket}: IMove) {
   drawEggs(eggs);
   wolf.draw(context);
 }
+
+onMounted(() => {
+  egg_spritesheet = document.getElementById('egg-spritesheet') as HTMLImageElement;
+})
 
 onUnmounted(() => {
   clearInterval(gameLoopID);
