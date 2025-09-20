@@ -15,7 +15,7 @@
             @click="$router.push('/')"
             class="header-button"
         >
-        menu
+        MENU
         </MyButton>
 
     </div>
@@ -44,7 +44,7 @@ let user = storeToRefs(userStore);
     padding: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     font-size: 24px;
     color: white;
     backdrop-filter: blur(2px);
