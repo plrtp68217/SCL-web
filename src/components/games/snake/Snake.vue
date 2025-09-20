@@ -19,35 +19,14 @@
         </div>
 
         <Overlay v-if="gameIsFirst || gameIsOver">
-
-            <div class="modal-container">
-            
-              <h1 class="modal-container__title">
-                Snake
-              </h1>
-          
-              <div v-if="gameIsOver">
-            
-                <h2 class="modal-container__score">
-                  Your score: {{ score }}
-                </h2>
-            
-              </div>
-          
-              <div v-else>
-            
-                <h2 class="modal-container__score">
-                  Your best score: {{ props.bestScore }}
-                </h2>
-            
-              </div>
-          
-              <div class="modal-container__start-button">
-                <MyButton @click="startGame">Start</MyButton>
-              </div>
-          
-            </div>
-
+          <GameMenu
+            v-model:level="currentLevel"
+            :title="'SNAKE'"
+            :gameIsOver="gameIsOver"
+            :score="score"
+            :bestScore="bestScore"
+            @start-game="startGame"
+          />
         </Overlay>
 
     </div>
@@ -73,7 +52,7 @@ import SnakeBoard from './SnakeBoard.vue';
 import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
-import MyButton from '@/components/UI/MyButton.vue';
+import GameMenu from '@/components/game-layout/GameMenu.vue';
 
 // import { isChance } from '../common/utils/random';
 import type { IMove } from '../common/interfaces/emits';
@@ -119,8 +98,13 @@ function changeDirection({axis, direction}: IMove): void {
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
 
+let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
+const difficultyLevels = {
+  'easy': 1,
+  'medium': 1.5,
+  'hard': 2,
+};
 let score = ref<number>(0);
-
 let speed: number = 300;
 let gameLoopID: number;
 
@@ -134,7 +118,7 @@ function startGame() {
 
     score.value = 0;
 
-    gameLoopID = setInterval(gameLoop, speed);
+    gameLoopID = setInterval(gameLoop, speed / difficultyLevels[currentLevel.value]);
 
     board.createSnake();
     board.createApple();
@@ -189,7 +173,7 @@ function gameLoop(): void {
 
     if (board.isFeed(board.apple)) {
         emit('playSound', 'snake-pickup-apple', 0.1);
-        score.value += board.apple.reward;
+        score.value += board.apple.reward * difficultyLevels[currentLevel.value];
         board.createApple();
     }
     else {
@@ -197,7 +181,7 @@ function gameLoop(): void {
     }
 
     if (board.isFeed(board.bonuse)) {
-        score.value += board.bonuse.reward;
+        score.value += board.bonuse.reward * difficultyLevels[currentLevel.value];
         board.bonuse = {} as Bonuse;
     }
 
@@ -250,7 +234,6 @@ onUnmounted(() => {
 .snake-footer {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     padding: 10px;
     font-size: 17px;
     color: white;
