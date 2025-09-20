@@ -16,41 +16,18 @@
         </div>
 
         <div class="tetris-footer">
-            <!-- <div class="tetris-footer-sound">SOUND</div> -->
             <TetrisControl @move="moveShape" @rotate="rotateShape" />
         </div>
 
         <Overlay v-if="gameIsFirst || gameIsOver">
-
-            <div class="modal-container">
-            
-              <h1 class="modal-container__title">
-                Tetris
-              </h1>
-          
-              <div v-if="gameIsOver">
-            
-                <h2 class="modal-container__score">
-                  Your score: {{ score }}
-                </h2>
-            
-              </div>
-          
-              <div v-else>
-            
-                <h2 class="modal-container__score">
-                  Your best score: {{ props.bestScore }}
-                </h2>
-            
-              </div>
-          
-              <div class="modal-container__start-button">
-                <MyButton @click="startGame">Start</MyButton>
-                
-              </div>
-          
-            </div>
-
+            <GameMenu
+              v-model:level="currentLevel"
+              :title="'TETRIS'"
+              :gameIsOver="gameIsOver"
+              :score="score"
+              :bestScore="bestScore"
+              @start-game="startGame"
+            />
         </Overlay>
 
     </div>
@@ -74,7 +51,7 @@ import TetrisSecondBoard from './TetrisSecondBoard.vue';
 import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
-import MyButton from '@/components/UI/MyButton.vue';
+import GameMenu from '@/components/game-layout/GameMenu.vue';
 
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
@@ -110,11 +87,6 @@ let nextShapes: Shape[];
 
 function defineMainBoard(newBoard: Board) {
     board = newBoard;
-    // shapes = getRandomShapes(shapeList);
-    // shapes = getShapesWithStartPosition(shapes, board);
-    // state = new State();
-
-    // nextShapes = getRandomShapes(shapeList);
 }
 
 let secondBoard: Board;
@@ -122,12 +94,17 @@ let secondBoard: Board;
 function defineSecondBoard(newBoard: Board) {
     secondBoard = newBoard;
     secondBoard.step = 20;
-    // secondBoard.draw(nextShapes[0]);
 }
 
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
 
+let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
+const difficultyLevels = {
+  'easy': 1,
+  'medium': 1.5,
+  'hard': 2,
+};
 const reward = 100;
 let score = ref<number>(0);
 let speed: number = 200;
@@ -154,7 +131,7 @@ function startGame() {
 
     secondBoard.drawShape(nextShapes[0]);
 
-    gameLoopID = setInterval(gameLoop, speed);
+    gameLoopID = setInterval(gameLoop, speed / difficultyLevels[currentLevel.value]);
 
 }
 
@@ -182,7 +159,7 @@ function gameLoop(): void {
 
         if (filledLinesY.length !== 0) {
             emit('playSound', 'tetris-filled-line', 0.1)
-            score.value += reward * filledLinesY.length;
+            score.value += reward * filledLinesY.length * difficultyLevels[currentLevel.value];
             board.clear();
             moveLines(filledLinesY);
             board.drawShapesOnBoard();
