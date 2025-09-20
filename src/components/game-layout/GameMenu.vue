@@ -3,7 +3,7 @@
   <div class="game-menu-container">
 
     <h1 class="game-menu-container__title">
-      WOLF
+      {{ props.title }}
     </h1>
 
     <div v-if="gameIsOver">
@@ -96,6 +96,10 @@ const emit = defineEmits(['startGame', 'update:level']);
 
 const props = defineProps({
   level: {
+    type: String,
+    required: true,
+  },
+  title: {
     type: String,
     required: true,
   },

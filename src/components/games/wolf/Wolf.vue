@@ -28,8 +28,9 @@
     <Overlay v-if="gameIsFirst || gameIsOver">
       <GameMenu
         v-model:level="currentLevel"
-        :score="score"
+        :title="'WOLF'"
         :gameIsOver="gameIsOver"
+        :score="score"
         :bestScore="bestScore"
         @start-game="startGame"
       />
