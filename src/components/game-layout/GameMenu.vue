@@ -127,7 +127,7 @@ function updateLevel(level: string) {
 <style scoped>
 
 .game-menu-container {
-  max-width: 400px;
+  max-width: 350px;
   height: 100%;
   margin: 20px auto;
   align-items: center;
