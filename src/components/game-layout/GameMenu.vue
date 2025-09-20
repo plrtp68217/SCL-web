@@ -116,7 +116,7 @@ const props = defineProps({
     required: true,
   },
 })
-console.log(props.level);
+
 function updateLevel(level: string) {
   emit('update:level', level);
 }
