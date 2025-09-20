@@ -26,35 +26,13 @@
     </div>
 
     <Overlay v-if="gameIsFirst || gameIsOver">
-
-      <div class="modal-container">
-
-        <h1 class="modal-container__title">
-          Wolf Cathes Eggs
-        </h1>
-
-        <div v-if="gameIsOver">
-
-          <h2 class="modal-container__score">
-            Your score: {{ score }}
-          </h2>
-
-        </div>
-
-        <div v-else>
-
-          <h2 class="modal-container__score">
-            Your best score: {{ props.bestScore }}
-          </h2>
-
-        </div>
-
-        <div class="modal-container__start-button">
-          <MyButton @click="startGame">Start</MyButton>
-        </div>
-
-      </div>
-
+      <GameMenu
+        v-model:level="currentLevel"
+        :score="score"
+        :gameIsOver="gameIsOver"
+        :bestScore="bestScore"
+        @start-game="startGame"
+      />
     </Overlay>
 
   </div>
@@ -74,9 +52,9 @@ import { Egg } from './classes/Egg';
 
 import WolfBoard from './WolfBoard.vue';
 import Overlay from '@/components/UI/Overlay.vue';
+import GameMenu from '@/components/game-layout/GameMenu.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
-import MyButton from '@/components/UI/MyButton.vue';
 
 import type { IMove } from './interfaces/emits';
 import type { IEggStartPositions } from './interfaces/egg';
@@ -111,7 +89,6 @@ let lineDeviationBottomY: number;
 const lineAngle: number = 31;
 const lineLength: number = 135;
 
-
 function defineBoard(newBoard: Board) {
   board = newBoard;
   wolf = board.wolf;
@@ -132,6 +109,12 @@ function defineBoard(newBoard: Board) {
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
 
+let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
+const difficultyLevels = {
+  'easy': 1,
+  'medium': 1.5,
+  'hard': 2,
+};
 let score = ref<number>(0);
 let lives = ref<number>(0);
 const livesCount: number = 5;
@@ -150,7 +133,7 @@ function startGame() {
   eggs = [];
   addEgg = createEggAdder();
 
-  gameLoopID = setInterval(gameLoop, speed);
+  gameLoopID = setInterval(gameLoop, speed / difficultyLevels[currentLevel.value]);
 }
 
 function gameOver() {
@@ -196,7 +179,7 @@ function moveAndCheckEggs(eggs: Egg[], step: number) {
     }
     else if (wolf.isEggInBasket(egg)) {
       emit('playSound', 'wolf-pickup-egg', 0.1);
-      score.value += 10;
+      score.value += 10 * difficultyLevels[currentLevel.value];
       egg.isFallen = true;
     }
     else if (egg.distanceMove >= (2 * step) && egg.isFalling) {
