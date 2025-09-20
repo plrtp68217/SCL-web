@@ -27,6 +27,7 @@
   color: white;
   transition: transform 0.1s ease;
   user-select: none;
+  box-shadow: 4px 4px 8px 0px rgba(57, 0, 71, 0.404);
 }
 
 .my-button:active {

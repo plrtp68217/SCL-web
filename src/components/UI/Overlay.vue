@@ -20,8 +20,7 @@
 .modal {
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(5px);
-  border: 2px solid rgba(108, 8, 165, 0.603);
+  backdrop-filter: blur(8px);
   animation: appear 600ms ease-in-out;
 }
 
