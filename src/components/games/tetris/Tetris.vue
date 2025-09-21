@@ -67,6 +67,7 @@ import { getShapesWithStartPosition } from './utils/position';
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
   (e: 'playSound', soundName: string, volume?: number): void
+  (e: 'checkScore', score: number): void
 }>();
 
 const props = defineProps(
@@ -256,7 +257,8 @@ function rotateShape(): void {
 }
 
 onUnmounted(() => {
-    clearInterval(gameLoopID)
+    clearInterval(gameLoopID);
+    emit('checkScore', score.value);
 })
 
 </script>

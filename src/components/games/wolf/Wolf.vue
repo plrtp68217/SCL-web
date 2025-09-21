@@ -63,6 +63,7 @@ import type { IEggStartPositions } from './interfaces/egg';
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
   (e: 'playSound', soundName: string, volume?: number): void
+  (e: 'checkScore', score: number): void
 }>();
 
 const props = defineProps(
@@ -238,6 +239,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearInterval(gameLoopID);
+  emit('checkScore', score.value);
 });
 
 </script>

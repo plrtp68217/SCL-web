@@ -11,6 +11,7 @@
         <div class="main">
             <Snake
                 :bestScore="snakeRecord.score"
+                @checkScore="checkScore"
                 @newScore="updateScore"
                 @playSound="playSound"
             />
@@ -38,7 +39,6 @@ import { useSound } from '@/common/utils/useSound';
 const { play} = useSound();
 
 const playSound = (soundName: string, volume: number = 0.5) => {
-    console.log(soundName);
     play(soundName, volume);
 };
 
@@ -49,6 +49,12 @@ const userId = userStore.getUserId;
 const userName = userStore.getName;
 
 const snakeRecord = userStore.findRecordByGameId(gameId);
+
+async function checkScore(score: number) {
+    if (score > snakeRecord.score) {
+        await updateScore(score)
+    }
+}
 
 async function updateScore(score: number) {
     if (userId) {

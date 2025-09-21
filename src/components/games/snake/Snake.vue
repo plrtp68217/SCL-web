@@ -59,6 +59,7 @@ import type { IMove } from '../common/interfaces/emits';
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
   (e: 'playSound', soundName: string, volume?: number): void
+  (e: 'checkScore', score: number): void
 }>();
 
 const props = defineProps(
@@ -206,6 +207,7 @@ function gameLoop(): void {
 
 onUnmounted(() => {
   clearInterval(gameLoopID)
+  emit('checkScore', score.value);
 });
 
 </script>

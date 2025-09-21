@@ -11,6 +11,7 @@
         <div class="main">
             <Wolf
                 :bestScore="wolfRecord.score"
+                @checkScore="checkScore"
                 @newScore="updateScore"
                 @playSound="playSound"
             />
@@ -50,6 +51,12 @@ const userId = userStore.getUserId;
 const userName = userStore.getName;
 
 const wolfRecord = userStore.findRecordByGameId(gameId);
+
+async function checkScore(score: number) {
+    if (score > wolfRecord.score) {
+        await updateScore(score)
+    }
+}
 
 async function updateScore(score: number) {
 

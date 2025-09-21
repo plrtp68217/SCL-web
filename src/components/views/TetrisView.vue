@@ -9,6 +9,7 @@
         <div class="main">
             <Tetris
                 :bestScore="tetrisRecord.score"
+                @checkScore="checkScore"
                 @newScore="updateScore"
                 @playSound="playSound"
             />
@@ -47,6 +48,12 @@ const userId = userStore.getUserId;
 const userName = userStore.getName;
 
 const tetrisRecord = userStore.findRecordByGameId(gameId);
+
+async function checkScore(score: number) {
+    if (score > tetrisRecord.score) {
+        await updateScore(score)
+    }
+}
 
 async function updateScore(score: number) {
     if (userId) {

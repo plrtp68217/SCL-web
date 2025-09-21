@@ -25,20 +25,6 @@ const { game } = defineProps<{game: Game}>();
     flex: 1 1 auto;
 }
 
-
-.game-card-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    margin-bottom: 5px;
-    border-radius: 10%;
-    color: white;
-    font-family: "Roboto", serif;
-    font-size: 17px;
-    text-wrap: wrap;
-}
-
 .game-card-image {
     width: 100%;
     object-fit: cover;
