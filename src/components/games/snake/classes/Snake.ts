@@ -25,6 +25,15 @@ export class Snake {
         return newHead;
     }
 
+    isNextHeadInBody(axis: 'x' | 'y', direction: -1 | 1): boolean {
+        const head = this.blocks[0];
+
+        const nextHeadPositionX =  axis === 'x' ? head.x + this.step * direction : head.x;
+        const nextHeadPositionY =  axis === 'y' ? head.y + this.step * direction : head.y;
+
+        return this.blocks.some(block => block.x == nextHeadPositionX && block.y == nextHeadPositionY);
+    }
+
     moveHead(): void {
         const newHead = this.createNewHead();
         this.blocks.unshift(newHead);

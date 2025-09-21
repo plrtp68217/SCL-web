@@ -7,7 +7,6 @@
 
         <div class="snake-footer">
 
-            <!-- <div class="snake-footer-sound">SOUND</div> -->
             <div class="snake-footer-hud">
                 <SnakeHud :score="score"/>
             </div>
@@ -86,13 +85,10 @@ function defineBoard(newBoard: Board): void {
 }
 
 function changeDirection({axis, direction}: IMove): void {
-    board.snake.direction = board.snake.axis === axis && board.snake.direction !== direction 
-                            ? 
-                            board.snake.direction 
-                            : 
-                            direction
-
-    board.snake.axis = axis;
+    if (board.snake.isNextHeadInBody(axis, direction) === false) {
+      board.snake.direction = direction;
+      board.snake.axis = axis;
+    }
 }
 
 let gameIsOver = ref<boolean>(false);
@@ -134,10 +130,8 @@ function gameOver() {
 }
 
 watch(gameIsOver, (gameOver) => {
-  if (gameOver) {
-    if (score.value > props.bestScore) {
+  if (gameOver && score.value > props.bestScore) {
       emit('newScore', score.value);
-    }
   }
 });
 
