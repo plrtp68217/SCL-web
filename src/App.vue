@@ -24,16 +24,17 @@
 
       </transition>
 
-
-      <router-view v-slot="{ Component }">
-
-        <transition name="page-fade" mode="out-in">
-
-          <component :is="Component" />
-
-        </transition>
-
-      </router-view>
+      <div v-if="userId && name">
+        <router-view v-slot="{ Component }">
+  
+          <transition name="page-fade" mode="out-in">
+  
+            <component :is="Component" />
+  
+          </transition>
+  
+        </router-view>
+      </div>
 
     </div>
 
@@ -71,6 +72,9 @@ const showImage = ref<boolean>(false);
 const route = useRoute();
 const router = useRouter();
 
+let userId: number | undefined;
+let name: string | undefined;
+
 let isLoading = ref<boolean>(true);
 let isError = ref<boolean>(false);
 let textLoading: Ref<string> = ref('Получение данных с сервера...');
@@ -79,7 +83,7 @@ const userStore = useUserStore()
 
 watch(
   () => route.path,
-  () => {
+  (_old, _new) => {
     showImage.value = true;
     setTimeout(() => {
       showImage.value = false;
@@ -113,9 +117,11 @@ onMounted(async () => {
       }
     })
 
-  const {userId, name} = getTelegramData();
+  const telegramData = getTelegramData();
+  userId = telegramData.userId;
+  name = telegramData.name;
 
-  if (!userId || !name) {
+  if (userId == undefined || name == undefined) {
     textLoading.value = '[Ошибка авторизации]: Используйте приложение Telegram.';
     isError.value = true;
     return;
@@ -124,10 +130,10 @@ onMounted(async () => {
   loginUser({userId, name})
     .then((userData: User) => {
       userStore.setUser(userData);
-      getRecords(userId, gameIds);
+      getRecords(userId!, gameIds);
     })
     .then(() => {
-      logUserAction({name: name, action: 'entry'});
+      logUserAction({name: name!, action: 'entry'});
     })
     .then(() => {
       isLoading.value = false;
