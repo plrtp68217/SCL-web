@@ -53,6 +53,8 @@ onMounted(() => {
     border: 1px solid rgb(133, 2, 89);
     background-color: #720972;
     background-image: url('/images/snake/snake_background.png');
+    width: 320px;
+    height: 420px;
     
 }
 

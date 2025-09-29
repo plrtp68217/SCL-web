@@ -2,6 +2,8 @@
 
     <div class="tetris">
 
+        <PauseButton class="pause-button" @click="pauseGame">PAUSE</PauseButton>
+
         <div class="tetris-header">
 
             <div class="tetris-header-left">
@@ -30,6 +32,13 @@
             />
         </Overlay>
 
+        <Overlay v-if="gameOnPause">
+            <GamePause
+              @resume-game="resumeGame"
+              :score="score"
+            />
+        </Overlay>
+
     </div>
 
     <img id="blueblock_sprite" src="/images/tetris/blueblock_sprite.png" style="display: none;">
@@ -52,6 +61,10 @@ import TetrisHud from './TetrisHud.vue';
 import TetrisControl from './TetrisControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
 import GameMenu from '@/components/game-layout/GameMenu.vue';
+import GamePause from '@/components/game-layout/GamePause.vue';
+import PauseButton from '@/components/UI/PauseButton.vue';
+
+import { setPause, unsetPause } from '../common/utils/pause';
 
 import { Board } from './classes/Board';
 import { Shape } from './classes/Shape';
@@ -99,6 +112,7 @@ function defineSecondBoard(newBoard: Board) {
 
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
+let gameOnPause = ref<boolean>(false);
 
 let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
 const difficultyLevels = {
@@ -134,6 +148,18 @@ function startGame() {
 
     gameLoopID = setInterval(gameLoop, speed / difficultyLevels[currentLevel.value]);
 
+}
+
+function pauseGame() {
+  gameOnPause.value = true;
+
+  setPause(gameLoopID);
+}
+
+function resumeGame() {
+  gameOnPause.value = false;
+
+  gameLoopID = unsetPause(gameLoop, speed / difficultyLevels[currentLevel.value]);
 }
 
 function gameOver() {
@@ -268,6 +294,8 @@ onUnmounted(() => {
 
 .tetris {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .tetris-header {
@@ -277,6 +305,12 @@ onUnmounted(() => {
     background-color: #3e065fe8;
     padding: 10px;
     border: 5px solid #cd06ff44;
+}
+
+.pause-button {
+  align-self: flex-end;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 
 .tetris-header-right {

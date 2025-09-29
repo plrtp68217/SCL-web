@@ -2,15 +2,13 @@
 
   <div class="wolf">
 
+    <PauseButton class="pause-button" @click="pauseGame">PAUSE</PauseButton>
+    
     <div class="wolf-header">
       <WolfBoard @board="defineBoard"/>
     </div>
 
     <div class="wolf-main">
-
-      <div class="wolf-main-sound">
-        SOUND
-      </div>
 
       <div class="wolf-main-hud">
         <WolfHud
@@ -36,6 +34,13 @@
       />
     </Overlay>
 
+    <Overlay v-if="gameOnPause">
+      <GamePause
+        @resume-game="resumeGame"
+        :score="score"
+      />
+    </Overlay>
+
   </div>
 
   <img id="wolf" src="/images/wolf/wolf-sprite-sheet.png" style="display: none;">
@@ -56,6 +61,10 @@ import Overlay from '@/components/UI/Overlay.vue';
 import GameMenu from '@/components/game-layout/GameMenu.vue';
 import WolfControl from './WolfControl.vue';
 import WolfHud from './WolfHud.vue';
+import GamePause from '@/components/game-layout/GamePause.vue';
+import PauseButton from '@/components/UI/PauseButton.vue';
+
+import { setPause, unsetPause } from '../common/utils/pause';
 
 import type { IMove } from './interfaces/emits';
 import type { IEggStartPositions } from './interfaces/egg';
@@ -98,7 +107,7 @@ function defineBoard(newBoard: Board) {
 
   lineDeviationTopY = board.height * 0.35;
 
-  lineDeviationBottomY = board.height * 0.45
+  lineDeviationBottomY = board.height * 0.45;
   
   eggStartPositions = {
     'topleft': {x: 0, y: lineDeviationTopY},
@@ -110,6 +119,7 @@ function defineBoard(newBoard: Board) {
 
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
+let gameOnPause = ref<boolean>(false);
 
 let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
 const difficultyLevels = {
@@ -136,6 +146,18 @@ function startGame() {
   addEgg = createEggAdder();
 
   gameLoopID = setInterval(gameLoop, speed / difficultyLevels[currentLevel.value]);
+}
+
+function pauseGame() {
+  gameOnPause.value = true;
+
+  setPause(gameLoopID);
+}
+
+function resumeGame() {
+  gameOnPause.value = false;
+
+  gameLoopID = unsetPause(gameLoop, speed / difficultyLevels[currentLevel.value]);
 }
 
 function gameOver() {
@@ -249,6 +271,8 @@ onUnmounted(() => {
 
 .wolf {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .wolf-header {
@@ -260,10 +284,16 @@ onUnmounted(() => {
 
 }
 
+.pause-button {
+  align-self: flex-end;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
 .wolf-main {
   padding: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
   font-size: 20px;
   background-color: #3e065fe8;

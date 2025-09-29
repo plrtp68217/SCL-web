@@ -1,6 +1,8 @@
 <template>
     <div class="snake">
 
+        <PauseButton class="pause-button" @click="pauseGame">PAUSE</PauseButton>
+
         <div class="snake-header">
             <SnakeBoard @board="defineBoard" />
         </div>
@@ -28,6 +30,13 @@
           />
         </Overlay>
 
+        <Overlay v-if="gameOnPause">
+          <GamePause
+            @resume-game="resumeGame"
+            :score="score"
+          />
+        </Overlay>
+
     </div>
 
     <img id="apple_spritesheet" src="/images/snake/apple_spritesheet.png" style="display: none;">
@@ -52,6 +61,10 @@ import SnakeHud from './SnakeHud.vue';
 import SnakeControl from './SnakeControl.vue';
 import Overlay from '@/components/UI/Overlay.vue';
 import GameMenu from '@/components/game-layout/GameMenu.vue';
+import GamePause from '@/components/game-layout/GamePause.vue';
+import PauseButton from '@/components/UI/PauseButton.vue';
+
+import { setPause, unsetPause } from '../common/utils/pause';
 
 // import { isChance } from '../common/utils/random';
 import type { IMove } from '../common/interfaces/emits';
@@ -76,13 +89,6 @@ let board: Board;
 
 function defineBoard(newBoard: Board): void {
     board = newBoard;
-
-    // board.createSnake();
-    // board.createApple();
-
-    // if(isChance(0.5)) {
-    //     board.createBonuse();
-    // }
 }
 
 function changeDirection({axis, direction}: IMove): void {
@@ -94,6 +100,7 @@ function changeDirection({axis, direction}: IMove): void {
 
 let gameIsOver = ref<boolean>(false);
 let gameIsFirst = ref<boolean>(true);
+let gameOnPause = ref<boolean>(false);
 
 let currentLevel = ref<'easy' | 'medium' | 'hard'>('easy');
 const difficultyLevels = {
@@ -125,6 +132,18 @@ function startGame() {
     // }
 }
 
+function pauseGame() {
+  gameOnPause.value = true;
+
+  setPause(gameLoopID);
+}
+
+function resumeGame() {
+  gameOnPause.value = false;
+
+  gameLoopID = unsetPause(gameLoop, speed / difficultyLevels[currentLevel.value]);
+}
+
 function gameOver() {
     gameIsOver.value = true;
     clearInterval(gameLoopID);
@@ -135,25 +154,6 @@ watch(gameIsOver, (gameOver) => {
       emit('newScore', score.value);
   }
 });
-
-// function animateSnakeHead() {
-//   const totalFrames = 20;
-//   let currentFrame = 0;
-
-//   let snakeHeadAnimationId =  setInterval(() => {
-//     if (currentFrame > totalFrames) {
-//       clearInterval(snakeHeadAnimationId);
-//     }
-    
-//     board.drawSnakeHead(
-//         board.snake.blocks[0], 
-//         currentFrame,
-//         {axis: board.snake.axis, direction: board.snake.direction}
-//     );
-//     currentFrame++;
-//   }, speed / 20)
-// }
-
 
 function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
@@ -216,7 +216,9 @@ onUnmounted(() => {
 <style scoped>
 
 .snake {
-    position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .snake-header {
@@ -225,6 +227,12 @@ onUnmounted(() => {
   padding: 10px;
   border: 5px solid #cd06ff44;
   background-color: #3e065fe8;
+}
+
+.pause-button {
+  align-self: flex-end;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 
 .snake-footer {
