@@ -14,6 +14,7 @@ const { game } = defineProps<{game: Game}>();
 
 
 <style scoped>
+
 .game-card {
     display: flex;
     flex-direction: column;
@@ -28,6 +29,5 @@ const { game } = defineProps<{game: Game}>();
 .game-card-image {
     width: 100%;
     object-fit: cover;
-    border-radius: 10%;
 }
 </style>

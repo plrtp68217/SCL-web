@@ -24,7 +24,7 @@
 
       </transition>
 
-      <div v-if="userId && name">
+      <div v-if="isLoading == false">
         <router-view v-slot="{ Component }">
   
           <transition name="page-fade" mode="out-in">
