@@ -41,10 +41,10 @@ let user = storeToRefs(userStore);
 .header {
     position: fixed;
     width: 100%;
-    padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding: 5px 10px;
     font-size: 24px;
     color: white;
     backdrop-filter: blur(2px);
@@ -53,6 +53,7 @@ let user = storeToRefs(userStore);
 
 .header-balance {
     display: flex;
+    align-items: center;
 }
 
 .header-balance-count {
@@ -60,13 +61,13 @@ let user = storeToRefs(userStore);
 }
 
 .header-balance-image {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .header-button {
     width: auto;
-    border-radius: 10%;
+    padding: 2px 10px;
 }
 
 </style>
