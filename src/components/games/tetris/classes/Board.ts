@@ -127,7 +127,11 @@ export class Board {
         const filledLineLen = this.width / this.step;
         let filledLinesY: number[] = [];
         
-        for (let lineY = this.height - this.step; lineY >= 0; lineY -= this.step) {
+        // ! ранее итерировал по
+        //let lineY = this.height - this.step; lineY >= 0; lineY -= this.step
+        // См. filled-lines -> BUG REPORT
+
+        for (let lineY = 0; lineY <= this.height - this.step; lineY += this.step) {
             let blocksOfCurrentLine: Block[] = [];
 
             for (let shapeOnBoard of this.shapesOnBoard) {
@@ -149,9 +153,9 @@ export class Board {
     clearFilledLines(filledLinesY: number[]): void {
         for (let lineY of filledLinesY) {
             for (let shape of this.shapesOnBoard) {
-                this.clearShape(shape);
+                // this.clearShape(shape);
                 shape.blocks = shape.blocks.filter(block => block.y !== lineY);
-                this.drawShape(shape);
+                // this.drawShape(shape);
             }
         }
     }

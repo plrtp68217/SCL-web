@@ -13,6 +13,7 @@
             <div class="tetris-header-right">
                 <TetrisSecondBoard @second_board="defineSecondBoard" />
                 <TetrisHud :score="score" />
+                <MyButton @click="console.log(board.shapesOnBoard)">show-shapes</MyButton>
             </div>
 
         </div>
@@ -76,6 +77,7 @@ import type { IMove } from '../common/interfaces/emits';
 import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
+import MyButton from '@/components/UI/MyButton.vue';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
@@ -187,8 +189,11 @@ function gameLoop(): void {
         if (filledLinesY.length !== 0) {
             emit('playSound', 'tetris-filled-line', 0.1)
             score.value += reward * filledLinesY.length * difficultyLevels[currentLevel.value];
+
             board.clear();
+
             moveLines(filledLinesY);
+
             board.drawShapesOnBoard();
         }
 
@@ -218,6 +223,8 @@ function moveLines(filledLinesY: number[]) {
     for (let shape of board.shapesOnBoard) {
         blocksOnBoard.push(...shape.blocks);
     }
+
+    
 
     for (let lineY of filledLinesY ) {
         for (let block of blocksOnBoard) {
