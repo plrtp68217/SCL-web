@@ -1,14 +1,16 @@
 import apiClient from "./apiClient";
-import type { Action, CreateActionDto, IGameActivity, IGameActivityInterval, ISummary, ISummaryInterval } from "./types/actions";
+import type { Action, 
+  CreateActionDto, 
+  IGameActivity, 
+  IGameActivityInterval, 
+  ISummary, 
+  ISummaryInterval } from "./types/actions";
+import { ApiError } from "./error/apiError";
 
-class ActionError extends Error {
-  funcName: string;
-
+class ActionError extends ApiError {
   constructor(message: string, funcName: string) {
-    super(message);
-
+    super(message, funcName);
     this.name += ' ACTION';
-    this.funcName = funcName;
   }
 }
 

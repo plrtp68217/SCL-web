@@ -1,15 +1,12 @@
 import apiClient from "./apiClient";
 import type { LoginUserDto } from "./types/authorization";
 import type { User } from "./types/users";
+import { ApiError } from "./error/apiError";
 
-class AuthError extends Error {
-  funcName: string;
-
+class AuthError extends ApiError {
   constructor(message: string, funcName: string) {
-    super(message);
-
+    super(message, funcName);
     this.name += ' AUTH';
-    this.funcName = funcName;
   }
 }
 

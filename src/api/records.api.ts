@@ -1,15 +1,11 @@
 import apiClient from "./apiClient";
-
 import type { Record, BestRecord, CreateRecordDto,  UpdateRecordDto } from "./types/records";
+import { ApiError } from "./error/apiError";
 
-class RecordsError extends Error {
-  funcName: string;
-
+class RecordsError extends ApiError {
   constructor(message: string, funcName: string) {
-    super(message);
-
+    super(message, funcName);
     this.name += ' RECORDS';
-    this.funcName = funcName;
   }
 }
 
