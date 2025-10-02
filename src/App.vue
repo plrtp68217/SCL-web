@@ -66,6 +66,8 @@ import { logUserAction } from './logging/logUserAction';
 
 import SoundPreloader from './common/utils/SoundPreloader.vue';
 
+import { ApiError } from './api/error/apiError';
+
 
 const showImage = ref<boolean>(false);
 
@@ -138,9 +140,9 @@ onMounted(async () => {
     .then(() => {
       isLoading.value = false;
     })
-    .catch((error: Error) => {
+    .catch((error: ApiError) => {
       isError.value = true;
-      textLoading.value = `\n[ERROR]: ERROR_NAME - ${error.name}. ERROR_FUNC - ${error.message}.`;
+      textLoading.value = `\n[ERROR]: ERROR_NAME - ${error.name}. ERROR_FUNC - ${error.funcName}.`;
     })
 })
 
