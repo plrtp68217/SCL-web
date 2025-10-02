@@ -1,34 +1,70 @@
 import apiClient from "./apiClient";
 import type { Action, CreateActionDto, IGameActivity, IGameActivityInterval, ISummary, ISummaryInterval } from "./types/actions";
 
+class ActionError extends Error {
+  funcName: string;
+
+  constructor(message: string, funcName: string) {
+    super(message);
+
+    this.name += ' ACTION';
+    this.funcName = funcName;
+  }
+}
+
 export default {
   async getSummary(): Promise<ISummary> {
-    const response = await apiClient.get('/actions/summary');
-    const summary = response.data;
-    return summary;
+    try {
+      const response = await apiClient.get('/actions/summary');
+      const summary = response.data;
+      return summary;
+    }
+    catch (error) {
+      throw new ActionError(`${error}`, 'getSummary');
+    }
   },
 
   async getSummaryInterval(date_start: Date, date_end: Date): Promise<ISummaryInterval> {
-    const response = await apiClient.get(`/actions/summary/${date_start}/${date_end}`);
-    const summaryInterval = response.data;
-    return summaryInterval;
+    try {
+      const response = await apiClient.get(`/actions/summary/${date_start}/${date_end}`);
+      const summaryInterval = response.data;
+      return summaryInterval;
+    }
+    catch (error) {
+      throw new ActionError(`${error}`, 'getSummaryInterval');
+    }
   },
 
   async getGameActivity(gameId: string): Promise<IGameActivity> {
-    const response = await apiClient.get(`/actions/game/${gameId}`);
-    const gameActivity = response.data;
-    return gameActivity;
+    try {
+      const response = await apiClient.get(`/actions/game/${gameId}`);
+      const gameActivity = response.data;
+      return gameActivity;
+    }
+    catch (error) {
+      throw new ActionError(`${error}`, 'getGameActivity');
+    }
   },
 
   async getGameActivityInterval(gameId: string, date_start: Date, date_end: Date): Promise<IGameActivityInterval> {
-    const response = await apiClient.get(`/actions/game/${gameId}/${date_start}/${date_end}`);
-    const gameActivityInterval = response.data;
-    return gameActivityInterval;
+    try {
+      const response = await apiClient.get(`/actions/game/${gameId}/${date_start}/${date_end}`);
+      const gameActivityInterval = response.data;
+      return gameActivityInterval;
+    }
+    catch (error) {
+      throw new ActionError(`${error}`, 'getGameActivityInterval');
+    }
   },
 
   async createAction(dto: CreateActionDto): Promise<Action> {
-    const response = await apiClient.post('/actions', dto);
-    const action = response.data;
-    return action;
+    try {
+      const response = await apiClient.post('/actions', dto);
+      const action = response.data;
+      return action;
+    }
+    catch (error) {
+      throw new ActionError(`${error}`, 'createAction');
+    }
   }
 }

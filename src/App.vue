@@ -140,7 +140,7 @@ onMounted(async () => {
     })
     .catch((error: Error) => {
       isError.value = true;
-      textLoading.value = `\n[Ошибка авторизации]: ${error.name} -  ${error.message} - ${error.stack}].`;
+      textLoading.value = `\n[Ошибка авторизации]: ${error.name} - ${error.message}.`;
     })
 })
 
