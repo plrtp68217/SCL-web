@@ -138,9 +138,9 @@ onMounted(async () => {
     .then(() => {
       isLoading.value = false;
     })
-    .catch((error) => {
+    .catch((error: Error) => {
       isError.value = true;
-      textLoading.value = `\n[Ошибка авторизации]: ${error}].`;
+      textLoading.value = `\n[Ошибка авторизации]: ${error.name} -  ${error.message} - ${error.stack}].`;
     })
 })
 
