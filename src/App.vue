@@ -124,7 +124,7 @@ onMounted(async () => {
   name = telegramData.name;
 
   if (userId == undefined || name == undefined) {
-    textLoading.value = '[Ошибка авторизации]: Используйте приложение Telegram.';
+    textLoading.value = '[ERROR]: USE Telegram.';
     isError.value = true;
     return;
   }
