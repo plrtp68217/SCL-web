@@ -3,6 +3,8 @@ import type { LoginUserDto } from "./types/authorization";
 import type { User } from "./types/users";
 import { ApiError } from "./error/apiError";
 
+import type { SuccessResponse, ErrorResponse } from "./response/response";
+
 class AuthError extends ApiError {
   constructor(message: string, funcName: string) {
     super(message, funcName);
@@ -12,13 +14,15 @@ class AuthError extends ApiError {
 
 export default {
   async login(dto: LoginUserDto): Promise<User> {
-    try {
-      const response = await apiClient.post('/authorization', dto);
-      const user = response.data
-      return user;
+    const response = await apiClient.post('/authorization', dto);
+
+    const responseData: SuccessResponse<User> | ErrorResponse = response.data;
+
+    if (responseData.success) {
+      return responseData.data;
     }
-    catch (error) {
-      throw new AuthError(`${error}`, 'login');
+    else {
+      throw new AuthError(responseData.errorText, 'login')
     }
   }
 }
