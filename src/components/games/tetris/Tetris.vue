@@ -76,7 +76,6 @@ import type { IMove } from '../common/interfaces/emits';
 import { getRandomShapes } from './utils/random';
 import { shapeList } from './assets/shapeList';
 import { getShapesWithStartPosition } from './utils/position';
-import MyButton from '@/components/UI/MyButton.vue';
 
 const emit = defineEmits<{
   (e: 'newScore', score: number): void
