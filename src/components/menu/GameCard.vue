@@ -15,15 +15,17 @@ const { game } = defineProps<{game: Game}>();
 
 <style scoped>
 
+@import url('/src/animations/gentlePulse.css');
+
 .game-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 150px;
-    width: 110px;
+    max-width: 150px;
     text-align: center;
-    padding: 4px 4px;
     flex: 1 1 auto;
+    animation: gentlePulse 5s ease-in-out infinite;
 }
 
 .game-card-image {

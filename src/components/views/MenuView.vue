@@ -61,13 +61,16 @@
         </section>
 
         <!-- Нижняя часть: Карточки игр -->
-        <footer class="games">
-            <SwiperGames :games="games"/>
-        </footer>
-        
         <!-- <footer class="games">
-
+            <SwiperGames :games="games"/>
         </footer> -->
+        
+        <!-- Нижняя часть: Карточки игр -->
+        <footer class="games">
+            <div class="game-card" v-for="game in games">
+                <GameCard :game="game"/>
+            </div>
+        </footer>
 
     </div>
 
@@ -79,7 +82,8 @@
 import { ref } from 'vue';
 
 import Background from '../background/Background.vue';
-import SwiperGames from '../menu/SwiperGames.vue';
+// import SwiperGames from '../menu/SwiperGames.vue';
+import GameCard from '../menu/GameCard.vue';
 
 import type { Game } from '../menu/interfaces/game';
 
@@ -261,6 +265,8 @@ let modalEarnIsVisible = ref<boolean>(false);
 
 /* Нижняя часть: Карточки игр */
 .games {
-    margin-bottom: 30px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
 }
 </style>
