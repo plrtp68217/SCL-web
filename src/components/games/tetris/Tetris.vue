@@ -13,7 +13,6 @@
             <div class="tetris-header-right">
                 <TetrisSecondBoard @second_board="defineSecondBoard" />
                 <TetrisHud :score="score" />
-                <MyButton @click="console.log(board.shapesOnBoard)">show-shapes</MyButton>
             </div>
 
         </div>
