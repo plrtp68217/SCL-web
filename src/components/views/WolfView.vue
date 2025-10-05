@@ -4,9 +4,7 @@
 
         <Background/>
     
-        <div class="header">
-            <GameHeader/>
-        </div>
+        <GameHeader/>
     
         <div class="main">
             <Wolf
@@ -79,7 +77,16 @@ onMounted(() => {
 
 <style scoped>
 
+.wolf-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .main {
+    width: 100%;
+    max-width: 800px;
     height: 100vh;
     display: grid;
     align-content: center;

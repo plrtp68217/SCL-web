@@ -39,8 +39,8 @@ let user = storeToRefs(userStore);
 <style scoped>
 
 .header {
-    position: fixed;
     width: 100%;
+    max-width: 800px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;

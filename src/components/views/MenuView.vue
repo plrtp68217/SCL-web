@@ -65,6 +65,10 @@
             <SwiperGames :games="games"/>
         </footer>
         
+        <!-- <footer class="games">
+
+        </footer> -->
+
     </div>
 
 </template>
@@ -120,6 +124,7 @@ let modalEarnIsVisible = ref<boolean>(false);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     height: 100vh;
     font-family: "Jersey 15", serif;
 }
@@ -127,6 +132,7 @@ let modalEarnIsVisible = ref<boolean>(false);
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
     width: 100%;
+    max-width: 800px;
     top: 0;
     padding: 10px;
     display: flex;
@@ -139,6 +145,7 @@ let modalEarnIsVisible = ref<boolean>(false);
     letter-spacing: 2px;
     color: white;
 }
+
 
 .leaderboard-section-label {
     width: 150px;
