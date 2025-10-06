@@ -5,6 +5,6 @@ export class Apple extends Block {
 
     constructor(x: number, y: number, color: string = 'red') {
         super(x, y, color)
-        this.reward = 10;
+        this.reward = 30;
     }
 }

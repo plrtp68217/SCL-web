@@ -127,6 +127,7 @@ const difficultyLevels = {
   'medium': 1.5,
   'hard': 2,
 };
+const reward = 10;
 let score = ref<number>(0);
 let lives = ref<number>(0);
 const livesCount: number = 5;
@@ -203,7 +204,7 @@ function moveAndCheckEggs(eggs: Egg[], step: number) {
     }
     else if (wolf.isEggInBasket(egg)) {
       emit('playSound', 'wolf-pickup-egg', 0.1);
-      score.value += 10 * difficultyLevels[currentLevel.value];
+      score.value += reward * difficultyLevels[currentLevel.value];
       egg.isFallen = true;
     }
     else if (egg.distanceMove >= (2 * step) && egg.isFalling) {

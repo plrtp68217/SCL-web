@@ -11,9 +11,9 @@ export class Bonuse extends Block {
         super(x, y, color);
         this.type = type;
         this.rewards = {
-            'small': 10,
-            'medium': 20,
-            'large': 30,
+            'small': 30,
+            'medium': 45,
+            'large': 80,
         }
         this.color = color;
     }
