@@ -23,6 +23,10 @@ const soundFiles = [
   { name: 'tetris-shape-falled', path: 'sounds/tetris-shape-falled.wav' },
   { name: 'wolf-pickup-egg', path: 'sounds/wolf-pickup-egg.wav' },
   { name: 'game-over', path: 'sounds/game-over.wav' },
+  { name: 'menu-background.mp3', path: 'sounds/menu-background.mp3' },
+  { name: 'tetris-background.mp3', path: 'sounds/tetris-background.mp3' },
+  { name: 'snake-background.mp3', path: 'sounds/snake-background.mp3' },
+  { name: 'wolf-background.mp3', path: 'sounds/game-over.wav' },
 ];
 
 const { loadSound, getLoadedSounds } = useSound();
