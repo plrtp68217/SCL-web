@@ -1,50 +1,41 @@
 <template>
-  
-  <SoundPreloader :showLoader="false">
 
-    <div>
+  <div>
 
-      <div v-if="isLoading" class="error-spinner">
+    <transition name="image-fade" mode="out-in">
+      <img
+        v-if="showImage"
+        src="/images/menu/ballerina.svg"
+        alt="Transition Image"
+        class="transition__image"
+      />
+    </transition>
 
-        <Error v-if="isError"/>
-        <Spinner v-else/>
-
-        <p class="error-spinner-text">{{ textLoading }}</p>
-
-      </div>
-
-      <transition name="image-fade" mode="out-in">
-
-        <img
-          v-if="showImage"
-          src="/images/menu/ballerina.svg"
-          alt="Transition Image"
-          class="transition__image"
-        />
-
-      </transition>
-
-      <div v-if="isLoading == false">
-        <router-view v-slot="{ Component }">
-  
-          <transition name="page-fade" mode="out-in">
-  
-            <component :is="Component" />
-  
-          </transition>
-  
-        </router-view>
-      </div>
-
+    <div v-if="appStatus === Status.PENDING" class="error-spinner">
+      <Spinner/>
+      <p class="error-spinner-text">{{ textLoading }}</p>
     </div>
 
-  </SoundPreloader>
+    <div v-else-if="appStatus === Status.ERROR" class="error-spinner">
+      <Error/>
+      <p class="error-spinner-text">{{ textLoading }}</p>
+    </div>
+
+    <div v-else>
+      <router-view v-slot="{ Component }">
+        <transition name="page-fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
+
+  </div>
 
 </template>
 
 
 <script setup lang="ts">
-import { ref, watch, type Ref, onMounted } from 'vue';
+import { ref, watch, type Ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import Spinner from './components/spinner/Spinner.vue';
@@ -64,10 +55,11 @@ import { gameIds } from './common/games';
 import { useUserStore } from '@/stores/user';
 import { logUserAction } from './logging/logUserAction';
 
-import SoundPreloader from './common/utils/SoundPreloader.vue';
+import { preloadSounds } from './common/utils/preloadSounds';
 
 import { ApiError } from './api/error/apiError';
 
+enum Status { PENDING, SUCCESS, ERROR };
 
 const showImage = ref<boolean>(false);
 
@@ -77,9 +69,29 @@ const router = useRouter();
 let userId: number | undefined;
 let name: string | undefined;
 
-let isLoading = ref<boolean>(true);
 let isError = ref<boolean>(false);
-let textLoading: Ref<string> = ref('Получение данных с сервера...');
+let textLoading: Ref<string> = ref('');
+
+const loadStatuses = {
+  login: ref<Status>(Status.PENDING),
+  records: ref<Status>(Status.PENDING),
+  logging: ref<Status>(Status.PENDING),
+  music: ref<Status>(Status.PENDING),
+};
+
+let appStatus = computed<Status>(() => {
+  const statuses = Object.keys(loadStatuses).map(key => loadStatuses[key as keyof typeof loadStatuses].value);
+  
+  if (statuses.some(s => s === Status.ERROR)) {
+    return Status.ERROR;
+  }
+  
+  if (statuses.every(s => s === Status.SUCCESS)) {
+    return Status.SUCCESS;
+  }
+  
+  return Status.PENDING;
+});
 
 const userStore = useUserStore()
 
@@ -114,7 +126,6 @@ onMounted(async () => {
   router.isReady()
     .then(() => {
       if (route.path === '/admin') {
-        isLoading.value = false;
         return;
       }
     })
@@ -124,31 +135,58 @@ onMounted(async () => {
   name = telegramData.name;
 
   if (userId == undefined || name == undefined) {
-    textLoading.value = '[ERROR]: USE Telegram.';
+    textLoading.value += '[ERROR]: USE Telegram.';
     isError.value = true;
     return;
   }
 
-  loginUser({userId, name})
-    .then((userData: User) => {
-      userStore.setUser(userData);
-      getRecords(userId!, gameIds);
-    })
-    .then(() => {
-      logUserAction({name: name!, action: 'entry'});
-    })
-    .then(() => {
-      isLoading.value = false;
-    })
-    .catch((error: ApiError) => {
-      isError.value = true;
-      textLoading.value = `\n[ERROR]: ERROR_NAME - ${error.name}. ERROR_FUNC - ${error.funcName}.`;
-    })
+  try {
+    textLoading.value += '\nAUTHORIZATION.';
+    const userData = await loginUser({ userId, name });
+    userStore.setUser(userData);
+    loadStatuses.login.value = Status.SUCCESS;
+  }
+  catch (error) {
+    const customError = error as ApiError;
+    isError.value = true;
+    textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+  }
+
+  try {
+    textLoading.value += '\nRECORDS.';
+    await getRecords(userId!, gameIds);
+    loadStatuses.records.value = Status.SUCCESS;
+  }
+  catch (error) {
+    const customError = error as ApiError;
+    isError.value = true;
+    textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+  }
+
+  try {
+    textLoading.value += '\nLOGGING.';
+    await logUserAction({ name: name!, action: 'entry' });
+    loadStatuses.logging.value = Status.SUCCESS;
+  }
+  catch (error) {
+    const customError = error as ApiError;
+    isError.value = true;
+    textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+  }
+
+  try {
+    textLoading.value += '\nMUSIC.';
+    await preloadSounds();
+    loadStatuses.music.value = Status.SUCCESS;
+  }
+  catch (error) {
+    const customError = error as Error;
+    isError.value = true;
+    textLoading.value += `\n[MUSIC_ERROR]: ERROR_NAME - ${customError.name}. ERROR_MSG - ${customError.message}.`;
+  }
 })
 
-
 </script>
-
 
 <style scoped>
 

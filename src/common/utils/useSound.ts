@@ -7,9 +7,12 @@ export function createSound() {
   const sounds = ref<Map<string, AudioBuffer>>(new Map());
   const isMuted = ref(false);
   const currentMusic = ref<string | null>(null);
+
+  const activeSounds = new Map();
   
   // Добавляем флаг инициализации
   const isInitialized = ref(false);
+  const hasResumed = ref(false);
 
   const init = () => {
     if (typeof window !== 'undefined') {
@@ -45,6 +48,11 @@ export function createSound() {
     }
   };
 
+  const resumeContext = async () => {
+    await audioContext.value!.resume()
+    hasResumed.value = true;
+  }
+
   const play = (name: string, volume: number = 1.0, loop: boolean = false): void => {
     console.log(`🔊 Попытка воспроизвести: ${name}, muted: ${isMuted.value}`);
     
@@ -68,6 +76,8 @@ export function createSound() {
       const source = audioContext.value.createBufferSource();
       const gainNode = audioContext.value.createGain();
 
+      activeSounds.set(name, source);
+
       source.buffer = sound;
       gainNode.gain.value = volume;
       source.loop = loop;
@@ -82,6 +92,15 @@ export function createSound() {
     }
   };
 
+  const stop = (name: string) => {
+  const source = activeSounds.get(name);
+  if (source) {
+    source.stop(); // Останавливаем воспроизведение
+    activeSounds.delete(name); // Удаляем из Map
+    console.log(`Трек ${name} отключен`);
+  }
+}
+
   const getLoadedSounds = (): string[] => {
     return Array.from(toRaw(sounds.value).keys());
   };
@@ -94,12 +113,15 @@ export function createSound() {
 
   return {
     loadSound,
+    resumeContext,
     play,
+    stop,
     toggleMute,
     getLoadedSounds,
     isMuted,
     currentMusic,
-    isInitialized // Добавляем для отладки
+    isInitialized,
+    hasResumed,
   };
 }
 

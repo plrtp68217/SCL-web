@@ -29,12 +29,12 @@ import type { GameId } from '../games/common/types/records';
 
 import { useUserStore } from '@/stores/user';
 import { api } from '@/api';
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { logUserAction } from "@/logging/logUserAction";
 
 import { useSound } from '@/common/utils/useSound';
 
-const { play} = useSound();
+const { play, stop } = useSound();
 
 const playSound = (soundName: string, volume: number = 0.5) => {
     console.log(soundName);
@@ -70,6 +70,11 @@ async function updateScore(score: number) {
 
 onMounted(() => {
     logUserAction({name: userName!, action: gameId});
+    playSound('tetris-background');
+})
+
+onUnmounted(() => {
+    stop('tetris-background');
 })
 
 

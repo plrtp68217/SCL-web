@@ -19,6 +19,13 @@
             <h1 style="text-align: center; color: white;">in the next update..</h1>
         </Modal>
 
+        <Notification
+            v-if="hasResumed == false"
+            :label="'MUSIC NOTICE'"
+            :info="'RESUME MUSIC ♬'"
+            @applyNotify="resumeContext"
+        />
+
         <!-- Верхняя часть: Earn и Лучшие игроки -->
         <header class="menu-header">
 
@@ -59,11 +66,6 @@
             </div>
 
         </section>
-
-        <!-- Нижняя часть: Карточки игр -->
-        <!-- <footer class="games">
-            <SwiperGames :games="games"/>
-        </footer> -->
         
         <!-- Нижняя часть: Карточки игр -->
         <footer class="games">
@@ -79,10 +81,9 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import Background from '../background/Background.vue';
-// import SwiperGames from '../menu/SwiperGames.vue';
 import GameCard from '../menu/GameCard.vue';
 
 import type { Game } from '../menu/interfaces/game';
@@ -91,8 +92,16 @@ import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
 
 import Modal from '../UI/Modal.vue';
-
+import Notification from '../UI/Notification.vue';
 import BestPlayersView from './BestPlayersView.vue';
+
+import { useSound } from '@/common/utils/useSound';
+
+const { play, stop, resumeContext, hasResumed } = useSound();
+
+const playSound = (soundName: string, volume: number = 0.5) => {
+    play(soundName, volume);
+};
 
 const userStore = useUserStore();
 
@@ -116,6 +125,14 @@ const games: Game[] = [
 let modalPlayersIsVisible = ref<boolean>(false);
 let modalEarnIsVisible = ref<boolean>(false);
 
+onMounted(() => {
+    playSound('menu-background');
+})
+
+onUnmounted(() => {
+    stop('menu-background');
+})
+
 </script>
 
 
@@ -136,7 +153,7 @@ let modalEarnIsVisible = ref<boolean>(false);
 /* Верхняя часть: Earn и Лучшие игроки */
 .menu-header {
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
     top: 0;
     padding: 10px;
     display: flex;
