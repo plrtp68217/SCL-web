@@ -1,20 +1,5 @@
-<template>
-  <div v-if="loading && props.showLoader" class="sound-preloader">
-    ⏳ Загружаем звуки... ({{ loadedCount }}/{{ totalCount }})
-  </div>
-  
-  <slot v-if="!loading || !props.showLoader"></slot>
-</template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useSound } from './useSound';
-
-const props = withDefaults(defineProps<{
-  showLoader?: boolean;
-}>(), {
-  showLoader: true,
-});
 
 const soundFiles = [
   { name: 'snake-pickup-apple', path: 'sounds/snake-pickup-apple.wav' },
@@ -26,7 +11,7 @@ const soundFiles = [
   { name: 'menu-background', path: 'sounds/menu-background.mp3' },
   { name: 'tetris-background', path: 'sounds/tetris-background.mp3' },
   { name: 'snake-background', path: 'sounds/snake-background.mp3' },
-  { name: 'wolf-background', path: 'sounds/game-over.wav' },
+  { name: 'wolf-background', path: 'sounds/wolf-background.mp3' },
 ];
 
 const { loadSound, getLoadedSounds } = useSound();
@@ -35,7 +20,7 @@ const loadedCount = ref(0);
 const totalCount = ref(soundFiles.length);
 const loadErrors = ref<string[]>([]);
 
-onMounted(async () => {
+export const preloadSounds = async () => {
   console.log('🚀 Начало загрузки звуков...');
   console.log('Base URL:', import.meta.env.BASE_URL);
   console.log('Current location:', window.location.href);
@@ -92,5 +77,4 @@ onMounted(async () => {
   console.log('- Загружено:', loadedCount.value);
   
   loading.value = false;
-});
-</script>
+}
