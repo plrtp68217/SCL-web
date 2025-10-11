@@ -1,4 +1,4 @@
-import { ref, toRaw  } from 'vue';
+import { ref, toRaw, watch  } from 'vue';
 
 let soundInstance: ReturnType<typeof createSound> | null = null;
 
@@ -13,6 +13,8 @@ export function createSound() {
   // Добавляем флаг инициализации
   const isInitialized = ref(false);
   const hasResumed = ref(false);
+
+  const backgroundSoundLevel = ref<number>(10);
 
   const init = () => {
     if (typeof window !== 'undefined') {
@@ -53,7 +55,7 @@ export function createSound() {
     hasResumed.value = true;
   }
 
-  const play = (name: string, volume: number = 1.0, loop: boolean = false): void => {
+  const play = (name: string, volume: number = backgroundSoundLevel.value / 100, loop: boolean = false): void => {
     console.log(`🔊 Попытка воспроизвести: ${name}, muted: ${isMuted.value}`);
     
     if (isMuted.value) {
@@ -76,7 +78,7 @@ export function createSound() {
       const source = audioContext.value.createBufferSource();
       const gainNode = audioContext.value.createGain();
 
-      activeSounds.set(name, source);
+      activeSounds.set(name, {source, gainNode});
 
       source.buffer = sound;
       gainNode.gain.value = volume;
@@ -85,6 +87,15 @@ export function createSound() {
       source.connect(gainNode);
       gainNode.connect(audioContext.value.destination);
       source.start(0);
+
+      if (loop == false) {
+        source.onended = () => {
+          console.log(`Sound "${name}" finished playing`);
+          activeSounds.delete(name);
+        };
+
+      }
+
       
       console.log(`🎵 Воспроизводится: ${name}`);
     } catch (error) {
@@ -93,7 +104,7 @@ export function createSound() {
   };
 
   const stop = (name: string) => {
-  const source = activeSounds.get(name);
+  const { source } = activeSounds.get(name);
   if (source) {
     source.stop(); // Останавливаем воспроизведение
     activeSounds.delete(name); // Удаляем из Map
@@ -108,8 +119,23 @@ export function createSound() {
   // Переключение mute/unmute
   const toggleMute = () => {
     isMuted.value = !isMuted.value;
+    console.log(`isMuted: ${isMuted.value}`);
   };
 
+  const changeSoundLevel = () => {
+    if (activeSounds.size == 0) {
+      return;
+    }
+
+    const { gainNode } = activeSounds.values().next().value;
+    gainNode.gain.value = backgroundSoundLevel.value / 100;
+    console.log(activeSounds);
+    
+  }
+
+  watch(backgroundSoundLevel, () => {
+    changeSoundLevel();
+  })
 
   return {
     loadSound,
@@ -118,10 +144,12 @@ export function createSound() {
     stop,
     toggleMute,
     getLoadedSounds,
+    changeSoundLevel,
     isMuted,
     currentMusic,
     isInitialized,
     hasResumed,
+    backgroundSoundLevel
   };
 }
 

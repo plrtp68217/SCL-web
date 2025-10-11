@@ -44,7 +44,7 @@ let user = storeToRefs(userStore);
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 5px 10px;
+    padding: 10px;
     font-size: 24px;
     color: white;
     backdrop-filter: blur(2px);

@@ -97,11 +97,7 @@ import BestPlayersView from './BestPlayersView.vue';
 
 import { useSound } from '@/common/utils/useSound';
 
-const { play, stop, resumeContext, hasResumed } = useSound();
-
-const playSound = (soundName: string, volume: number = 0.5) => {
-    play(soundName, volume);
-};
+const { play, stop, resumeContext, hasResumed, backgroundSoundLevel } = useSound();
 
 const userStore = useUserStore();
 
@@ -126,7 +122,7 @@ let modalPlayersIsVisible = ref<boolean>(false);
 let modalEarnIsVisible = ref<boolean>(false);
 
 onMounted(() => {
-    playSound('menu-background');
+    play('menu-background', backgroundSoundLevel.value, true);
 })
 
 onUnmounted(() => {
@@ -181,7 +177,6 @@ onUnmounted(() => {
 }
 
 .earn-section-image {
-    margin-top: 8px;
     width: 70px;
     height: 70px;
     animation: glow 1.5s infinite alternate;

@@ -22,7 +22,10 @@
     </div>
 
     <div v-else>
+      
+
       <router-view v-slot="{ Component }">
+        <SoundBar/>
         <transition name="page-fade" mode="out-in">
           <component :is="Component" />
         </transition>
@@ -40,6 +43,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import Spinner from './components/spinner/Spinner.vue';
 import Error from './components/error/Error.vue';
+import SoundBar from './components/soundbar/SoundBar.vue';
 
 import { api } from './api';
 

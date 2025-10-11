@@ -159,7 +159,7 @@ function gameLoop(): void {
     board.clearEntitie(board.snake.blocks);
 
     board.snake.moveHead();
-    emit('playSound', 'snake-move', 0.01);
+    emit('playSound', 'snake-move', 0.1);
 
     if (board.isCollision()) {
         emit('playSound', 'game-over', 0.01);

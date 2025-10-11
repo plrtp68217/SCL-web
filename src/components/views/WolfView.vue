@@ -11,7 +11,7 @@
                 :bestScore="wolfRecord.score"
                 @checkScore="checkScore"
                 @newScore="updateScore"
-                @playSound="playSound"
+                @playSound="play"
             />
         </div>
 
@@ -35,12 +35,7 @@ import { logUserAction } from '@/logging/logUserAction';
 
 import { useSound } from '@/common/utils/useSound';
 
-const { play, stop } = useSound();
-
-const playSound = (soundName: string, volume: number = 0.5) => {
-    console.log(soundName);
-    play(soundName, volume);
-};
+const { play, stop, backgroundSoundLevel } = useSound();
 
 const gameId: GameId = 'wolf';
 
@@ -70,7 +65,7 @@ async function updateScore(score: number) {
 
 onMounted(() => {
     logUserAction({name: userName!, action: gameId})
-    playSound('wolf-background');
+    play('wolf-background', backgroundSoundLevel.value, true);
 })
 
 onUnmounted(() => {
