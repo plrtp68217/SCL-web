@@ -1,6 +1,7 @@
 <template>
   <div class="sound-control">
     <div class="sound-slider-container">
+      <span class="sound-icon">SOUND</span>
       <input 
         v-model="backgroundSoundLevel"
         type="range" 
@@ -8,11 +9,7 @@
         id="volumeSlider" 
         min="0" 
         max="100" 
-        >
-      <span v-if="backgroundSoundLevel >= 70" class="sound-icon">🔊</span>
-      <span v-else-if="backgroundSoundLevel <= 70 && backgroundSoundLevel >= 30" class="sound-icon">🔉</span>
-      <span v-else-if="backgroundSoundLevel <= 30" class="sound-icon">🔈</span>
-      <span class="volume-percentage" id="volumePercentage">{{ backgroundSoundLevel }}%</span>
+      >
     </div>
   </div>
 </template>
@@ -27,12 +24,19 @@ const { backgroundSoundLevel } = useSound();
 <style scoped>
 
 .sound-control {
-  display: flex;
-  gap: 10px;
-  position: fixed;
-  z-index: 10;
   font-family: inherit;
   color: white;
+}
+
+.sound-slider-container {
+  display: flex;
+  gap: 10px;
+  font-size: 24px;
+}
+
+.sound-slider {
+  accent-color: #9f28ee;
+  width: 100px;
 }
 
 </style>

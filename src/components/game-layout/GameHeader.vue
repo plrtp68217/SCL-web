@@ -2,12 +2,16 @@
     <div class="header">
 
         <div class="header-balance">
-            <div class="header-balance-label">Your balance:</div>
+            <div class="header-balance-label">BALANCE:</div>
 
             <div class="header-balance-count">{{ user.getBalance }}</div>
 
             <img class="header-balance-image" src="/images/coin.png">
 
+        </div>
+
+        <div class="header-soundar">
+            <SoundBar/>
         </div>
 
         <!-- <div class="header-nickname">{{ user.getName }}</div> -->
@@ -25,9 +29,11 @@
 <script setup lang="ts">
 
 import MyButton from '../UI/MyButton.vue';
+import SoundBar from '../soundbar/SoundBar.vue';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+
 
 const userStore = useUserStore();
 
@@ -43,7 +49,8 @@ let user = storeToRefs(userStore);
     max-width: 800px;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    gap: 10px;
     padding: 10px;
     font-size: 24px;
     color: white;
@@ -62,6 +69,10 @@ let user = storeToRefs(userStore);
 .header-balance-image {
     width: 20px;
     height: 20px;
+}
+
+.header-soundar {
+    font-size: 10px;
 }
 
 .header-button {

@@ -22,10 +22,8 @@
     </div>
 
     <div v-else>
-      
 
       <router-view v-slot="{ Component }">
-        <SoundBar/>
         <transition name="page-fade" mode="out-in">
           <component :is="Component" />
         </transition>
@@ -43,7 +41,6 @@ import { useRoute, useRouter } from 'vue-router';
 
 import Spinner from './components/spinner/Spinner.vue';
 import Error from './components/error/Error.vue';
-import SoundBar from './components/soundbar/SoundBar.vue';
 
 import { api } from './api';
 
@@ -73,10 +70,10 @@ const router = useRouter();
 let userId: number | undefined;
 let name: string | undefined;
 
-let isError = ref<boolean>(false);
 let textLoading: Ref<string> = ref('');
 
 const loadStatuses = {
+  telegramApi: ref<Status>(Status.PENDING),
   login: ref<Status>(Status.PENDING),
   records: ref<Status>(Status.PENDING),
   logging: ref<Status>(Status.PENDING),
@@ -140,9 +137,11 @@ onMounted(async () => {
 
   if (userId == undefined || name == undefined) {
     textLoading.value += '[ERROR]: USE Telegram.';
-    isError.value = true;
+    loadStatuses.login.value = Status.ERROR;
     return;
   }
+
+  loadStatuses.login.value = Status.SUCCESS;
 
   try {
     textLoading.value += '\nAUTHORIZATION.';
@@ -152,8 +151,8 @@ onMounted(async () => {
   }
   catch (error) {
     const customError = error as ApiError;
-    isError.value = true;
     textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+    loadStatuses.login.value = Status.ERROR;
   }
 
   try {
@@ -163,8 +162,8 @@ onMounted(async () => {
   }
   catch (error) {
     const customError = error as ApiError;
-    isError.value = true;
     textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+    loadStatuses.records.value = Status.ERROR;
   }
 
   try {
@@ -174,8 +173,8 @@ onMounted(async () => {
   }
   catch (error) {
     const customError = error as ApiError;
-    isError.value = true;
     textLoading.value += `\n[API_ERROR]: ERROR_NAME - ${customError.name}. ERROR_FUNC - ${customError.funcName}.`;
+    loadStatuses.logging.value = Status.ERROR;
   }
 
   try {
@@ -185,8 +184,8 @@ onMounted(async () => {
   }
   catch (error) {
     const customError = error as Error;
-    isError.value = true;
     textLoading.value += `\n[MUSIC_ERROR]: ERROR_NAME - ${customError.name}. ERROR_MSG - ${customError.message}.`;
+    loadStatuses.music.value = Status.ERROR;
   }
 })
 

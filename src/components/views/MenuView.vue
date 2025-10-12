@@ -31,17 +31,21 @@
 
             <!-- Задачи для игроков -->
             <div class="earn-section" @click="modalEarnIsVisible = true">
-                <h2 class="earn-section-label">Earn</h2>
+                <h2 class="earn-section-label">EARN</h2>
                 <img class="earn-section-image" src="/images/menu/earn.svg">
             </div>
 
             <!-- Список лучших игроков -->
             <div class="leaderboard-section" @click="modalPlayersIsVisible = true">
-                <h2 class="leaderboard-section-label">Best Players</h2>
+                <h2 class="leaderboard-section-label">BEST PLAYERS</h2>
                 <img class="leaderboard-section-image" src="/images/menu/best-players.svg">
             </div>
 
         </header>
+        
+        <section class="menu-soundbar">
+            <SoundBar/>
+        </section>
 
         <!-- Средняя часть: Баланс игрока && Логотип -->
         <section class="balance-logo">
@@ -94,6 +98,7 @@ import { storeToRefs } from 'pinia';
 import Modal from '../UI/Modal.vue';
 import Notification from '../UI/Notification.vue';
 import BestPlayersView from './BestPlayersView.vue';
+import SoundBar from '../soundbar/SoundBar.vue';
 
 import { useSound } from '@/common/utils/useSound';
 
@@ -159,12 +164,11 @@ onUnmounted(() => {
     align-items: center;
     backdrop-filter: blur(1px);
     border-bottom: 1px solid rgba(250, 9, 198, 0.3);
-    box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.27);
+    box-shadow: 12px 19px 16px 2px rgba(250, 9, 198, 0.151);
     font-size: 20px;
     letter-spacing: 2px;
     color: white;
 }
-
 
 .leaderboard-section-label {
     width: 150px;
