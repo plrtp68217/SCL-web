@@ -63,7 +63,7 @@ async function updateScore(score: number) {
 
 onMounted(() => {
     logUserAction({name: userName!, action: gameId});
-    play('snake-background', backgroundSoundLevel.value, true);
+    play('snake-background', backgroundSoundLevel.value / 100, true);
 });
 
 onUnmounted(() => {

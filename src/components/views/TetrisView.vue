@@ -65,7 +65,7 @@ async function updateScore(score: number) {
 
 onMounted(() => {
     logUserAction({name: userName!, action: gameId});
-    play('tetris-background', backgroundSoundLevel.value, true);
+    play('tetris-background', backgroundSoundLevel.value / 100, true);
 })
 
 onUnmounted(() => {

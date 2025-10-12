@@ -122,7 +122,9 @@ let modalPlayersIsVisible = ref<boolean>(false);
 let modalEarnIsVisible = ref<boolean>(false);
 
 onMounted(() => {
-    play('menu-background', backgroundSoundLevel.value, true);
+    play('menu-background', backgroundSoundLevel.value / 100, true);
+    console.log(backgroundSoundLevel.value);
+    
 })
 
 onUnmounted(() => {

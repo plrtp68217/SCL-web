@@ -129,8 +129,6 @@ export function createSound() {
 
     const { gainNode } = activeSounds.values().next().value;
     gainNode.gain.value = backgroundSoundLevel.value / 100;
-    console.log(activeSounds);
-    
   }
 
   watch(backgroundSoundLevel, () => {
