@@ -1,5 +1,5 @@
 <template>
-    <canvas id="main_board" width="260" height="500"></canvas>
+    <canvas id="main_board" width="260" height="420"></canvas>
 </template>
 
 
@@ -54,7 +54,7 @@ onMounted(() => {
     background-color: #3d3c3c;
     background-image: url('/images/tetris/tetris_mainbackground.png');
     width: 260px;
-    height: 500px;
+    height: 420px;
 }
 
 </style>
