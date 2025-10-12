@@ -294,11 +294,12 @@ onUnmounted(() => {
 }
 
 .wolf-main {
-  padding: 10px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   font-size: 20px;
+  padding-right: 10px;
+  padding-top: 5px;
   background-color: #3e065fe8;
   border-left: 5px solid #cd06ff44;
   border-right: 5px solid #cd06ff44;
