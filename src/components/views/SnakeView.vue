@@ -77,6 +77,7 @@ onUnmounted(() => {
 
 .snake-container {
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,15 +85,15 @@ onUnmounted(() => {
 
 .main {
     width: 100%;
-    max-width: 800px;
-    height: 100vh;
-    display: grid;
-    align-content: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-height: 700px) {
     .main {
-        align-content: flex-end;
+        align-items: flex-end;
     }
 }
 

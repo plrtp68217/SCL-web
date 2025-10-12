@@ -48,7 +48,6 @@ let user = storeToRefs(userStore);
     font-size: 24px;
     color: white;
     backdrop-filter: blur(2px);
-    z-index: 1;
 }
 
 .header-balance {
