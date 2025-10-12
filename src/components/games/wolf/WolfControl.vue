@@ -3,13 +3,13 @@
   <div class="wolf-control">
 
     <div class="wolf-control-buttons">
-      <MyButton class="snake-control-button" @click="emit('move', {side: 0, basket: 1})">⬁</MyButton>
-      <MyButton class="snake-control-button" @click="emit('move', {side: 1, basket: 1})">⬀</MyButton>
+      <MyButton class="control-button" @click="emit('move', {side: 0, basket: 1})">⬁</MyButton>
+      <MyButton class="control-button" @click="emit('move', {side: 1, basket: 1})">⬀</MyButton>
     </div>
     
     <div class="wolf-control-buttons">
-      <MyButton class="snake-control-button" @click="emit('move', {side: 0, basket: 0})">⬃</MyButton>
-      <MyButton class="snake-control-button" @click="emit('move', {side: 1, basket: 0})">⬂</MyButton>
+      <MyButton class="control-button" @click="emit('move', {side: 0, basket: 0})">⬃</MyButton>
+      <MyButton class="control-button" @click="emit('move', {side: 1, basket: 0})">⬂</MyButton>
     </div> 
 
   </div>
@@ -35,7 +35,7 @@ const emit = defineEmits<ControlEmit>();
   gap: 2px;
 }
 
-.snake-control-button {
+.control-button {
     font-size: 25px;
 }
 

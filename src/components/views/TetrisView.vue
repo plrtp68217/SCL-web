@@ -93,7 +93,7 @@ onUnmounted(() => {
     justify-content: center;
 }
 
-@media (max-height: 700px) {
+@media (max-height: 610px) {
     .main {
         align-items: flex-end;
     }

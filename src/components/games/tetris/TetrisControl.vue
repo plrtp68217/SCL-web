@@ -5,18 +5,18 @@
         <div class="tetris-control-linear">
 
             <div class="tetris-control-linear-h">
-                <MyButton @click="emit('move', {axis: 'x', direction: -1})" class="control-button">⇦</MyButton>
-                <MyButton @click="emit('move', {axis: 'x', direction: 1})" class="control-button">⇨</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
             </div>
 
             <div class="tetris-control-linear-v">
-                <MyButton @click="emit('move', {axis: 'y', direction: 1})" class="control-button">⇩</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
             </div>
 
         </div>
 
         <div class="tetris-control-rotate">
-            <MyButton @click="emit('rotate')" class="control-button">⏎</MyButton>
+            <MyButton class="control-button"  @click="emit('rotate')">⏎</MyButton>
         </div>
 
     </div>
@@ -76,6 +76,10 @@ onUnmounted(() => {
     width: 30%;
     display: flex;
     justify-content: center;
+}
+
+.control-button {
+    font-size: 25px;
 }
 
 </style>
