@@ -10,9 +10,9 @@
 
     <div class="notification-content" @click.stop>
 
-      <h3 class="notification-label">{{ label }}</h3>
+      <h3 class="notification-label">{{ props.label }}</h3>
 
-      <h2 class="notification-info">{{ info }}</h2>
+      <h2 class="notification-info">{{ props.info }}</h2>
 
       <MyButton @click="applyNotify">OK</MyButton>
 
