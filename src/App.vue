@@ -137,11 +137,11 @@ onMounted(async () => {
 
   if (userId == undefined || name == undefined) {
     textLoading.value += '[ERROR]: USE Telegram.';
-    loadStatuses.login.value = Status.ERROR;
+    loadStatuses.telegramApi.value = Status.ERROR;
     return;
   }
 
-  loadStatuses.login.value = Status.SUCCESS;
+  loadStatuses.telegramApi.value = Status.SUCCESS;
 
   try {
     textLoading.value += '\nAUTHORIZATION.';
