@@ -1,14 +1,14 @@
 <template>
     <div class="snake-control">
         <div class="snake-control-up">
-            <MyButton @click="emit('move', {axis: 'y', direction: -1})">⇧</MyButton>
+            <MyButton class="snake-control-button" @click="emit('move', {axis: 'y', direction: -1})">⇧</MyButton>
         </div>
         <div class="snake-control-left-right">
-            <MyButton @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
-            <MyButton @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
+            <MyButton class="snake-control-button" @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
+            <MyButton class="snake-control-button" @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
         </div>
         <div class="snake-control-down">
-            <MyButton @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
+            <MyButton class="snake-control-button" @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
         </div>
     </div>
 </template>
@@ -51,6 +51,10 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     gap: 2px;
+}
+
+.snake-control-button {
+    font-size: 25px;
 }
 
 .snake-control-left-right {
