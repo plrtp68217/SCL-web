@@ -41,8 +41,8 @@
 import { ref } from 'vue';
 
 import MyButton from '../UI/MyButton.vue';
-import Earn from '../earn-shop/Earn.vue';
-import Shop from '../earn-shop/Shop.vue';
+import Earn from '../earn-shop/earn/Earn.vue';
+import Shop from '../earn-shop/shop/Shop.vue';
 
 interface IPanels {
   [panelId: string]: boolean
