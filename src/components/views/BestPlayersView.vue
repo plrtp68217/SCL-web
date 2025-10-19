@@ -72,6 +72,10 @@ import { type BestRecord } from '@/api/types/records';
 
 import type { GameId } from '../games/common/types/records';
 
+interface IGamePanels {
+  [gameId: string]: boolean
+}
+
 let gamePanels = ref<IGamePanels>({
   'snake': false,
   'tetris': true,
@@ -81,10 +85,6 @@ let gamePanels = ref<IGamePanels>({
 let snakeRecords = ref<BestRecord[]>([]);
 let tetrisRecords = ref<BestRecord[]>([]);
 let wolfRecords = ref<BestRecord[]>([]);
-
-interface IGamePanels {
-  [gameId: string]: boolean
-}
 
 function changeGamePanel(gameId: GameId): void {
  for(let gamePanelId in gamePanels.value) {
