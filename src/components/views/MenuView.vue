@@ -5,7 +5,7 @@
         
         <Modal
             :isVisible="modalPlayersIsVisible"
-            :label="'Best Players'"
+            :label="'BEST PLAYERS'"
             @close="modalPlayersIsVisible = false"
         >
             <BestPlayersView/>
@@ -13,10 +13,10 @@
 
         <Modal
             :isVisible="modalEarnIsVisible"
-            :label="'Earn'"
+            :label="'COINS'"
             @close="modalEarnIsVisible = false"
         >
-            <h1 style="text-align: center; color: white;">in the next update..</h1>
+            <CoinsView/>
         </Modal>
 
         <Notification
@@ -26,12 +26,12 @@
             @applyNotify="resumeContext"
         />
 
-        <!-- Верхняя часть: Earn и Лучшие игроки -->
+        <!-- Верхняя часть: Coins и Лучшие игроки -->
         <header class="menu-header">
 
             <!-- Задачи для игроков -->
             <div class="earn-section" @click="modalEarnIsVisible = true">
-                <h2 class="earn-section-label">EARN</h2>
+                <h2 class="earn-section-label">COINS</h2>
                 <img class="earn-section-image" src="/images/menu/earn.svg">
             </div>
 
@@ -98,6 +98,7 @@ import { storeToRefs } from 'pinia';
 import Modal from '../UI/Modal.vue';
 import Notification from '../UI/Notification.vue';
 import BestPlayersView from './BestPlayersView.vue';
+import CoinsView from './CoinsView.vue';
 import SoundBar from '../soundbar/SoundBar.vue';
 
 import { useSound } from '@/common/utils/useSound';
@@ -128,8 +129,6 @@ let modalEarnIsVisible = ref<boolean>(false);
 
 onMounted(() => {
     play('menu-background', backgroundSoundLevel.value / 100, true);
-    console.log(backgroundSoundLevel.value);
-    
 })
 
 onUnmounted(() => {
