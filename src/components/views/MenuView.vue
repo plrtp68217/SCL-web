@@ -16,7 +16,7 @@
             :label="'COINS'"
             @close="modalEarnIsVisible = false"
         >
-            <CoinsView/>
+            <EarnShopView/>
         </Modal>
 
         <Notification
@@ -98,7 +98,7 @@ import { storeToRefs } from 'pinia';
 import Modal from '../UI/Modal.vue';
 import Notification from '../UI/Notification.vue';
 import BestPlayersView from './BestPlayersView.vue';
-import CoinsView from './CoinsView.vue';
+import EarnShopView from './EarnShopView.vue';
 import SoundBar from '../soundbar/SoundBar.vue';
 
 import { useSound } from '@/common/utils/useSound';
