@@ -1,6 +1,7 @@
 import apiClient from "./apiClient";
 import { ApiError } from "./error/apiError";
 import type { 
+  Channel,
   CreateUserChannelDto,
   CreateChannelDto,
   UpdateChannelDto,
@@ -16,7 +17,7 @@ class ChannelsError extends ApiError {
 
 const userTypes: string[] = ['member', 'administrator', 'creator']
 
-const isChannelSubscriber = async (channelId: string, userId: number) => {
+const isChannelSubscriber = async (channelId: string, userId: number): Promise<boolean> => {
     try {
       const botToken = import.meta.env.VITE_BOT_TOKEN;
       const url = `https://api.telegram.org/bot${botToken}/getChatMember`;
@@ -30,7 +31,7 @@ const isChannelSubscriber = async (channelId: string, userId: number) => {
   }
 
 export default {
-  async getAllChannels() {
+  async getAllChannels(): Promise<Channel[]> {
     try {
       const response = await apiClient.get('/channels/all');
       const channels = response.data;
@@ -41,7 +42,7 @@ export default {
     }
   },
 
-  async getChannels(userId: number) {
+  async getChannels(userId: number): Promise<Channel[]> {
     try {
       const response = await apiClient.get(`/channels/${userId}`);
       const channels = response.data;
@@ -68,7 +69,7 @@ export default {
     }
   },
 
-  async createChannel(dto: CreateChannelDto) {
+  async createChannel(dto: CreateChannelDto): Promise<Channel> {
     try {
       const response = await apiClient.post('/channels/create', dto);
       const channel = response.data;
@@ -79,7 +80,7 @@ export default {
     }
   },
 
-  async updateChannel(dto: UpdateChannelDto) {
+  async updateChannel(dto: UpdateChannelDto): Promise<Channel> {
     try {
       const response = await apiClient.post('/channels/update', dto);
       const channel = response.data;

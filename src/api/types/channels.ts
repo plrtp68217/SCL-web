@@ -1,3 +1,9 @@
+export interface Channel {
+  channelId: string;
+  reward: number;
+  title: string;
+}
+
 export interface CreateChannelDto {
   channelId: string;
   reward: number;
