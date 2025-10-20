@@ -2,12 +2,14 @@ export interface Channel {
   channelId: string;
   reward: number;
   title: string;
+  description: string;
 }
 
 export interface CreateChannelDto {
   channelId: string;
   reward: number;
   title: string;
+  description: string;
 }
 
 export interface CreateUserChannelDto {
@@ -23,4 +25,5 @@ export interface UpdateChannelDto {
   channelId: string
   reward: number;
   title: string;
+  description: string;
 }
