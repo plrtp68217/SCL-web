@@ -1,5 +1,6 @@
 export interface CreateChannelDto {
   channelId: string;
+  reward: number;
   title: string;
 }
 
@@ -14,5 +15,6 @@ export interface DeleteChannelDto {
 
 export interface UpdateChannelDto {
   channelId: string
+  reward: number;
   title: string;
 }
