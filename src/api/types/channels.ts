@@ -1,12 +1,18 @@
 export interface Channel {
-  channelId: string;
+  id: number;
+  channelLink: string;
   reward: number;
   title: string;
   description: string;
 }
 
+export interface ISubscribeStatus {
+  channelLink: string;
+  isSubscribed: boolean;
+}
+
 export interface CreateChannelDto {
-  channelId: string;
+  channelLink: string;
   reward: number;
   title: string;
   description: string;
@@ -14,15 +20,15 @@ export interface CreateChannelDto {
 
 export interface CreateUserChannelDto {
   userId: number;
-  channelId: string;
+  channelId: number;
 }
 
 export interface DeleteChannelDto {
-  channelId: string
+  id: number;
 }
 
 export interface UpdateChannelDto {
-  channelId: string
+  channelLink: string
   reward: number;
   title: string;
   description: string;

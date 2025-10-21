@@ -2,7 +2,6 @@ import apiClient from "./apiClient";
 import { ApiError } from "./error/apiError";
 import type { 
   Channel,
-  CreateUserChannelDto,
   CreateChannelDto,
   UpdateChannelDto,
   DeleteChannelDto
@@ -17,11 +16,11 @@ class ChannelsError extends ApiError {
 
 const userTypes: string[] = ['member', 'administrator', 'creator']
 
-const isChannelSubscriber = async (channelId: string, userId: number): Promise<boolean> => {
+const isChannelSubscriber = async (channelLink: string, userId: number): Promise<boolean> => {
     try {
       const botToken = import.meta.env.VITE_BOT_TOKEN;
       const url = `https://api.telegram.org/bot${botToken}/getChatMember`;
-      const response = await apiClient.post(url, {chat_id: channelId, user_id: userId});
+      const response = await apiClient.post(url, {chat_id: channelLink, user_id: userId});
       const chatMember = response.data.result;
       return userTypes.indexOf(chatMember.status) !== -1;
     }
@@ -53,15 +52,17 @@ export default {
     }
   },
 
-  async createSubscribe(dto: CreateUserChannelDto): Promise<boolean> {
+  async createSubscribe(userId: number, channelId: number, channelLink: string): Promise<boolean> {
     try {
-      const isSubscriber = await isChannelSubscriber(dto.channelId, dto.userId);
+      const isSubscriber = await isChannelSubscriber(channelLink, userId);
 
       if (isSubscriber == false) {
         return false;
       }
 
-      await apiClient.post('/channels/subscribe', dto);
+      // dto: CreateUserChannelDto
+      const createUserChannelDto = {userId, channelId}
+      await apiClient.post('/channels/subscribe', createUserChannelDto);
       return true;
     }
     catch (error) {
