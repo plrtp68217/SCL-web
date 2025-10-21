@@ -49,12 +49,11 @@ const props = defineProps({
 
 .player-card {
   position: relative;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0 10px 20px;
   border-radius: 10px;
   backdrop-filter: blur(4px);
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .gold::after,
