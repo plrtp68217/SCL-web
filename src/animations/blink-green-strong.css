@@ -1,0 +1,14 @@
+@keyframes blink-green-strong {
+  0% {
+    border-color: transparent;
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+  50% {
+    border-color: #00ff00;
+    box-shadow: 0 0 10px 2px rgb(0, 255, 0);
+  }
+  100% {
+    border-color: transparent;
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
