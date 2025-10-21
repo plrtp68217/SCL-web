@@ -1,7 +1,7 @@
 <template>
 
   <div class="shop">
-    SHOP
+    IN DEVELOPMENT....
   </div>
 
 </template>
@@ -11,5 +11,12 @@
 </script>
 
 <style scoped>
+
+.shop {
+  font-size: 30px;
+  margin: 10px;
+  text-align: center;
+  color: white;
+}
 
 </style>

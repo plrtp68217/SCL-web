@@ -17,7 +17,7 @@
       >
         SHOP
       </MyButton>
-
+  
     </header>
 
     <main class="main">
@@ -39,7 +39,6 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-
 import MyButton from '../UI/MyButton.vue';
 import Earn from '../earn-shop/earn/Earn.vue';
 import Shop from '../earn-shop/shop/Shop.vue';
@@ -49,9 +48,10 @@ interface IPanels {
 }
 
 let panels = ref<IPanels>({
-  'earn': false,
-  'shop': true,
+  'earn': true,
+  'shop': false,
 })
+
 
 function changePanel(id: 'earn' | 'shop'): void {
  for(let panelId in panels.value) {
