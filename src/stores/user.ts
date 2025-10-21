@@ -10,6 +10,8 @@ export const useUserStore = defineStore('user', {
   }),
 
   getters: {
+    getUser: (state) => state.user,
+
     getName: (state) => state.user?.name,
 
     getUserId: (state) => state.user?.userId,
@@ -37,6 +39,10 @@ export const useUserStore = defineStore('user', {
     updateScore(gameId: string, score: number) {
       const record = this.findRecordByGameId(gameId);
       record.score = score;
+    },
+
+    updateBalance(balance: number) {
+      this.user!.balance += balance;
     }
   }
 })
