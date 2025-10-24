@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
     },
 
     updateBalance(balance: number) {
-      this.user!.balance += balance;
+      this.user!.balance = balance;
     }
   }
 })
