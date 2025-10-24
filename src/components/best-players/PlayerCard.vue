@@ -53,7 +53,7 @@ const props = defineProps({
   border-radius: 10px;
   backdrop-filter: blur(4px);
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .gold::after,
