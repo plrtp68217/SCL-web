@@ -1,6 +1,6 @@
 <template>
 
-<button class="my-button">
+<button class="my-button" v-bind="$attrs">
 
   <slot></slot>
 
@@ -10,6 +10,10 @@
 
 
 <script setup lang="ts">
+
+defineOptions({
+  inheritAttrs: false
+})
 
 </script>
 
