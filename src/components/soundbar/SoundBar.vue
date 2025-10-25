@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSound } from '@/common/utils/useSound';
+import { useSound } from '@/common/sound/useSound';
 
 const { backgroundSoundLevel } = useSound();
 

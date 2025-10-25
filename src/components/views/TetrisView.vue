@@ -32,7 +32,7 @@ import { api } from '@/api';
 import { onMounted, onUnmounted } from "vue";
 import { logUserAction } from "@/logging/logUserAction";
 
-import { useSound } from '@/common/utils/useSound';
+import { useSound } from '@/common/sound/useSound';
 
 const { play, stop, backgroundSoundLevel } = useSound();
 

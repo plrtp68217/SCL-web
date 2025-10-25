@@ -101,7 +101,7 @@ import BestPlayersView from './BestPlayersView.vue';
 import EarnShopView from './EarnShopView.vue';
 import SoundBar from '../soundbar/SoundBar.vue';
 
-import { useSound } from '@/common/utils/useSound';
+import { useSound } from '@/common/sound/useSound';
 
 const { play, stop, resumeContext, hasResumed, backgroundSoundLevel } = useSound();
 
