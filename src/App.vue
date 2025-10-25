@@ -56,7 +56,7 @@ import { gameIds } from './common/games';
 import { useUserStore } from '@/stores/user';
 import { logUserAction } from './logging/logUserAction';
 
-import { preloadSounds } from './common/utils/preloadSounds';
+import { preloadSounds } from './common/sound/preloadSounds';
 
 import { ApiError } from './api/error/apiError';
 
