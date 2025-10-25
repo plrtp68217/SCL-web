@@ -21,7 +21,6 @@ export function createSound() {
       try {
         audioContext.value = new (window.AudioContext || (window as any).webkitAudioContext)();
         isInitialized.value = true;
-        console.log('✅ AudioContext инициализирован');
       } catch (error) {
         console.error('❌ AudioContext ошибка инициализации:', error);
       }
@@ -42,9 +41,6 @@ export function createSound() {
       const newMap = new Map(toRaw(sounds.value));
       newMap.set(name, audioBuffer);
       sounds.value = newMap;
-
-      console.log(`✅ Звук добавлен в Map: ${name}`);
-
     } catch (error) {
       console.error(`❌ Ошибка загрузки звука ${name}:`, error);
     }
@@ -56,8 +52,6 @@ export function createSound() {
   }
 
   const play = (name: string, volume: number = backgroundSoundLevel.value / 100, loop: boolean = false): void => {
-    console.log(`🔊 Попытка воспроизвести: ${name}, muted: ${isMuted.value}`);
-    
     if (isMuted.value) {
       console.log('🔇 Звук отключен');
       return;
@@ -95,9 +89,7 @@ export function createSound() {
         };
 
       }
-
       
-      console.log(`🎵 Воспроизводится: ${name}`);
     } catch (error) {
       console.error(`❌ Ошибка воспроизведения ${name}:`, error);
     }

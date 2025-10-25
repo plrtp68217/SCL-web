@@ -39,23 +39,21 @@ export const preloadSounds = async () => {
       
       for (const tryPath of pathsToTry) {
         try {
-          console.log(`🔍 Пробуем путь: ${tryPath}`);
           const response = await fetch(tryPath);
           
           if (!response.ok) {
-            console.log(`❌ HTTP error: ${response.status} для ${tryPath}`);
+            console.error(`❌ HTTP error: ${response.status} для ${tryPath}`);
             continue;
           }
           
           const arrayBuffer = await response.arrayBuffer();
           await loadSound(name, arrayBuffer);
-          console.log(`✅ Успешно загружен: ${name} из ${tryPath}`);
           loadedCount.value++;
           success = true;
           break;
           
         } catch (fetchError) {
-          console.log(`❌ Ошибка fetch для ${tryPath}:`, fetchError);
+          console.error(`❌ Ошибка fetch для ${tryPath}:`, fetchError);
         }
       }
       
