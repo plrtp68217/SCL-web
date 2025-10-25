@@ -52,7 +52,7 @@
 
             <div class="balance-container">
                 <h2 class="balance-label">Your balance: </h2>
-                <h2 class="balance-count">{{ user.getBalance }}</h2>
+                <h2 class="balance-count">{{ formattedBalance }}</h2>
                 <img class="balance-coin" src="/images/coin.png">
             </div>
 
@@ -85,7 +85,7 @@
 
 <script setup lang="ts">
 
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, computed } from 'vue';
 
 import Background from '../background/Background.vue';
 import GameCard from '../menu/GameCard.vue';
@@ -94,6 +94,7 @@ import type { Game } from '../menu/interfaces/game';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { formatNumberWithMetricPrefix } from '@/common/formatNumber';
 
 import Modal from '../UI/Modal.vue';
 import Notification from '../UI/Notification.vue';
@@ -108,6 +109,10 @@ const { play, stop, resumeContext, hasResumed, backgroundSoundLevel } = useSound
 const userStore = useUserStore();
 
 let user = storeToRefs(userStore);
+
+const formattedBalance = computed(() => {
+    return formatNumberWithMetricPrefix(user.getBalance.value!, 3)
+})
 
 const games: Game[] = [
     {

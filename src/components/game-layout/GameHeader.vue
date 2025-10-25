@@ -2,9 +2,9 @@
     <div class="header">
 
         <div class="header-balance">
-            <div class="header-balance-label">BALANCE:</div>
+            <!-- <div class="header-balance-label">BALANCE:</div> -->
 
-            <div class="header-balance-count">{{ user.getBalance }}</div>
+            <div class="header-balance-count">{{ formattedBalance }}</div>
 
             <img class="header-balance-image" src="/images/coin.png">
 
@@ -33,11 +33,17 @@ import SoundBar from '../soundbar/SoundBar.vue';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+import { formatNumberWithMetricPrefix } from '@/common/formatNumber';
 
 
 const userStore = useUserStore();
 
 let user = storeToRefs(userStore);
+
+const formattedBalance = computed(() => {
+    return formatNumberWithMetricPrefix(user.getBalance.value!, 3)
+})
 
 </script>
 
