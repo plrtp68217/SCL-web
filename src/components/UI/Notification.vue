@@ -72,6 +72,7 @@ const applyNotify = () => {
     justify-content: center;
     z-index: 10;
     padding: 10px;
+    background-color: #00000060;
 }
 
 .clicked {
@@ -87,6 +88,7 @@ const applyNotify = () => {
   padding: 8px 10px;
   background-color: rgb(70, 29, 105);
   border-radius: 10px;
+  animation: appear 800ms forwards;
 }
 
 .notification-label {
