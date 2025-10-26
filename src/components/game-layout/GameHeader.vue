@@ -2,7 +2,6 @@
     <div class="header">
 
         <div class="header-balance">
-            <!-- <div class="header-balance-label">BALANCE:</div> -->
 
             <div class="header-balance-count">{{ formattedBalance }}</div>
 
@@ -14,15 +13,20 @@
             <SoundBar/>
         </div>
 
-        <!-- <div class="header-nickname">{{ user.getName }}</div> -->
         <MyButton 
-            @click="$router.push('/')"
+            @click="redirectToMenu"
             class="header-button"
         >
         MENU
         </MyButton>
 
     </div>
+
+    <Confirm
+        ref="confirmRef"
+        :info="confirmInfo"
+        @confirm="router.push('/')"
+    />
 </template>
 
 
@@ -30,20 +34,30 @@
 
 import MyButton from '../UI/MyButton.vue';
 import SoundBar from '../soundbar/SoundBar.vue';
+import Confirm from '../UI/Confirm.vue';
 
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref, type Component } from 'vue';
 import { formatNumberWithMetricPrefix } from '@/common/formatNumber';
+import { useRouter } from 'vue-router';
 
 
 const userStore = useUserStore();
-
 let user = storeToRefs(userStore);
+
+const router = useRouter();
+
+const confirmRef: Component = ref(null);
+const confirmInfo: string = 'Are you sure you want to get out? All saves will be lost.'
 
 const formattedBalance = computed(() => {
     return formatNumberWithMetricPrefix(user.getBalance.value!, 3)
 })
+
+const redirectToMenu = () => {
+    confirmRef.value.show();
+  }
 
 </script>
 
