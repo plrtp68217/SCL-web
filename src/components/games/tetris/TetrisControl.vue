@@ -5,12 +5,12 @@
         <div class="tetris-control-linear">
 
             <div class="tetris-control-linear-h">
-                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
-                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: -1})">◀</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: 1})">▶</MyButton>
             </div>
 
             <div class="tetris-control-linear-v">
-                <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
+                <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: 1})">▼</MyButton>
             </div>
 
         </div>

@@ -1,14 +1,14 @@
 <template>
     <div class="snake-control">
         <div class="snake-control-up">
-            <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: -1})">⇧</MyButton>
+            <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: -1})">▲</MyButton>
         </div>
         <div class="snake-control-left-right">
-            <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: -1})">⇦</MyButton>
-            <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: 1})">⇨</MyButton>
+            <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: -1})">◀</MyButton>
+            <MyButton class="control-button" @click="emit('move', {axis: 'x', direction: 1})">▶</MyButton>
         </div>
         <div class="snake-control-down">
-            <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: 1})">⇩</MyButton>
+            <MyButton class="control-button" @click="emit('move', {axis: 'y', direction: 1})">▼</MyButton>
         </div>
     </div>
 </template>
